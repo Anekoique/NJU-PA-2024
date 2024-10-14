@@ -1,5 +1,5 @@
-STUID = 231220000
-STUNAME = 张三
+STUID = ctolu01@gmail.com
+STUNAME = ctolu
 
 # DO NOT modify the following code!!!
 
