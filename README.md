@@ -44,6 +44,8 @@ OS：ubuntu 22.04
 
 编辑器：neovim
 
+ps：生成LSP的compile_commands时发现 bear 生成为空，转而使用compiledb却可以成功，目前不清楚原因
+
 ## PA1 最简单的计算机
 
 target：
