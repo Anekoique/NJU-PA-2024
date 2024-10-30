@@ -147,6 +147,7 @@ void sdb_mainloop()
             {
                 if (cmd_table[i].handler(args) < 0)
                 {
+                    nemu_state.state = NEMU_QUIT;
                     return;
                 }
                 break;
