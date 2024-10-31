@@ -68,7 +68,7 @@ static int cmd_si(char *arges)
         arges++;
     }
 
-    n == 0 ? cpu_exec(0) : cpu_exec(n);
+    n == 0 ? cpu_exec(1) : cpu_exec(n);
     return 0;
 }
 
