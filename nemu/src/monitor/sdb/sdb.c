@@ -79,6 +79,11 @@ static int cmd_si(char *arges)
 
 static int cmd_info(char *arges)
 {
+    if (arges == NULL) 
+    {
+        printf("Please input available arges [r/w]");
+        return 0;
+    }
     if (*arges == 'r')
     {
         isa_reg_display();
