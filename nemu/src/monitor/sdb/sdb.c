@@ -61,6 +61,11 @@ static int cmd_help(char *args);
 static int cmd_si(char *arges)
 {
     uint64_t n = 0;
+    if (arges == NULL)
+    {
+        cpu_exec(1);
+        return 1;
+    }
     int len = strlen(arges);
     while (len--)
     {
