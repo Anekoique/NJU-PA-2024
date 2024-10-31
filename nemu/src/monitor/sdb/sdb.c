@@ -58,6 +58,37 @@ static int cmd_q(char *args)
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *arges)
+{
+    uint64_t n = 0;
+    int len = strlen(arges);
+    while (len--)
+    {
+        n += n * 10 + (*arges - '0');
+        arges++;
+    }
+
+    n == 0 ? cpu_exec(0) : cpu_exec(n);
+    return 0;
+}
+
+static int cmd_info(char *arges)
+{
+    if (*arges == 'r')
+    {
+        isa_reg_display();
+    }
+    else if (*arges == 'w')
+    {
+
+    }
+    else 
+    {
+        printf("Please input available arges [r/w]");
+    }
+    return 0;
+}
+
 static struct
 {
     const char *name;
@@ -67,7 +98,8 @@ static struct
     {"help", "Display information about all supported commands", cmd_help},
     {"c",    "Continue the execution of the program",            cmd_c   },
     {"q",    "Exit NEMU",                                        cmd_q   },
-
+    {"si",   "Executate the following instructions",             cmd_si  },
+    {"info", "Print register state/watchpoint information",      cmd_info},
     /* TODO: Add more commands */
 };
 
