@@ -24,7 +24,7 @@ enum
 {
     TK_NOTYPE = 256,
     TK_EQ,
-
+    TK_NUMBER,
     /* TODO: Add more token types */
 };
 
@@ -38,9 +38,15 @@ static struct rule
      * Pay attention to the precedence level of different rules.
      */
 
-    {" +",  TK_NOTYPE}, // spaces
-    {"\\+", '+'      }, // plus
-    {"==",  TK_EQ    }, // equal
+    {" +",     TK_NOTYPE}, // spaces
+    {"\\+",    '+'      }, // plus
+    {"==",     TK_EQ    }, // equal
+    {"*",      '*'      },
+    {"/",      '/'      },
+    {"-",      '-'      },
+    {"\\(",    '('      },
+    {"\\)",    ')'      },
+    {"[0-9]+", TK_NUMBER},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -103,11 +109,24 @@ static bool make_token(char *e)
                  * to record the token in the array `tokens'. For certain types
                  * of tokens, some extra actions should be performed.
                  */
-
                 switch (rules[i].token_type)
                 {
+                case (TK_NOTYPE):
+                    break;
                 default:
-                    TODO();
+                    if (substr_len >= 32) 
+                    {
+                        printf("Your number's length >= 32\n");
+                        assert(0);
+                    }
+                    else 
+                    {
+                        Token token;
+                        strncpy(token.str, substr_start, substr_len);
+                        token.str[substr_len] = '\0';
+                        token.type = rules[i].token_type;
+                        tokens[nr_token++] = token;
+                    }
                 }
 
                 break;
@@ -133,7 +152,90 @@ word_t expr(char *e, bool *success)
     }
 
     /* TODO: Insert codes to evaluate the expression. */
-    TODO();
 
     return 0;
+}
+
+bool check_parentheses(int p, int q)
+{
+    int l = 0, r = 0;
+    for (int i = p + 1; i < q; i++)
+    {
+        if (tokens[i].type == '(')
+            l++;
+        else if (tokens[i].type == ')')
+            r++;
+    }
+    if (l == r)
+        return true;
+    else
+    {
+        printf("( and ) unmatched");
+        assert(0);
+    };
+}
+
+int find_op(int p, int q)
+{
+    int op = 0;
+    for (int i = 0; i < nr_token; i++)
+    {
+        if (tokens[i].type == '+' || tokens[i].type == '-')
+            return tokens[i].type;
+        else if (!op && (tokens[i].type == '*' || tokens[i].type == '/'))
+            op = tokens[i].type;
+    }
+    return op;
+}
+
+word_t eval(int p, int q)
+{
+    if (p > q)
+    {
+        /* Bad expression */
+        printf("error : p > q");
+        assert(0);
+    }
+    else if (p == q)
+    {
+        /* Single token.
+         * For now this token should be a number.
+         * Return the value of the number.
+         */
+        word_t value = 0;
+        char *str_start = tokens[p].str;
+        while (*str_start != '\0')
+        {
+            value = value * 10 + *str_start;
+            str_start++;
+        }
+        return value;
+    }
+    else if (check_parentheses(p, q) == true)
+    {
+        /* The expression is surrounded by a matched pair of parentheses.
+         * If that is the case, just throw away the parentheses.
+         */
+        return eval(p + 1, q - 1);
+    }
+    else
+    {
+        int op = find_op(p, q);
+        word_t val1 = eval(p, op - 1);
+        word_t val2 = eval(op + 1, q);
+
+        switch (tokens[op].type)
+        {
+        case '+':
+            return val1 + val2;
+        case '-':
+            return val1 - val2;
+        case '*':
+            return val1 * val2;
+        case '/':
+            return val1 / val2;
+        default:
+            assert(0);
+        }
+    }
 }
