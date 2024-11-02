@@ -79,9 +79,9 @@ static int cmd_si(char *arges)
 
 static int cmd_info(char *arges)
 {
-    if (arges == NULL) 
+    if (arges == NULL)
     {
-        printf("Please input available arges [r/w]");
+        printf("Please input available arges [r/w]\n");
         return 0;
     }
     if (*arges == 'r')
@@ -90,13 +90,27 @@ static int cmd_info(char *arges)
     }
     else if (*arges == 'w')
     {
-
     }
-    else 
+    else
     {
-        printf("Please input available arges [r/w]");
+        printf("Please input available arges [r/w]!\n");
     }
     return 0;
+}
+
+static int cmd_x(char *arges)
+{
+    if (arges == NULL)
+    {
+        printf("Please input available arges [N] + [EXPR]!\n");
+        return 0;
+    }
+    char *N = strtok(NULL, " ");
+    char *arg = strtok(NULL, " ");
+}
+
+static int cmd_p(char *arges)
+{
 }
 
 static struct
@@ -110,6 +124,8 @@ static struct
     {"q",    "Exit NEMU",                                        cmd_q   },
     {"si",   "Executate the following instructions",             cmd_si  },
     {"info", "Print register state/watchpoint information",      cmd_info},
+    {"x",    "Output N consecutive 4 bytes in hexadecimal form", cmd_x   },
+    {"p",    "Print the value of the expression",                cmd_p   },
     /* TODO: Add more commands */
 };
 

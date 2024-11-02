@@ -25,6 +25,11 @@ enum
     TK_NOTYPE = 256,
     TK_EQ,
     TK_NUMBER,
+    TK_DEREF,
+    TK_HEX,
+    TK_NEQ,
+    TK_AND,
+    TK_REG,
     /* TODO: Add more token types */
 };
 
@@ -38,15 +43,19 @@ static struct rule
      * Pay attention to the precedence level of different rules.
      */
 
-    {" +",     TK_NOTYPE}, // spaces
-    {"\\+",    '+'      }, // plus
-    {"==",     TK_EQ    }, // equal
-    {"*",      '*'      },
-    {"/",      '/'      },
-    {"-",      '-'      },
-    {"\\(",    '('      },
-    {"\\)",    ')'      },
-    {"[0-9]+", TK_NUMBER},
+    {" +",          TK_NOTYPE}, // spaces
+    {"\\+",         '+'      }, // plus
+    {"==",          TK_EQ    }, // equal
+    {"!=",          TK_NEQ   },
+    {"&&",          TK_AND   },
+    {"*",           '*'      },
+    {"/",           '/'      },
+    {"-",           '-'      },
+    {"\\(",         '('      },
+    {"\\)",         ')'      },
+    {"[0-9]+",      TK_NUMBER},
+    {"0x[0-9a-f]+", TK_HEX   },
+    {"$",           TK_REG   },
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -114,12 +123,12 @@ static bool make_token(char *e)
                 case (TK_NOTYPE):
                     break;
                 default:
-                    if (substr_len >= 32) 
+                    if (substr_len >= 32)
                     {
                         printf("Your number's length >= 32\n");
                         assert(0);
                     }
-                    else 
+                    else
                     {
                         Token token;
                         strncpy(token.str, substr_start, substr_len);
@@ -153,6 +162,13 @@ word_t expr(char *e, bool *success)
 
     /* TODO: Insert codes to evaluate the expression. */
 
+    for (int i = 0; i < nr_token; i++)
+    {
+        if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '('))
+        {
+            tokens[i].type = TK_DEREF;
+        }
+    }
     return 0;
 }
 
@@ -170,7 +186,7 @@ bool check_parentheses(int p, int q)
         return true;
     else
     {
-        printf("( and ) unmatched");
+        printf("( and ) unmatched\n");
         assert(0);
     };
 }
@@ -193,7 +209,7 @@ word_t eval(int p, int q)
     if (p > q)
     {
         /* Bad expression */
-        printf("error : p > q");
+        printf("error : p > q\n");
         assert(0);
     }
     else if (p == q)
@@ -235,6 +251,7 @@ word_t eval(int p, int q)
         case '/':
             return val1 / val2;
         default:
+            printf("unknown type!\n");
             assert(0);
         }
     }
