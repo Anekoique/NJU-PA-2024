@@ -14,6 +14,7 @@
  ***************************************************************************************/
 
 #include <isa.h>
+#include <memory/vaddr.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -55,7 +56,7 @@ static struct rule
     {"\\)",         ')'      },
     {"[0-9]+",      TK_NUMBER},
     {"0x[0-9a-f]+", TK_HEX   },
-    {"$",           TK_REG   },
+    {"^\\$..$",     TK_REG   },
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -164,17 +165,22 @@ word_t expr(char *e, bool *success)
 
     for (int i = 0; i < nr_token; i++)
     {
+
         if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '('))
         {
             tokens[i].type = TK_DEREF;
         }
     }
-    return 0;
+
+    *success = true;
+    return nr_token;
 }
 
 bool check_parentheses(int p, int q)
 {
     int l = 0, r = 0;
+    if (tokens[p].type != '(' || tokens[q].type != ')')
+        return false;
     for (int i = p + 1; i < q; i++)
     {
         if (tokens[i].type == '(')
@@ -193,15 +199,22 @@ bool check_parentheses(int p, int q)
 
 int find_op(int p, int q)
 {
-    int op = 0;
-    for (int i = 0; i < nr_token; i++)
+    int op1 = 0;
+    int op2 = 0;
+    int op3 = 0;
+    for (int i = p; i < q; i++)
     {
-        if (tokens[i].type == '+' || tokens[i].type == '-')
+        if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ || tokens[i].type == TK_AND)
             return tokens[i].type;
-        else if (!op && (tokens[i].type == '*' || tokens[i].type == '/'))
-            op = tokens[i].type;
+        else if (!op1 && (tokens[i].type == '+' || tokens[i].type == '-'))
+            op1 = tokens[i].type;
+        else if (!op2 && (tokens[i].type == '*' || tokens[i].type == '/'))
+            op2 = tokens[i].type;
+        else if (!op3 && tokens[i].type == TK_DEREF)
+            op3 = tokens[i].type;
+
     }
-    return op;
+    return op1 == 0 ? (op2 == 0 ? op3 : op2) : op1;
 }
 
 word_t eval(int p, int q)
@@ -218,14 +231,23 @@ word_t eval(int p, int q)
          * For now this token should be a number.
          * Return the value of the number.
          */
-        word_t value = 0;
-        char *str_start = tokens[p].str;
-        while (*str_start != '\0')
+        if (tokens[p].type == TK_REG)
         {
-            value = value * 10 + *str_start;
-            str_start++;
+            bool *success = false;
+            word_t val = isa_reg_str2val(tokens[p].str + 1, success);
+            if (success)
+                return val;
+            else 
+            {
+                printf("Please input the available register!\n");
+                assert(0);
+            }
         }
-        return value;
+        else 
+        {
+            word_t val = (word_t)strtoul(tokens[p].str, NULL, 16);
+            return val;
+        }
     }
     else if (check_parentheses(p, q) == true)
     {
@@ -237,8 +259,10 @@ word_t eval(int p, int q)
     else
     {
         int op = find_op(p, q);
-        word_t val1 = eval(p, op - 1);
-        word_t val2 = eval(op + 1, q);
+        word_t val1, val2;
+        if (op != TK_DEREF)
+            val1 = eval(p, op - 1);
+        val2 = eval(op + 1, q);
 
         switch (tokens[op].type)
         {
@@ -250,9 +274,18 @@ word_t eval(int p, int q)
             return val1 * val2;
         case '/':
             return val1 / val2;
+        case TK_EQ:
+            return val1 == val2;
+        case TK_NEQ:
+            return val1 != val2;
+        case TK_AND:
+            return val1 && val2;
+        case TK_DEREF:
+            return vaddr_read(val2, 4);
         default:
             printf("unknown type!\n");
             assert(0);
         }
     }
+    return 0;
 }

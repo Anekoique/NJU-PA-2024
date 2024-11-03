@@ -15,6 +15,7 @@
 
 #include "sdb.h"
 #include <cpu/cpu.h>
+#include <memory/vaddr.h>
 #include <isa.h>
 #include <readline/history.h>
 #include <readline/readline.h>
@@ -43,6 +44,18 @@ static char *rl_gets()
     }
 
     return line_read;
+}
+
+static int str2val(char *str)
+{
+    int value = 0;
+    char *str_start = str;
+    while (*str_start != '\0')
+    {
+        value = value * 10 + *str_start;
+        str_start++;
+    }
+    return value;
 }
 
 static int cmd_c(char *args)
@@ -105,12 +118,48 @@ static int cmd_x(char *arges)
         printf("Please input available arges [N] + [EXPR]!\n");
         return 0;
     }
-    char *N = strtok(NULL, " ");
-    char *arg = strtok(NULL, " ");
+    char *arg1 = strtok(NULL, " ");
+    char *arg2 = strtok(NULL, " ");
+    int N = str2val(arg1);
+    word_t value, vaddr;
+
+    bool *success = false;
+    word_t nr_tokens = expr(arg2, success);
+    if (success)
+    {
+        vaddr = eval(0, nr_tokens - 1);
+    }
+    else 
+    {
+        printf("Please input available arges!\n");
+        return 0;
+    }
+
+    while (N--)
+    {
+        value = vaddr_read(vaddr, 4);
+        vaddr += 4;
+        printf("%x\n", value);
+    }
+    return 0;
 }
 
 static int cmd_p(char *arges)
 {
+    word_t value;
+
+    bool *success = false;
+    word_t nr_tokens = expr(arges, success);
+    if (success)
+    {
+        value = eval(0, nr_tokens - 1);
+        printf("%x", value);
+    }
+    else 
+    {
+        printf("Please input available arges!\n");
+    }
+    return 0;
 }
 
 static struct
