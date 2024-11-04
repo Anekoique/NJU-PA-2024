@@ -118,3 +118,13 @@ void check_wp()
         }
     }
 }
+
+void show_wp()
+{
+    WP *current = head;
+    while (current != NULL)
+    {
+       printf("NO:%d, expression:%s, value:%x\n", current->NO, current->expression,
+                       current->pre_value); 
+    }
+}
