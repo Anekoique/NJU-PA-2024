@@ -33,6 +33,7 @@ static WP *head = NULL, *free_ = NULL;
 
 void init_wp_pool()
 {
+    printf("helloworld\n");
     int i;
     for (i = 0; i < NR_WP; i++)
     {

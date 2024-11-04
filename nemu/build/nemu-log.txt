@@ -6,5 +6,9 @@
 [1;34m[src/monitor/monitor.c:33 welcome] Build time: 15:50:19, Nov  4 2024[0m
 0x80000000: 00 00 02 97 auipc	t0, 0
 0x80000004: 00 02 88 23 sb	zero, 0x10(t0)
-[1;34m[src/monitor/sdb/expr.c:113 make_token] match rules[11] = "0x[0-9a-f]+" [1;34m[src/monitor/sdb/expr.c:113 make_token] match rules[11] = "0x[0-9a-f]+" at position 0 with len 10: 0x80000000[0m
-at position 0 with len 10: 0x80000004[0m
+0x80000008: 01 02 c5 03 lbu	a0, 0x10(t0)
+0x8000000c: 00 10 00 73 ebreak
+[1;34m[src/cpu/cpu-exec.c:153 cpu_exec] nemu: [1;32mHIT GOOD TRAP[0m at pc = 0x8000000c[0m
+[1;34m[src/cpu/cpu-exec.c:109 statistic] host time spent = 244 us[0m
+[1;34m[src/cpu/cpu-exec.c:110 statistic] total guest instructions = 4[0m
+[1;34m[src/cpu/cpu-exec.c:112 statistic] simulation frequency = 16,393 inst/s[0m
