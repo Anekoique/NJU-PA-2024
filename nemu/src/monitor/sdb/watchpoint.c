@@ -33,7 +33,6 @@ static WP *head = NULL, *free_ = NULL;
 
 void init_wp_pool()
 {
-    printf("helloworld\n");
     int i;
     for (i = 0; i < NR_WP; i++)
     {
@@ -91,4 +90,31 @@ void free_wp(int no)
     }
     printf("unavailable NO!\n");
     return;
+}
+
+void check_wp()
+{
+    WP *current = head;
+    while (current != NULL)
+    {
+        bool *success = false;
+        word_t nr_tokens = expr(current->expression, success);
+
+        if (success)
+        {
+            word_t value = eval(0, nr_tokens - 1);
+            if (value != current->pre_value)
+            {
+                printf("NO:%d, expression:%s, pre_value:%x, value:%x\n", current->NO, current->expression,
+                       current->pre_value, value);
+                current->pre_value = value;
+            }
+
+            current = current->next;
+        }
+        else
+        {
+            assert(0);
+        }
+    }
 }
