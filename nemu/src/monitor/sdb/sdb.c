@@ -15,8 +15,8 @@
 
 #include "sdb.h"
 #include <cpu/cpu.h>
-#include <memory/vaddr.h>
 #include <isa.h>
+#include <memory/vaddr.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 
@@ -24,6 +24,8 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+void new_wp(char *arges);
+void free_wp(int no);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
@@ -129,7 +131,7 @@ static int cmd_x(char *arges)
     {
         vaddr = eval(0, nr_tokens - 1);
     }
-    else 
+    else
     {
         printf("Please input available arges!\n");
         return 0;
@@ -155,10 +157,24 @@ static int cmd_p(char *arges)
         value = eval(0, nr_tokens - 1);
         printf("%x", value);
     }
-    else 
+    else
     {
         printf("Please input available arges!\n");
     }
+    return 0;
+}
+
+static int cmd_w(char *arges)
+{
+    init_wp_pool();
+    new_wp(arges);
+    return 0;
+}
+
+static int cmd_d(char *arges)
+{
+    int NO = str2val(arges);
+    free_wp(NO);
     return 0;
 }
 
@@ -175,6 +191,8 @@ static struct
     {"info", "Print register state/watchpoint information",      cmd_info},
     {"x",    "Output N consecutive 4 bytes in hexadecimal form", cmd_x   },
     {"p",    "Print the value of the expression",                cmd_p   },
+    {"w",    "Set a watchpoint",                                 cmd_w   },
+    {"d",    "Delete a watchpoint",                              cmd_d   },
     /* TODO: Add more commands */
 };
 

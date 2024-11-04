@@ -16,13 +16,13 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/ri
   /home/stoair/NJU-PA-2024/nemu/include/utils.h \
     $(wildcard include/config/target/native/elf.h) \
   /home/stoair/NJU-PA-2024/nemu/include/cpu/cpu.h \
-  /home/stoair/NJU-PA-2024/nemu/include/cpu/ifetch.h \
-  /home/stoair/NJU-PA-2024/nemu/include/memory/vaddr.h \
   /home/stoair/NJU-PA-2024/nemu/include/cpu/decode.h \
     $(wildcard include/config/itrace.h) \
   /home/stoair/NJU-PA-2024/nemu/include/isa.h \
   /home/stoair/NJU-PA-2024/nemu/src/isa/riscv32/include/isa-def.h \
     $(wildcard include/config/rv64.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/cpu/ifetch.h \
+  /home/stoair/NJU-PA-2024/nemu/include/memory/vaddr.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o)
 

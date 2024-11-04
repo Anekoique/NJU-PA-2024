@@ -19,6 +19,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/monito
   /home/stoair/NJU-PA-2024/nemu/src/isa/riscv32/include/isa-def.h \
     $(wildcard include/config/rve.h) \
     $(wildcard include/config/rv64.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/memory/vaddr.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/sdb.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/sdb.o)
 

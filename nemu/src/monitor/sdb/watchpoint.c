@@ -23,6 +23,8 @@ typedef struct watchpoint
     struct watchpoint *next;
 
     /* TODO: Add more members if necessary */
+    char *expression;
+    word_t pre_value;
 
 } WP;
 
@@ -43,3 +45,49 @@ void init_wp_pool()
 }
 
 /* TODO: Implement the functionality of watchpoint */
+void new_wp(char *arges)
+{
+    if (!free_)
+        assert(0);
+    free_->expression = arges;
+
+    bool *success = false;
+    word_t nr_tokens = expr(arges, success);
+    if (success)
+    {
+        WP *temp = free_->next;
+        free_->pre_value = eval(0, nr_tokens - 1);
+        free_ = free_->next;
+        free_->next = head;
+        head = free_;
+        free_ = temp;
+    }
+    else
+    {
+        printf("Please input available arges!\n");
+    }
+    return;
+}
+
+void free_wp(int no)
+{
+    WP *current = head;
+    WP *pre = NULL;
+
+    while (current != NULL)
+    {
+        if (current->NO == no)
+        {
+            if (pre == NULL)
+                head = head->next;
+            else
+                pre->next = current->next;
+            free_ = current;
+            break;
+        }
+        pre = current;
+        current = current->next;
+    }
+    printf("unavailable NO!\n");
+    return;
+}

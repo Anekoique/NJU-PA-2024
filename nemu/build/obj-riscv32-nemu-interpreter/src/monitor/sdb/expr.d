@@ -16,6 +16,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/monito
   /home/stoair/NJU-PA-2024/nemu/include/debug.h \
   /home/stoair/NJU-PA-2024/nemu/include/utils.h \
     $(wildcard include/config/target/native/elf.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/memory/vaddr.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/expr.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/expr.o)
 
