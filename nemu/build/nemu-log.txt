@@ -1,6 +1,0 @@
-[1;34m[src/utils/log.c:30 init_log] Log is written to /home/stoair/NJU-PA-2024/nemu/build/nemu-log.txt[0m
-[1;34m[src/memory/paddr.c:60 init_mem] physical memory area [0x80000000, 0x87ffffff][0m
-[1;34m[src/monitor/monitor.c:53 load_img] No image is given. Use the default build-in image.[0m
-[1;34m[src/cpu/cpu-exec.c:107 statistic] host time spent = 0 us[0m
-[1;34m[src/cpu/cpu-exec.c:108 statistic] total guest instructions = 0[0m
-[1;34m[src/cpu/cpu-exec.c:112 statistic] Finish running in less than 1 us and can not calculate the simulation frequency[0m
