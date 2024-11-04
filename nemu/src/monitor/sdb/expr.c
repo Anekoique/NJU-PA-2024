@@ -208,9 +208,10 @@ int find_op(int p, int q)
     {
         if (tokens[i].type == ')')
             flag--;
+        
         if (tokens[i].type == '(' || flag) 
         {
-            flag++;
+            if (tokens[i].type == '(') flag++;
             continue;
         }
 
