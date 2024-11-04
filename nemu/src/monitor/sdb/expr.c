@@ -157,6 +157,7 @@ word_t expr(char *e, bool *success)
 {
     if (!make_token(e))
     {
+        printf("Please input any arges\n");
         *success = false;
         return 0;
     }
