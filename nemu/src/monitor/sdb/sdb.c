@@ -125,8 +125,8 @@ static int cmd_x(char *arges)
     int N = str2val(arg1);
     word_t value, vaddr;
 
-    bool *success = false;
-    word_t nr_tokens = expr(arg2, success);
+    bool success = false;
+    word_t nr_tokens = expr(arg2, &success);
     if (success)
     {
         vaddr = eval(0, nr_tokens - 1);
