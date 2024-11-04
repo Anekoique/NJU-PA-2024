@@ -54,7 +54,7 @@ static int str2val(char *str)
     char *str_start = str;
     while (*str_start != '\0')
     {
-        value = value * 10 + *str_start;
+        value = value * 10 + (*str_start - '0');
         str_start++;
     }
     return value;

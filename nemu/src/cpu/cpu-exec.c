@@ -30,6 +30,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
+void init_wp_pool();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 {
@@ -53,6 +54,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 
 static void exec_once(Decode *s, vaddr_t pc)
 {
+    init_wp_pool();
     s->pc = pc;
     s->snpc = pc;
     isa_exec_once(s);
