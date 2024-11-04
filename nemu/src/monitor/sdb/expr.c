@@ -203,8 +203,17 @@ int find_op(int p, int q)
     int op1 = -1;
     int op2 = -1;
     int op3 = -1;
+    int flag = 0;
     for (int i = p; i < q; i++)
     {
+        if (tokens[i].type == ')')
+            flag = 0;
+        if (tokens[i].type == '(' || flag) 
+        {
+            flag = 1;
+            continue;
+        }
+
         if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ || tokens[i].type == TK_AND)
             return i;
         else if (op1 == -1 && (tokens[i].type == '+' || tokens[i].type == '-'))
