@@ -200,22 +200,22 @@ bool check_parentheses(int p, int q)
 
 int find_op(int p, int q)
 {
-    int op1 = 0;
-    int op2 = 0;
-    int op3 = 0;
+    int op1 = -1;
+    int op2 = -1;
+    int op3 = -1;
     for (int i = p; i < q; i++)
     {
         if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ || tokens[i].type == TK_AND)
-            return tokens[i].type;
+            return i;
         else if (!op1 && (tokens[i].type == '+' || tokens[i].type == '-'))
-            op1 = tokens[i].type;
+            op1 = i;
         else if (!op2 && (tokens[i].type == '*' || tokens[i].type == '/'))
-            op2 = tokens[i].type;
+            op2 = i;
         else if (!op3 && tokens[i].type == TK_DEREF)
-            op3 = tokens[i].type;
+            op3 = i;
 
     }
-    return op1 == 0 ? (op2 == 0 ? op3 : op2) : op1;
+    return op1 == -1 ? (op2 == -1 ? op3 : op2) : op1;
 }
 
 word_t eval(int p, int q)
