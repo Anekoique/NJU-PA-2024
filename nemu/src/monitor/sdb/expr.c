@@ -207,11 +207,11 @@ int find_op(int p, int q)
     {
         if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ || tokens[i].type == TK_AND)
             return i;
-        else if (!op1 && (tokens[i].type == '+' || tokens[i].type == '-'))
+        else if (op1 == -1 && (tokens[i].type == '+' || tokens[i].type == '-'))
             op1 = i;
-        else if (!op2 && (tokens[i].type == '*' || tokens[i].type == '/'))
+        else if (op2 == -1 && (tokens[i].type == '*' || tokens[i].type == '/'))
             op2 = i;
-        else if (!op3 && tokens[i].type == TK_DEREF)
+        else if (op3 == -1 && tokens[i].type == TK_DEREF)
             op3 = i;
 
     }
