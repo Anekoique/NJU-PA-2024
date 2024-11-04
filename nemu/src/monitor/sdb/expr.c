@@ -207,10 +207,10 @@ int find_op(int p, int q)
     for (int i = p; i < q; i++)
     {
         if (tokens[i].type == ')')
-            flag = 0;
+            flag--;
         if (tokens[i].type == '(' || flag) 
         {
-            flag = 1;
+            flag++;
             continue;
         }
 
