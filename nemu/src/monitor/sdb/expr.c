@@ -44,19 +44,19 @@ static struct rule
      * Pay attention to the precedence level of different rules.
      */
 
-    {" +",          TK_NOTYPE}, // spaces
-    {"\\+",         '+'      }, // plus
-    {"==",          TK_EQ    }, // equal
-    {"!=",          TK_NEQ   },
-    {"&&",          TK_AND   },
-    {"\\*",           '*'      },
-    {"/",           '/'      },
-    {"-",           '-'      },
-    {"\\(",         '('      },
-    {"\\)",         ')'      },
-    {"[1-9]+",      TK_NUMBER},
-    {"0x[0-9a-f]+", TK_HEX   },
-    {"[a-z|\\$][0-9a-z]",     TK_REG   },
+    {" +",                TK_NOTYPE}, // spaces
+    {"\\+",               '+'      }, // plus
+    {"==",                TK_EQ    }, // equal
+    {"!=",                TK_NEQ   },
+    {"&&",                TK_AND   },
+    {"\\*",               '*'      },
+    {"/",                 '/'      },
+    {"-",                 '-'      },
+    {"\\(",               '('      },
+    {"\\)",               ')'      },
+    {"[1-9][0-9]+",       TK_NUMBER},
+    {"0x[0-9a-f]+",       TK_HEX   },
+    {"[a-z|\\$][0-9a-z]", TK_REG   },
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -213,7 +213,6 @@ int find_op(int p, int q)
             op2 = i;
         else if (op3 == -1 && tokens[i].type == TK_DEREF)
             op3 = i;
-
     }
     return op1 == -1 ? (op2 == -1 ? op3 : op2) : op1;
 }
@@ -238,18 +237,18 @@ word_t eval(int p, int q)
             word_t val = isa_reg_str2val(tokens[p].str + 1, &success);
             if (success)
                 return val;
-            else 
+            else
             {
                 printf("Please input the available register!\n");
                 assert(0);
             }
         }
-        else if (tokens[p].type == TK_HEX) 
+        else if (tokens[p].type == TK_HEX)
         {
             word_t val = (word_t)strtoul(tokens[p].str, NULL, 16);
             return val;
         }
-        else 
+        else
         {
             word_t val = (word_t)strtoul(tokens[p].str, NULL, 10);
             return val;
