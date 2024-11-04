@@ -244,9 +244,14 @@ word_t eval(int p, int q)
                 assert(0);
             }
         }
-        else 
+        else if (tokens[p].type == TK_HEX) 
         {
             word_t val = (word_t)strtoul(tokens[p].str, NULL, 16);
+            return val;
+        }
+        else 
+        {
+            word_t val = (word_t)strtoul(tokens[p].str, NULL, 10);
             return val;
         }
     }

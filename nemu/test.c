@@ -6,10 +6,12 @@
 
 typedef __uint32_t uint32_t;
 typedef __uint64_t uint64_t;
+typedef uint32_t word_t;
 
-#define base 0x80000000
 int main() {
-    int a[5]={1, 2, 3, 4, 5};
-    printf("%p\n%p", a, a + 1);
+    word_t base = 0x80000000;
+    word_t value = (word_t)strtoul("16", NULL, 10);
+    base += value;
+    printf("%x\n", base);
     return 0;
 }
