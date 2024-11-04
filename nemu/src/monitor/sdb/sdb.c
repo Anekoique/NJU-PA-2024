@@ -152,8 +152,8 @@ static int cmd_p(char *arges)
 {
     word_t value;
 
-    bool *success = false;
-    word_t nr_tokens = expr(arges, success);
+    bool success = false;
+    word_t nr_tokens = expr(arges, &success);
     if (success)
     {
         value = eval(0, nr_tokens - 1);

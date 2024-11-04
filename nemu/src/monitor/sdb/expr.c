@@ -234,8 +234,8 @@ word_t eval(int p, int q)
          */
         if (tokens[p].type == TK_REG)
         {
-            bool *success = false;
-            word_t val = isa_reg_str2val(tokens[p].str + 1, success);
+            bool success = false;
+            word_t val = isa_reg_str2val(tokens[p].str + 1, &success);
             if (success)
                 return val;
             else 

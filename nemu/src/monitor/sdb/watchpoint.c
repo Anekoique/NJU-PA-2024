@@ -51,8 +51,8 @@ void new_wp(char *arges)
         assert(0);
     free_->expression = arges;
 
-    bool *success = false;
-    word_t nr_tokens = expr(arges, success);
+    bool success = false;
+    word_t nr_tokens = expr(arges, &success);
     if (success)
     {
         WP *temp = free_->next;
@@ -97,8 +97,8 @@ void check_wp()
     WP *current = head;
     while (current != NULL)
     {
-        bool *success = false;
-        word_t nr_tokens = expr(current->expression, success);
+        bool success = false;
+        word_t nr_tokens = expr(current->expression, &success);
 
         if (success)
         {
