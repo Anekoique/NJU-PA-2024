@@ -9,9 +9,7 @@ typedef __uint64_t uint64_t;
 typedef uint32_t word_t;
 
 int main() {
-    word_t base = 0x80000000;
-    word_t value = (word_t)strtoul("16", NULL, 10);
-    base += value;
-    printf("%x\n", base);
+    word_t base = 0x80000008;
+    printf("%ud\n", base);
     return 0;
 }
