@@ -31,7 +31,7 @@ static bool g_print_step = false;
 
 void device_update();
 
-void check_wp();
+int check_wp();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 {
@@ -49,8 +49,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
 #ifdef CONFIG_WATCHPOINT
     if (CONFIG_WATCHPOINT)
     {
-        check_wp();
-        nemu_state.state = NEMU_STOP;
+        printf("check WATCHPOINTs !\n");
+        if (check_wp()) 
+            nemu_state.state = NEMU_STOP;
     }
 #endif
 }

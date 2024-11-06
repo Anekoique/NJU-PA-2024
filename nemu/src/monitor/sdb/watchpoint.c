@@ -92,9 +92,10 @@ void free_wp(int no)
     return;
 }
 
-void check_wp()
+int check_wp()
 {
     WP *current = head;
+    int flag = 0;
     while (current != NULL)
     {
         bool success = false;
@@ -108,6 +109,7 @@ void check_wp()
                 printf("NO:%d, expression:%s, pre_value:%x, value:%x\n", current->NO, current->expression,
                        current->pre_value, value);
                 current->pre_value = value;
+                flag = 1;
             }
 
             current = current->next;
@@ -117,6 +119,7 @@ void check_wp()
             assert(0);
         }
     }
+    return flag;
 }
 
 void show_wp()

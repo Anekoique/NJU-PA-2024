@@ -157,7 +157,7 @@ static int cmd_p(char *arges)
     if (success)
     {
         value = eval(0, nr_tokens - 1);
-        printf("%x\n", value);
+        printf("%x", value);
     }
     else
     {
