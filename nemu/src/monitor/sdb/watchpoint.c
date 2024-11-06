@@ -106,6 +106,8 @@ int check_wp()
             word_t value = eval(0, nr_tokens - 1);
             if (value != current->pre_value)
             {
+                if (!flag)
+                    printf("check WATCHPOINTs !\n");
                 printf("NO:%d, expression:%s, pre_value:%x, value:%x\n", current->NO, current->expression,
                        current->pre_value, value);
                 current->pre_value = value;
@@ -127,7 +129,6 @@ void show_wp()
     WP *current = head;
     while (current != NULL)
     {
-       printf("NO:%d, expression:%s, value:%x\n", current->NO, current->expression,
-                       current->pre_value); 
+        printf("NO:%d, expression:%s, value:%x\n", current->NO, current->expression, current->pre_value);
     }
 }
