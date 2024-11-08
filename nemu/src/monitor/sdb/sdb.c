@@ -26,6 +26,7 @@ void init_regex();
 void init_wp_pool();
 void new_wp(char *arges);
 void free_wp(int no);
+void show_wp();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char *rl_gets()
@@ -105,6 +106,7 @@ static int cmd_info(char *arges)
     }
     else if (*arges == 'w')
     {
+        show_wp();
     }
     else
     {
@@ -150,8 +152,8 @@ static int cmd_p(char *arges)
 {
     word_t value;
 
-    bool *success = false;
-    word_t nr_tokens = expr(arges, success);
+    bool success = false;
+    word_t nr_tokens = expr(arges, &success);
     if (success)
     {
         value = eval(0, nr_tokens - 1);

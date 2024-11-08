@@ -6,10 +6,19 @@
 
 typedef __uint32_t uint32_t;
 typedef __uint64_t uint64_t;
+typedef uint32_t word_t;
 
-#define base 0x80000000
+void set(int *a)
+{
+#define macro(i) \
+    if (i > 1) *a = 2;  \
+    else *a = 1;
+#undef macro
+}
+
 int main() {
-    int a[5]={1, 2, 3, 4, 5};
-    printf("%p\n%p", a, a + 1);
+    int a = 0;
+    set(&a);
+    printf("%d", a);
     return 0;
 }

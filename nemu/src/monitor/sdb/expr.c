@@ -44,19 +44,19 @@ static struct rule
      * Pay attention to the precedence level of different rules.
      */
 
-    {" +",          TK_NOTYPE}, // spaces
-    {"\\+",         '+'      }, // plus
-    {"==",          TK_EQ    }, // equal
-    {"!=",          TK_NEQ   },
-    {"&&",          TK_AND   },
-    {"\\*",           '*'      },
-    {"/",           '/'      },
-    {"-",           '-'      },
-    {"\\(",         '('      },
-    {"\\)",         ')'      },
-    {"[1-9]+",      TK_NUMBER},
-    {"0x[0-9a-f]+", TK_HEX   },
-    {"[a-z|\\$][0-9a-z]",     TK_REG   },
+    {" +",                TK_NOTYPE}, // spaces
+    {"\\+",               '+'      }, // plus
+    {"==",                TK_EQ    }, // equal
+    {"!=",                TK_NEQ   },
+    {"&&",                TK_AND   },
+    {"\\*",               '*'      },
+    {"/",                 '/'      },
+    {"-",                 '-'      },
+    {"\\(",               '('      },
+    {"\\)",               ')'      },
+    {"[1-9]|[1-9][0-9]+", TK_NUMBER},
+    {"0x[0-9a-f]+",       TK_HEX   },
+    {"\\$[a-z|$][0-9a-z]", TK_REG   },
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -200,22 +200,31 @@ bool check_parentheses(int p, int q)
 
 int find_op(int p, int q)
 {
-    int op1 = 0;
-    int op2 = 0;
-    int op3 = 0;
+    int op1 = -1;
+    int op2 = -1;
+    int op3 = -1;
+    int flag = 0;
     for (int i = p; i < q; i++)
     {
-        if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ || tokens[i].type == TK_AND)
-            return tokens[i].type;
-        else if (!op1 && (tokens[i].type == '+' || tokens[i].type == '-'))
-            op1 = tokens[i].type;
-        else if (!op2 && (tokens[i].type == '*' || tokens[i].type == '/'))
-            op2 = tokens[i].type;
-        else if (!op3 && tokens[i].type == TK_DEREF)
-            op3 = tokens[i].type;
+        if (tokens[i].type == ')')
+            flag--;
+        
+        if (tokens[i].type == '(' || flag) 
+        {
+            if (tokens[i].type == '(') flag++;
+            continue;
+        }
 
+        if (tokens[i].type == TK_EQ || tokens[i].type == TK_NEQ || tokens[i].type == TK_AND)
+            return i;
+        else if (op1 == -1 && (tokens[i].type == '+' || tokens[i].type == '-'))
+            op1 = i;
+        else if (op2 == -1 && (tokens[i].type == '*' || tokens[i].type == '/'))
+            op2 = i;
+        else if (op3 == -1 && tokens[i].type == TK_DEREF)
+            op3 = i;
     }
-    return op1 == 0 ? (op2 == 0 ? op3 : op2) : op1;
+    return op1 == -1 ? (op2 == -1 ? op3 : op2) : op1;
 }
 
 word_t eval(int p, int q)
@@ -234,19 +243,24 @@ word_t eval(int p, int q)
          */
         if (tokens[p].type == TK_REG)
         {
-            bool *success = false;
-            word_t val = isa_reg_str2val(tokens[p].str + 1, success);
+            bool success = false;
+            word_t val = isa_reg_str2val(tokens[p].str + 1, &success);
             if (success)
                 return val;
-            else 
+            else
             {
                 printf("Please input the available register!\n");
                 assert(0);
             }
         }
-        else 
+        else if (tokens[p].type == TK_HEX)
         {
             word_t val = (word_t)strtoul(tokens[p].str, NULL, 16);
+            return val;
+        }
+        else
+        {
+            word_t val = (word_t)strtoul(tokens[p].str, NULL, 10);
             return val;
         }
     }

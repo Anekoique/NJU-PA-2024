@@ -51,8 +51,8 @@ void new_wp(char *arges)
         assert(0);
     free_->expression = arges;
 
-    bool *success = false;
-    word_t nr_tokens = expr(arges, success);
+    bool success = false;
+    word_t nr_tokens = expr(arges, &success);
     if (success)
     {
         WP *temp = free_->next;
@@ -92,22 +92,26 @@ void free_wp(int no)
     return;
 }
 
-void check_wp()
+int check_wp()
 {
     WP *current = head;
+    int flag = 0;
     while (current != NULL)
     {
-        bool *success = false;
-        word_t nr_tokens = expr(current->expression, success);
+        bool success = false;
+        word_t nr_tokens = expr(current->expression, &success);
 
         if (success)
         {
             word_t value = eval(0, nr_tokens - 1);
             if (value != current->pre_value)
             {
+                if (!flag)
+                    printf("check WATCHPOINTs !\n");
                 printf("NO:%d, expression:%s, pre_value:%x, value:%x\n", current->NO, current->expression,
                        current->pre_value, value);
                 current->pre_value = value;
+                flag = 1;
             }
 
             current = current->next;
@@ -116,5 +120,15 @@ void check_wp()
         {
             assert(0);
         }
+    }
+    return flag;
+}
+
+void show_wp()
+{
+    WP *current = head;
+    while (current != NULL)
+    {
+        printf("NO:%d, expression:%s, value:%x\n", current->NO, current->expression, current->pre_value);
     }
 }
