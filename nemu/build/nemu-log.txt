@@ -3,5 +3,4 @@
 [1;34m[src/monitor/monitor.c:53 load_img] No image is given. Use the default build-in image.[0m
 [1;34m[src/monitor/monitor.c:29 welcome] Trace: [1;32mON[0m[0m
 [1;34m[src/monitor/monitor.c:30 welcome] If trace is enabled, a log file will be generated to record the trace. This may lead to a large log file. If it is not necessary, you can disable it in menuconfig[0m
-[1;34m[src/monitor/monitor.c:33 welcome] Build time: 17:14:33, Nov  4 2024[0m
-0x80000000: 00 00 02 97 auipc	t0, 0
+[1;34m[src/monitor/monitor.c:33 welcome] Build time: 23:38:45, Nov  8 2024[0m
