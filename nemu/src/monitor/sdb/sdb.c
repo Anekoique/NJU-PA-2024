@@ -85,7 +85,7 @@ static int cmd_si(char *arges)
     int len = strlen(arges);
     while (len--)
     {
-        n += n * 10 + (*arges - '0');
+        n = n * 10 + (*arges - '0');
         arges++;
     }
 
