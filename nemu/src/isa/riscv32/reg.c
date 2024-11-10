@@ -23,7 +23,7 @@ void isa_reg_display()
 {
     for (int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++)
     {
-        printf("%s : %x\n", reg_name(i), gpr(i));
+        printf("%s : %08x\n", reg_name(i), gpr(i));
     }
 }
 
