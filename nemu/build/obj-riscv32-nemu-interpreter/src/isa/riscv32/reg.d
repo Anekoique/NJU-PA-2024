@@ -3,9 +3,9 @@ cmd_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/ris
 source_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/reg.o := src/isa/riscv32/reg.c
 
 deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/reg.o := \
+    $(wildcard include/config/rve.h) \
   src/isa/riscv32/local-include/reg.h \
     $(wildcard include/config/rt/check.h) \
-    $(wildcard include/config/rve.h) \
   /home/stoair/NJU-PA-2024/nemu/include/common.h \
     $(wildcard include/config/target/am.h) \
     $(wildcard include/config/mbase.h) \

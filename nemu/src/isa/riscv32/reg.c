@@ -21,7 +21,7 @@ const char *regs[] = {"$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2", "s0", "s1"
 
 void isa_reg_display()
 {
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++)
     {
         printf("%s : %x\n", reg_name(i), gpr(i));
     }
@@ -29,7 +29,7 @@ void isa_reg_display()
 
 word_t isa_reg_str2val(const char *s, bool *success)
 {
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++)
     {
         if (!strcmp(s, regs[i]))
         {
