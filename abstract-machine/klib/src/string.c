@@ -107,23 +107,23 @@ void *memset(void *s, int c, size_t n)
 void *memmove(void *dst, const void *src, size_t n)
 {
     size_t i;
-    if ((uintptr_t)src < (uintptr_t)dst && (uintptr_t)src + n> (uintptr_t)dst)
+    if ((uintptr_t)src < (uintptr_t)dst && (uintptr_t)src + n > (uintptr_t)dst)
     {
         // Copy from back to front
-        for (i = n - 1;i >= 0; i--)
+        for (i = n - 1; i >= 0; i--)
         {
-            ((char*)dst)[i] = ((char*)src)[i];
+            ((char *)dst)[i] = ((char *)src)[i];
         }
-        ((char*)dst)[n] = '\0';
+        ((char *)dst)[n] = '\0';
     }
-    else if ((uintptr_t)dst < (uintptr_t)src && (uintptr_t)dst + n> (uintptr_t)src)
+    else if ((uintptr_t)dst < (uintptr_t)src && (uintptr_t)dst + n > (uintptr_t)src)
     {
         // Copy from front to back
         for (i = 0; i < n; i++)
         {
-            ((char*)dst)[i] = ((char*)src)[i];
+            ((char *)dst)[i] = ((char *)src)[i];
         }
-        ((char*)dst)[n] = '\0';
+        ((char *)dst)[n] = '\0';
     }
     else
     {
@@ -151,8 +151,10 @@ int memcmp(const void *s1, const void *s2, size_t n)
     size_t i;
     for (i = 0; i < n; i++)
     {
-        if ((unsigned char*)(s1+i) > (unsigned char*)(s2+i))  return 1;
-        else if ((unsigned char*)(s1+i) < (unsigned char*)(s2+i)) return -1;
+        if ((unsigned char *)(s1 + i) > (unsigned char *)(s2 + i))
+            return 1;
+        else if ((unsigned char *)(s1 + i) < (unsigned char *)(s2 + i))
+            return -1;
     }
     return 0;
 }
