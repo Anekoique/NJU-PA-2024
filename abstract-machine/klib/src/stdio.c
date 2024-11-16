@@ -62,8 +62,9 @@ int sprintf(char *out, const char *fmt, ...)
         }
         else 
         {
-            *buffer++ = *copy++;
+            *buffer++ = *copy;
         }
+        copy++;
     }
     *buffer = '\0';
     return 1;
