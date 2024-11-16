@@ -35,7 +35,9 @@ int sprintf(char *out, const char *fmt, ...)
                     arg1 = va_arg(v, char*);
                     while (*arg1 != '\0')
                     {
-                        *buffer++ = *arg1++;
+                        *buffer = *arg1;
+                        buffer++;
+                        arg1++;
                     }
                     break;
                 case 'd':
