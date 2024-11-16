@@ -56,8 +56,8 @@ int sprintf(char *out, const char *fmt, ...)
 
                     for (int j = i - 1; j >= 0; j--) {
                         *buffer = num_buffer[j];
+                        buffer++;
                     }
-                    buffer++;
                     break;
             }
         }
