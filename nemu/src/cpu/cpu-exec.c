@@ -169,9 +169,9 @@ void cpu_exec(uint64_t n)
         {
             if (iring_inst_num_flag) 
                 for (int i = iring_position; i < IRING_BUFFER_LEN; i++)
-                    printf("%s\n", iring_buffer[iring_position]);
+                    printf("%s\n", iring_buffer[i]);
             for (int i = 0; i < iring_position; i++)
-                printf("%s\n", iring_buffer[iring_position]);
+                printf("%s\n", iring_buffer[i]);
         }
 
         Log("nemu: %s at pc = " FMT_WORD,
