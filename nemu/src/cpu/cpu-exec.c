@@ -167,7 +167,7 @@ void cpu_exec(uint64_t n)
     case NEMU_ABORT:
         if (nemu_state.halt_ret)
         {
-            if (!iring_inst_num_flag) 
+            if (iring_inst_num_flag) 
                 for (int i = iring_position; i < IRING_BUFFER_LEN; i++)
                     printf("%s\n", iring_buffer[iring_position]);
             for (int i = 0; i < iring_position; i++)
