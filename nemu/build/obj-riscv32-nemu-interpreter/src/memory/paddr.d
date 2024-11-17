@@ -8,6 +8,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/memory
     $(wildcard include/config/msize.h) \
     $(wildcard include/config/mbase.h) \
     $(wildcard include/config/mem/random.h) \
+    $(wildcard include/config/mtrace.h) \
     $(wildcard include/config/device.h) \
   /home/stoair/NJU-PA-2024/nemu/include/device/mmio.h \
   /home/stoair/NJU-PA-2024/nemu/include/common.h \
