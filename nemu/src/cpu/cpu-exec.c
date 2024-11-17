@@ -23,11 +23,16 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 100
+#define IRING_BUFFER_LEN 20
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
+
+static char iring_buffer[IRING_BUFFER_LEN][128];
+static int iring_position = 0;
+static int iring_inst_num_flag = 0;
 
 void device_update();
 
@@ -41,6 +46,13 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
         log_write("%s\n", _this->logbuf);
     }
 #endif
+    if (iring_position == 20) 
+    {
+        iring_inst_num_flag = 1;
+        iring_position = 0;
+    }
+    sprintf(iring_buffer[iring_position], "%s", _this->logbuf);
+
     if (g_print_step)
     {
         IFDEF(CONFIG_ITRACE, puts(_this->logbuf));
@@ -152,6 +164,15 @@ void cpu_exec(uint64_t n)
 
     case NEMU_END:
     case NEMU_ABORT:
+        if (nemu_state.halt_ret)
+        {
+            if (!iring_inst_num_flag) 
+                for (int i = iring_position; i < IRING_BUFFER_LEN; i++)
+                    printf("%s\n", iring_buffer[iring_position]);
+            for (int i = 0; i < iring_position; i++)
+                printf("%s\n", iring_buffer[iring_position]);
+        }
+
         Log("nemu: %s at pc = " FMT_WORD,
             (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED)
                                             : (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN)
