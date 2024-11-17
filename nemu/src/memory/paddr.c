@@ -82,7 +82,7 @@ void paddr_write(paddr_t addr, int len, word_t data)
     {
     #ifdef CONFIG_MTRACE
         if (CONFIG_MTRACE)
-            printf("WRITE: %08x\n", addr);
+            printf("WRITE: %08x, VALUE: %08x\n", addr, data);
     #endif
         pmem_write(addr, len, data);
         return;
