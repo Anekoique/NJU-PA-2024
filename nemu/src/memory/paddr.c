@@ -66,7 +66,7 @@ word_t paddr_read(paddr_t addr, int len)
     {
     #ifdef CONFIG_MTRACE
         if (CONFIG_MTRACE)
-            printf("%08x\n", addr);
+            printf("READ: %08x\n", addr);
     #endif
         return pmem_read(addr, len);
     }
