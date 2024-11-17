@@ -64,11 +64,12 @@ word_t paddr_read(paddr_t addr, int len, int is_inst_fetch)
 {
     if (likely(in_pmem(addr)))
     {
+        word_t value = pmem_read(addr, len);
     #ifdef CONFIG_MTRACE
         if (CONFIG_MTRACE && !is_inst_fetch)
-            printf("READ: %08x\n", addr);
+            printf("READ: %08x, VALUE: %08x\n", addr, value);
     #endif
-        return pmem_read(addr, len);
+        return value;
     }
     IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
     out_of_bound(addr);
