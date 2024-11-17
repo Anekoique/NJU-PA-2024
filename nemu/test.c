@@ -17,8 +17,7 @@ void set(int *a)
 }
 
 int main() {
-    int a = 0;
-    set(&a);
-    printf("%d", a);
-    return 0;
+    char buffer[30];
+    sprintf(buffer, "%s", "helloworld!\n");
+    printf("%s", buffer);
 }
