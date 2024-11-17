@@ -127,7 +127,11 @@ endmenu
 menu "Testing and Debugging"
 
 config WATCHPOINT
-  bool "Activate the watchpoint function."
+  bool "Activate the watchpoint function"
+  default y
+
+config MTRACE
+  bool "Activate the memory trace"
   default y
 
 config TRACE
