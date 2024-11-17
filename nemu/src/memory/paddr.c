@@ -60,12 +60,12 @@ void init_mem()
     Log("physical memory area [" FMT_PADDR ", " FMT_PADDR "]", PMEM_LEFT, PMEM_RIGHT);
 }
 
-word_t paddr_read(paddr_t addr, int len)
+word_t paddr_read(paddr_t addr, int len, int is_inst_fetch)
 {
     if (likely(in_pmem(addr)))
     {
     #ifdef CONFIG_MTRACE
-        if (CONFIG_MTRACE)
+        if (CONFIG_MTRACE && !is_inst_fetch)
             printf("READ: %08x\n", addr);
     #endif
         return pmem_read(addr, len);
@@ -79,6 +79,10 @@ void paddr_write(paddr_t addr, int len, word_t data)
 {
     if (likely(in_pmem(addr)))
     {
+    #ifdef CONFIG_MTRACE
+        if (CONFIG_MTRACE)
+            printf("WRITE: %08x\n", addr);
+    #endif
         pmem_write(addr, len, data);
         return;
     }
