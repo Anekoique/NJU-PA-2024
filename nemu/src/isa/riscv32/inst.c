@@ -118,7 +118,7 @@ static void record_ftrace(Decode *s, word_t rd)
     if (rd == 0) 
     {
         ftr->type = CALL_RET;
-        ftr->inst_addr = R(rd)-4;
+        ftr->inst_addr = s->pc;
         ftr->func_addr = R(rd);
         ftr->ret_addr = 0;
     }
@@ -127,7 +127,7 @@ static void record_ftrace(Decode *s, word_t rd)
         vaddr_t func_addr = R(rd);
         ftr->func_addr = func_addr;
         ftr->type = CALL;
-        ftr->inst_addr = s->isa.inst;
+        ftr->inst_addr = s->pc;
 
         for (int i = 0; i < func_num; i++)
         {
