@@ -81,7 +81,7 @@ static void init_ftrace(char *elf_file)
 {
     if (elf_file == NULL) return;
     /* open and check the elf_file */
-    FILE *fp = fopen(img_file, "r");
+    FILE *fp = fopen(elf_file, "r");
     Elf32_Ehdr elf_header;
     if (fread(&elf_header, sizeof(Elf32_Ehdr), 1, fp) != 1)
         abort();
@@ -89,8 +89,7 @@ static void init_ftrace(char *elf_file)
           elf_header.e_ident[3] == 'F'))
     {
         printf("Invalid ELF file !\n");
-        printf("%c%c%c%c", elf_header.e_ident[0], elf_header.e_ident[1],elf_header.e_ident[2], elf_header.e_ident[3]);
-        //abort();
+        abort();
     }
 
     /* find the section header and store the sym_table and the str_table's position */
