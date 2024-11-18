@@ -48,5 +48,8 @@ ps：生成LSP的compile_commands时发现 bear 生成为空，转而使用compi
 
 ## PA1 最简单的计算机
 
-target：
+- > 退出时会报错，原因是没有将`nemu_state`设为`NEMU_QUIT`
 
+- 
+
+# POSIX
