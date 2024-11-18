@@ -135,6 +135,7 @@ static void init_ftrace(char *elf_file)
         printf("Unable to read the symtable !\n");
         abort();
     }
+    printf("sym_table[0] : %d", sym_table[i].st_name);
     fseek(fp, str_offset, SEEK_SET);
     if (fread(str_table, str_size, 1, fp) != 1)
     {
