@@ -146,7 +146,6 @@ static void init_ftrace(char *elf_file)
         if (type == STT_FUNC)
         {
             sprintf(func_table[func_num].func_name, "%s", &str_table[sym_table[i].st_name]);
-            printf("func_table : %s\n", func_table[func_num].func_name);
             func_table[func_num].address = sym_table[i].st_value;
             func_table[func_num].size = sym_table[i].st_size;
             func_num++;
