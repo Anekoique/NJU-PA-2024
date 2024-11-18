@@ -79,6 +79,7 @@ Func func_table[MAX_FUNC_NUM];
 
 static void init_ftrace(char *elf_file)
 {
+    printf("***********\n");
     if (elf_file == NULL) return;
     /* open and check the elf_file */
     FILE *fp = fopen(elf_file, "r");
