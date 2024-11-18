@@ -121,6 +121,7 @@ static void init_ftrace(char *elf_file)
             str_offset = shdr.sh_offset;
             str_size = shdr.sh_size;
             str_table = malloc(str_size);
+            break;
         }
         else
             continue;
