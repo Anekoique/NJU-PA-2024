@@ -113,7 +113,6 @@ static void init_ftrace(char *elf_file)
         if (shdr.sh_type == SHT_SYMTAB)
         {
             sym_offset = shdr.sh_offset;
-            printf("offset:%08x\n", sym_offset);
             sym_size = shdr.sh_size;
             sym_table = malloc(sym_size);
         }
@@ -135,7 +134,8 @@ static void init_ftrace(char *elf_file)
         printf("Unable to read the symtable !\n");
         abort();
     }
-    printf("sym_table[0] : %d", sym_table[i].st_name);
+    printf("sym_table[0] : %d\n", sym_table[0].st_name);
+    printf("sym_table[1] : %d\n", sym_table[1].st_name);
     fseek(fp, str_offset, SEEK_SET);
     if (fread(str_table, str_size, 1, fp) != 1)
     {
