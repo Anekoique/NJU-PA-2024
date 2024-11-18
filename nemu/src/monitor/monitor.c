@@ -84,6 +84,8 @@ static void init_ftrace(char *elf_file)
     FILE *fp = fopen(elf_file, "r");
     Assert(fp, "unable to open the %s", elf_file);
     Elf32_Ehdr elf_header;
+    int value = fread(&elf_header, sizeof(Elf32_Ehdr), 1, fp);
+    printf("%d\n", value);
     if (fread(&elf_header, sizeof(Elf32_Ehdr), 1, fp) != 1)
     {
         printf("unable to read elf_header\n");
@@ -106,7 +108,7 @@ static void init_ftrace(char *elf_file)
         Elf32_Shdr shdr;
         if (fread(&shdr, sizeof(Elf32_Shdr), 1, fp) != 1)
         {
-            printf("Unable to read the section part !");
+            printf("Unable to read the section part !\n");
             abort();
         }
         if (shdr.sh_type == SHT_SYMTAB)
@@ -129,13 +131,13 @@ static void init_ftrace(char *elf_file)
     fseek(fp, sym_offset, SEEK_SET);
     if (fread(sym_table, sym_size, 1, fp) != 1)
     {
-        printf("Unable to read the symtable !");
+        printf("Unable to read the symtable !\n");
         abort();
     }
     fseek(fp, str_offset, SEEK_SET);
     if (fread(str_table, str_size, 1, fp) != 1)
     {
-        printf("Unable to read the strtable !");
+        printf("Unable to read the strtable !\n");
         abort();
     }
     for (i = 0; i < sym_size / sizeof(Elf32_Sym); i++)
