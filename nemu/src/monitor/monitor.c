@@ -86,7 +86,7 @@ static void init_ftrace(char *elf_file)
     Elf32_Ehdr elf_header;
     if (fread(&elf_header, sizeof(Elf32_Ehdr), 1, fp) != 1)
     {
-        printf("unable to read elf_header");
+        printf("unable to read elf_header\n");
         abort();
     }
     printf("***********\n");
