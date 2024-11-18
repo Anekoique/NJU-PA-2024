@@ -124,7 +124,7 @@ static void record_ftrace(Decode *s, word_t rd)
     }
     else 
     {
-        vaddr_t func_addr = R(rd);
+        vaddr_t func_addr = s->dnpc;
         ftr->func_addr = func_addr;
         ftr->type = CALL;
         ftr->inst_addr = s->pc;
