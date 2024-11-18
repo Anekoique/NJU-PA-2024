@@ -142,6 +142,7 @@ static void init_ftrace(char *elf_file)
         printf("Unable to read the strtable !\n");
         abort();
     }
+    printf("str_table[0] : %s\n", &str_table[0]);
     for (i = 0; i < sym_size / sizeof(Elf32_Sym); i++)
     {
         if (sym_table[i].st_info == STT_FUNC)
