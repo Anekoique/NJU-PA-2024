@@ -104,7 +104,10 @@ static void init_ftrace(char *elf_file)
     {
         Elf32_Shdr shdr;
         if (fread(&shdr, sizeof(Elf32_Shdr), 1, fp) != 1)
+        {
+            printf("Unable to read the section part !");
             abort();
+        }
         if (shdr.sh_type == SHT_SYMTAB)
         {
             sym_offset = shdr.sh_offset;
