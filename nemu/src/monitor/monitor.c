@@ -134,17 +134,15 @@ static void init_ftrace(char *elf_file)
         printf("Unable to read the symtable !\n");
         abort();
     }
-    printf("sym_table[0] : %d\n", sym_table[0].st_name);
-    printf("sym_table[1] : %d\n", sym_table[1].st_name);
     fseek(fp, str_offset, SEEK_SET);
     if (fread(str_table, str_size, 1, fp) != 1)
     {
         printf("Unable to read the strtable !\n");
         abort();
     }
-    printf("str_table[0] : %s\n", &str_table[1]);
     for (i = 0; i < sym_size / sizeof(Elf32_Sym); i++)
     {
+        printf("sym_table[%d] : %d\n", i, sym_table[i].st_name);
         if (sym_table[i].st_info == STT_FUNC)
         {
             sprintf(func_table[func_num].func_name, "%s", &str_table[sym_table[i].st_name]);
