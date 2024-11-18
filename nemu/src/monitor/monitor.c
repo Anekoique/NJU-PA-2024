@@ -94,7 +94,7 @@ static void init_ftrace(char *elf_file)
         printf("Invalid ELF file !\n");
         abort();
     }
-
+    printf("Here");
     /* find the section header and store the sym_table and the str_table's position */
     Elf32_Off sym_offset = 0, str_offset = 0;
     uint32_t sym_size = 0, str_size = 0;
