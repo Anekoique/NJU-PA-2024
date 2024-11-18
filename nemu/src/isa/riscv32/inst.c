@@ -128,6 +128,7 @@ static void record_ftrace(Decode *s, word_t rd)
         ftr->func_addr = func_addr;
         ftr->type = CALL;
         ftr->inst_addr = s->pc;
+        ftr->ret_addr = R(rd);
 
         for (int i = 0; i < func_num; i++)
         {
