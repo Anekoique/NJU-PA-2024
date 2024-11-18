@@ -142,7 +142,7 @@ static void show_frace()
             {
                 if (ftrace[i].func_addr == ftrace[k].ret_addr)
                 {
-                    printf("Ret\t[%s]", ftrace[k].func_name);
+                    printf("Ret\t[%s]\n", ftrace[k].func_name);
                     break;
                 }
             }
