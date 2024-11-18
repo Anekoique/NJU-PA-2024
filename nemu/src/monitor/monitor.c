@@ -84,7 +84,10 @@ static void init_ftrace(char *elf_file)
     FILE *fp = fopen(elf_file, "r");
     Elf32_Ehdr elf_header;
     if (fread(&elf_header, sizeof(Elf32_Ehdr), 1, fp) != 1)
+    {
+        printf("unable to read elf_header");
         abort();
+    }
     if (!(elf_header.e_ident[0] == 0x7f && elf_header.e_ident[1] == 'E' && elf_header.e_ident[2] == 'L' &&
           elf_header.e_ident[3] == 'F'))
     {
@@ -121,10 +124,16 @@ static void init_ftrace(char *elf_file)
     /* find and store the sym_table and str_table */
     fseek(fp, sym_offset, SEEK_SET);
     if (fread(sym_table, sym_size, 1, fp) != 1)
+    {
+        printf("Unable to read the symtable !");
         abort();
+    }
     fseek(fp, str_offset, SEEK_SET);
     if (fread(str_table, str_size, 1, fp) != 1)
+    {
+        printf("Unable to read the strtable !");
         abort();
+    }
     for (i = 0; i < sym_size / sizeof(Elf32_Sym); i++)
     {
         if (sym_table[i].st_info == STT_FUNC)
