@@ -83,13 +83,13 @@ static void init_ftrace(char *elf_file)
     /* open and check the elf_file */
     FILE *fp = fopen(elf_file, "r");
     Assert(fp, "unable to open the %s", elf_file);
-    printf("***********\n");
     Elf32_Ehdr elf_header;
     if (fread(&elf_header, sizeof(Elf32_Ehdr), 1, fp) != 1)
     {
         printf("unable to read elf_header");
         abort();
     }
+    printf("***********\n");
     if (!(elf_header.e_ident[0] == 0x7f && elf_header.e_ident[1] == 'E' && elf_header.e_ident[2] == 'L' &&
           elf_header.e_ident[3] == 'F'))
     {
