@@ -13,9 +13,9 @@
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
 
+#include <cpu/ftrace.h>
 #include <isa.h>
 #include <memory/paddr.h>
-#include <cpu/ftrace.h>
 
 void init_rand();
 void init_log(const char *log_file);
@@ -79,7 +79,8 @@ Func func_table[MAX_FUNC_NUM];
 
 static void init_ftrace(char *elf_file)
 {
-    if (elf_file == NULL) return;
+    if (elf_file == NULL)
+        return;
     /* open and check the elf_file */
     FILE *fp = fopen(elf_file, "r");
     Assert(fp, "unable to open the %s", elf_file);
@@ -90,7 +91,6 @@ static void init_ftrace(char *elf_file)
         printf("unable to read elf_header\n");
         abort();
     }
-    printf("***********\n");
     if (!(elf_header.e_ident[0] == 0x7f && elf_header.e_ident[1] == 'E' && elf_header.e_ident[2] == 'L' &&
           elf_header.e_ident[3] == 'F'))
     {

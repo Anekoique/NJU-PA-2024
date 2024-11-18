@@ -126,6 +126,7 @@ static void show_frace()
     {
         printf("func_name:%s\n", func_table[i].func_name);
     }
+    printf("here:%s\n", str_table);
     for (i = 0; i < ftrace_len; i++)
     {
         
