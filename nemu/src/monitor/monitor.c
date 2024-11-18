@@ -142,10 +142,8 @@ static void init_ftrace(char *elf_file)
     }
     for (i = 0; i < sym_size / sizeof(Elf32_Sym); i++)
     {
-        printf("sym_table[%d] : %d\n", i, sym_table[i].st_name);
-        printf("str_table[%d] : %s\n", i, &str_table[sym_table[i].st_name]);
-        printf("sym_table[%d] : %d\n", i, sym_table[i].st_info);
-        if (sym_table[i].st_info == STT_FUNC)
+        int type = ELF32_ST_TYPE(sym_table[i].st_info);
+        if (type == STT_FUNC)
         {
             sprintf(func_table[func_num].func_name, "%s", &str_table[sym_table[i].st_name]);
             printf("func_table : %s\n", func_table[func_num].func_name);
