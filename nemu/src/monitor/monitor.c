@@ -144,6 +144,7 @@ static void init_ftrace(char *elf_file)
     {
         printf("sym_table[%d] : %d\n", i, sym_table[i].st_name);
         printf("str_table[%d] : %s\n", i, &str_table[sym_table[i].st_name]);
+        printf("sym_table[%d] : %d\n", i, sym_table[i].st_info);
         if (sym_table[i].st_info == STT_FUNC)
         {
             sprintf(func_table[func_num].func_name, "%s", &str_table[sym_table[i].st_name]);
