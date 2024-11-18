@@ -29,6 +29,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/cp
     $(wildcard include/config/isa/mips32.h) \
     $(wildcard include/config/isa/riscv.h) \
     $(wildcard include/config/isa/loongarch32r.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/cpu/ftrace.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/cpu-exec.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/cpu-exec.o)
 

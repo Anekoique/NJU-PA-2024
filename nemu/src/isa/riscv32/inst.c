@@ -17,6 +17,7 @@
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
 #include <cpu/ifetch.h>
+#include <cpu/ftrace.h>
 #include <math.h>
 
 #define R(i) gpr(i)
@@ -24,6 +25,8 @@
 #define Mw vaddr_write
 
 static int executed_inst = 0;
+int ftrace_len = 0;
+Ftrace ftrace[MAX_FTRACE_LEN];
 
 enum
 {
@@ -109,6 +112,37 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
     }
 }
 
+static void record_ftrace(Decode *s, word_t rd)
+{
+    Ftrace *ftr = &ftrace[ftrace_len];
+    if (rd == 0) 
+    {
+        ftr->type = CALL_RET;
+        ftr->inst_addr = s->isa.inst;
+        ftr->func_addr = R(rd);
+        ftr->ret_addr = 0;
+    }
+    else 
+    {
+        vaddr_t func_addr = R(rd);
+        ftr->func_addr = func_addr;
+        ftr->type = CALL;
+        ftr->inst_addr = s->isa.inst;
+
+        for (int i = 0; i < func_num; i++)
+        {
+            if (func_table[i].address == func_addr)
+            {
+                sprintf(ftr->func_name, "%s", func_table[i].func_name);
+                break;
+            }
+        }
+    }
+
+    ftrace_len++;
+    return ;
+}
+
 static int decode_exec(Decode *s)
 {
     s->dnpc = s->snpc;
@@ -140,8 +174,8 @@ static int decode_exec(Decode *s)
     INSTPAT("??????? ????? ????? 111 ????? 00100 11", andi, I, R(rd) = src1 & imm);
 
     INSTPAT("??????? ????? ????? ??? ????? 01101 11", lui, U, R(rd) = imm);
-    INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal, J, R(rd) = s->pc + 4; s->dnpc = s->pc + imm;);
-    INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr, I, R(rd) = s->pc + 4; s->dnpc = (src1 + imm) & ~1;);
+    INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal, J, R(rd) = s->pc + 4; s->dnpc = s->pc + imm; record_ftrace(s, rd));
+    INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr, I, R(rd) = s->pc + 4; s->dnpc = (src1 + imm) & ~1; record_ftrace(s, rd));
 
     INSTPAT("??????? ????? ????? 000 ????? 00000 11", lb, I, R(rd) = (int32_t)(int8_t)Mr(src1 + imm, 1));
     INSTPAT("??????? ????? ????? 001 ????? 00000 11", lh, I, R(rd) = (int32_t)(int16_t)Mr(src1 + imm, 2));

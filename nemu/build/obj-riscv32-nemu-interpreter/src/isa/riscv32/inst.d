@@ -23,6 +23,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/ri
     $(wildcard include/config/rv64.h) \
   /home/stoair/NJU-PA-2024/nemu/include/cpu/ifetch.h \
   /home/stoair/NJU-PA-2024/nemu/include/memory/vaddr.h \
+  /home/stoair/NJU-PA-2024/nemu/include/cpu/ftrace.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o)
 

@@ -15,6 +15,7 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
+#include <cpu/ftrace.h>
 
 void init_rand();
 void init_log(const char *log_file);
@@ -44,6 +45,7 @@ void sdb_set_batch_mode();
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
+static char *elf_file = NULL;
 static int difftest_port = 1234;
 
 static long load_img()
@@ -70,15 +72,83 @@ static long load_img()
     return size;
 }
 
+Elf32_Sym *sym_table = NULL;
+char *str_table = NULL;
+int func_num = 0;
+Func func_table[MAX_FUNC_NUM];
+
+static void init_ftrace(char *elf_file)
+{
+    /* open and check the elf_file */
+    FILE *fp = fopen(img_file, "r");
+    Elf32_Ehdr elf_header;
+    if (fread(&elf_header, sizeof(Elf32_Ehdr), 1, fp) != 1)
+        abort();
+    if (!(elf_header.e_ident[0] == 0x7f && elf_header.e_ident[1] == 'E' && elf_header.e_ident[2] == 'L' &&
+          elf_header.e_ident[3] == 'F'))
+    {
+        printf("Invalid ELF file !\n");
+        abort();
+    }
+
+    /* find the section header and store the sym_table and the str_table's position */
+    Elf32_Off sym_offset = 0, str_offset = 0;
+    uint32_t sym_size = 0, str_size = 0;
+    int i;
+    fseek(fp, elf_header.e_shoff, SEEK_SET);
+    for (i = 0; i < elf_header.e_shnum; i++)
+    {
+        Elf32_Shdr shdr;
+        if (fread(&shdr, sizeof(Elf32_Shdr), 1, fp) != 1)
+            abort();
+        if (shdr.sh_type == SHT_SYMTAB)
+        {
+            sym_offset = shdr.sh_offset;
+            sym_size = shdr.sh_size;
+            sym_table = malloc(sym_size);
+        }
+        else if (shdr.sh_type == SHT_STRTAB)
+        {
+            str_offset = shdr.sh_offset;
+            str_size = shdr.sh_size;
+            str_table = malloc(str_size);
+        }
+        else
+            continue;
+    }
+
+    /* find and store the sym_table and str_table */
+    fseek(fp, sym_offset, SEEK_SET);
+    if (fread(sym_table, sym_size, 1, fp) != 1)
+        abort();
+    fseek(fp, str_offset, SEEK_SET);
+    if (fread(str_table, str_size, 1, fp) != 1)
+        abort();
+    for (i = 0; i < sym_size / sizeof(Elf32_Sym); i++)
+    {
+        if (sym_table[i].st_info == STT_FUNC)
+        {
+            sprintf(func_table[func_num].func_name, "%s", &str_table[sym_table[i].st_name]);
+            func_table[func_num].address = sym_table[i].st_value;
+            func_table[func_num].size = sym_table[i].st_size;
+            func_num++;
+        }
+    }
+
+    fclose(fp);
+    return;
+}
+
 static int parse_args(int argc, char *argv[])
 {
     const struct option table[] = {
-        {"batch", no_argument,       NULL, 'b'},
-        {"log",   required_argument, NULL, 'l'},
-        {"diff",  required_argument, NULL, 'd'},
-        {"port",  required_argument, NULL, 'p'},
-        {"help",  no_argument,       NULL, 'h'},
-        {0,       0,                 NULL, 0  },
+        {"batch",  no_argument,       NULL, 'b'},
+        {"log",    required_argument, NULL, 'l'},
+        {"diff",   required_argument, NULL, 'd'},
+        {"port",   required_argument, NULL, 'p'},
+        {"help",   no_argument,       NULL, 'h'},
+        {"ftrace", required_argument, NULL, 'f'},
+        {0,        0,                 NULL, 0  },
     };
     int o;
     while ((o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1)
@@ -96,6 +166,9 @@ static int parse_args(int argc, char *argv[])
             break;
         case 'd':
             diff_so_file = optarg;
+            break;
+        case 'f':
+            elf_file = optarg;
             break;
         case 1:
             img_file = optarg;
@@ -119,6 +192,9 @@ void init_monitor(int argc, char *argv[])
 
     /* Parse arguments. */
     parse_args(argc, argv);
+
+    /* initialize ftrace */
+    init_ftrace(elf_file);
 
     /* Set random seed. */
     init_rand();

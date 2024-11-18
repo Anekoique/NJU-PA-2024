@@ -16,6 +16,7 @@
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
+#include <cpu/ftrace.h>
 #include <locale.h>
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -23,14 +24,14 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 100
-#define IRING_BUFFER_LEN 20
+#define MAX_IRING_BUFFER_LEN 20
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
-static char iring_buffer[IRING_BUFFER_LEN][128];
+static char iring_buffer[MAX_IRING_BUFFER_LEN][128];
 static int iring_position = 0;
 static int iring_inst_num_flag = 0;
 
@@ -117,6 +118,39 @@ static void execute(uint64_t n)
     }
 }
 
+static void show_frace()
+{
+    int indent_level = 0;
+    int i, j, k;
+    for (i = 0; i < ftrace_len; i++)
+    {
+        
+        printf("0x%08x:", ftrace[i].inst_addr);
+        if (ftrace[i].type == CALL) 
+        {
+            for (j = 0; j < indent_level; j++)
+                printf("\t");
+            printf("Call\t[%s@0x%08x]\n", ftrace[i].func_name, ftrace[i].func_addr);
+            indent_level++;
+        }
+        else 
+        {
+            indent_level--;
+            for (j = 0; j < indent_level; j++)
+                printf("\t");
+            for (k = 0; k < ftrace_len; k++)
+            {
+                if (ftrace[i].func_addr == ftrace[k].ret_addr)
+                {
+                    printf("Ret\t[%s]", ftrace[k].func_name);
+                }
+            }
+            indent_level--;
+            
+        }
+    }
+}
+
 static void statistic()
 {
     IFNDEF(CONFIG_TARGET_AM, setlocale(LC_NUMERIC, ""));
@@ -128,6 +162,11 @@ static void statistic()
     else
         Log("Finish running in less than 1 us and can not calculate the simulation frequency");
 }
+
+//static void show_frace()
+//{
+//    for (int i = 0; i < )
+//}
 
 void assert_fail_msg()
 {
@@ -168,11 +207,13 @@ void cpu_exec(uint64_t n)
         if (nemu_state.halt_ret)
         {
             if (iring_inst_num_flag) 
-                for (int i = iring_position; i < IRING_BUFFER_LEN; i++)
+                for (int i = iring_position; i < MAX_IRING_BUFFER_LEN; i++)
                     printf("%s\n", iring_buffer[i]);
             for (int i = 0; i < iring_position; i++)
                 printf("%s\n", iring_buffer[i]);
         }
+
+        show_frace();
 
         Log("nemu: %s at pc = " FMT_WORD,
             (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED)
