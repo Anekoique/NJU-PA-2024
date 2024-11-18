@@ -113,6 +113,7 @@ static void init_ftrace(char *elf_file)
         if (shdr.sh_type == SHT_SYMTAB)
         {
             sym_offset = shdr.sh_offset;
+            printf("offset:%08x\n", sym_offset);
             sym_size = shdr.sh_size;
             sym_table = malloc(sym_size);
         }
