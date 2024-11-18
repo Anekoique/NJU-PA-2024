@@ -118,7 +118,7 @@ static void record_ftrace(Decode *s, word_t rd)
     if (rd == 0) 
     {
         ftr->type = CALL_RET;
-        ftr->inst_addr = s->isa.inst;
+        ftr->inst_addr = R(rd)-4;
         ftr->func_addr = R(rd);
         ftr->ret_addr = 0;
     }
