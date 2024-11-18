@@ -119,7 +119,7 @@ static void record_ftrace(Decode *s, word_t rd)
     {
         ftr->type = CALL_RET;
         ftr->inst_addr = s->pc;
-        ftr->func_addr = R(rd);
+        ftr->func_addr = s->dnpc;
         ftr->ret_addr = 0;
     }
     else 
