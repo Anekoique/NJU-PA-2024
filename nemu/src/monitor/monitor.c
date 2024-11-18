@@ -89,6 +89,7 @@ static void init_ftrace(char *elf_file)
           elf_header.e_ident[3] == 'F'))
     {
         printf("Invalid ELF file !\n");
+        printf("%c%c%c%c", elf_header.e_ident[0], elf_header.e_ident[1],elf_header.e_ident[2], elf_header.e_ident[3]);
         abort();
     }
 
