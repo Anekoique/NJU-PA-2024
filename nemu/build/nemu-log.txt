@@ -8,6 +8,6 @@
 [1;34m[src/monitor/monitor.c:34 welcome] Build time: 16:00:42, Nov 19 2024[0m
 0x80000000: 00 00 02 97 auipc	t0, 0
 [1;34m[src/cpu/cpu-exec.c:213 cpu_exec] nemu: [1;31mABORT[0m at pc = 0x80000000[0m
-[1;34m[src/cpu/cpu-exec.c:158 statistic] host time spent = 191 us[0m
+[1;34m[src/cpu/cpu-exec.c:158 statistic] host time spent = 245 us[0m
 [1;34m[src/cpu/cpu-exec.c:159 statistic] total guest instructions = 1[0m
-[1;34m[src/cpu/cpu-exec.c:161 statistic] simulation frequency = 5,235 inst/s[0m
+[1;34m[src/cpu/cpu-exec.c:161 statistic] simulation frequency = 4,081 inst/s[0m
