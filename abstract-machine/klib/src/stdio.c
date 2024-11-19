@@ -2,7 +2,7 @@
 #include <klib-macros.h>
 #include <klib.h>
 #include <stdarg.h>
-
+#define __NATIVE_USE_KLIB__
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...)
@@ -62,7 +62,7 @@ int sprintf(char *out, const char *fmt, ...)
         }
         else 
         {
-            *buffer++ = *copy++;
+            *buffer++ = *copy;
         }
         copy++;
     }

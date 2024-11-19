@@ -1,7 +1,7 @@
 #include <am.h>
 #include <klib-macros.h>
 #include <klib.h>
-
+#define __NATIVE_USE_KLIB__
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static unsigned long int next = 1;
 
