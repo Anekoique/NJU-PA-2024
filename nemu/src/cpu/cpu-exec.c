@@ -130,7 +130,7 @@ static void show_frace()
         {
             for (j = 0; j < indent_level; j++)
                 printf(" ");
-            printf("Call\t[%s@0x%08x]\n", ftrace[i].func_name, ftrace[i].func_addr);
+            printf("Call : [%s@0x%08x]\n", ftrace[i].func_name, ftrace[i].func_addr);
             indent_level++;
         }
         else 
@@ -142,7 +142,7 @@ static void show_frace()
             {
                 if (ftrace[i].func_addr == ftrace[k].ret_addr)
                 {
-                    printf("Ret\t[%s]\n", ftrace[k].func_name);
+                    printf("Ret : [%s]\n", ftrace[k].func_name);
                     break;
                 }
             }
