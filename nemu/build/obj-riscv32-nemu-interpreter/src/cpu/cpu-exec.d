@@ -9,6 +9,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/cp
     $(wildcard include/config/watchpoint.h) \
     $(wildcard include/config/isa/x86.h) \
     $(wildcard include/config/device.h) \
+    $(wildcard include/config/ftrace.h) \
     $(wildcard include/config/target/am.h) \
   /home/stoair/NJU-PA-2024/nemu/include/cpu/cpu.h \
   /home/stoair/NJU-PA-2024/nemu/include/common.h \

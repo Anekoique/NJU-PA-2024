@@ -134,6 +134,10 @@ config MTRACE
   bool "Activate the memory trace"
   default y
 
+config FTRACE
+  bool "Activate the function trace"
+  default y
+
 config TRACE
   bool "Enable tracer"
   default y

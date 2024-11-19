@@ -117,12 +117,12 @@ static void execute(uint64_t n)
         IFDEF(CONFIG_DEVICE, device_update());
     }
 }
-
+#ifdef CONFIG_FTRACE
 static void show_frace()
 {
     int indent_level = 0;
     int i, j, k;
-    for (i = 0; i < ftrace_len - 100; i++)
+    for (i = 0; i < ftrace_len; i++)
     {
         
         printf("0x%08x:", ftrace[i].inst_addr);
@@ -149,6 +149,7 @@ static void show_frace()
         }
     }
 }
+#endif
 
 static void statistic()
 {
@@ -161,11 +162,6 @@ static void statistic()
     else
         Log("Finish running in less than 1 us and can not calculate the simulation frequency");
 }
-
-//static void show_frace()
-//{
-//    for (int i = 0; i < )
-//}
 
 void assert_fail_msg()
 {
@@ -211,9 +207,9 @@ void cpu_exec(uint64_t n)
             for (int i = 0; i < iring_position; i++)
                 printf("%s\n", iring_buffer[i]);
         }
-
-        show_frace();
-
+        #ifdef CONFIG_FTRACE
+            show_frace();
+        #endif
         Log("nemu: %s at pc = " FMT_WORD,
             (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED)
                                             : (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN)
