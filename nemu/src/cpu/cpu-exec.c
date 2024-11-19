@@ -148,8 +148,6 @@ static void show_frace()
                     break;
                 }
             }
-            indent_level--;
-            
         }
     }
 }
