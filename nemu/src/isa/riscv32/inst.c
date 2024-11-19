@@ -135,7 +135,7 @@ static void record_ftrace(Decode *s, word_t rd)
 
 static void record_ret(Decode *s, word_t rd, word_t src1)
 {
-    if (src1 != 1) return;
+    if (BITS(s->isa.inst, 19, 15) == 1) return;
     else 
     {
         Ftrace *ftr = &ftrace[ftrace_len];
