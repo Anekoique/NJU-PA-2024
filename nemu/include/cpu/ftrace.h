@@ -4,7 +4,7 @@
 #include <isa.h>
 #include <elf.h>
 
-#define MAX_FTRACE_LEN 50
+#define MAX_FTRACE_LEN 200
 #define MAX_FUNC_NUM 40
 #define MAX_FUNC_NAME_LEN 20
 
