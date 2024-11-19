@@ -151,6 +151,7 @@ static void record_ftrace2(Decode *s, word_t rd)
     {
         if (func_table[i].address == s->dnpc)
         {
+            sprintf(ftr->func_name, "%s", func_table[i].func_name);
             ftr->type = CALL;
             ftr->func_addr = s->dnpc;
             ftr->inst_addr = s->pc;
