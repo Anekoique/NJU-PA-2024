@@ -12,7 +12,7 @@ typedef struct Ftrace
 {
     enum
     {
-        CALL = 0,
+        CALL = 1,
         CALL_RET,
     } type;
     vaddr_t inst_addr;
