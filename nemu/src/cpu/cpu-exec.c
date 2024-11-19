@@ -123,6 +123,8 @@ static void show_frace()
     int indent_level = 0;
     int i, j, k;
     for (i = 0; i < ftrace_len; i++)
+        printf("inst_addr : %08x\n", ftrace[i].inst_addr);
+    for (i = 0; i < ftrace_len; i++)
     {
         
         printf("0x%08x:", ftrace[i].inst_addr);
