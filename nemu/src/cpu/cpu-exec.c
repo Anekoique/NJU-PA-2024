@@ -122,6 +122,10 @@ static void show_frace()
 {
     int indent_level = 0;
     int i, j, k;
+    for (i = 0; i < func_num; i++)
+    {
+        printf("%s : 0x%08x", func_table[i].func_name, func_table[i].address);
+    }
     for (i = 0; i < ftrace_len; i++)
     {
         
