@@ -73,7 +73,7 @@ void device_update()
 
 #ifdef CONFIG_TARGET_AM 
 #ifdef CONFIG_HAS_TIMER 
-    current_time = mmio_read(CONFIG_RTC_MMIO, 8)
+    current_time = mmio_read(CONFIG_RTC_MMIO, 8);
 #endif
 #endif
 }
