@@ -70,6 +70,12 @@ void device_update()
         }
     }
 #endif
+
+#ifdef CONFIG_TARGET_AM 
+#ifdef CONFIG_HAS_TIMER 
+    current_time = mmio_read(CONFIG_RTC_MMIO, 8)
+#endif
+#endif
 }
 
 void sdl_clear_event_queue()
