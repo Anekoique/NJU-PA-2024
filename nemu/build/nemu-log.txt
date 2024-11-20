@@ -3,3 +3,6 @@
 [1;34m[src/monitor/monitor.c:55 load_img] No image is given. Use the default build-in image.[0m
 [1;34m[src/cpu/difftest/dut.c:88 init_difftest] Differential testing: [1;32mON[0m[0m
 [1;34m[src/cpu/difftest/dut.c:89 init_difftest] The result of every instruction will be compared with /home/stoair/NJU-PA-2024/nemu/tools/spike-diff/build/riscv32-spike-so. This will help you a lot for debugging, but also significantly reduce the performance. If it is not necessary, you can turn it off in menuconfig.[0m
+[1;34m[src/monitor/monitor.c:30 welcome] Trace: [1;32mON[0m[0m
+[1;34m[src/monitor/monitor.c:31 welcome] If trace is enabled, a log file will be generated to record the trace. This may lead to a large log file. If it is not necessary, you can disable it in menuconfig[0m
+[1;34m[src/monitor/monitor.c:34 welcome] Build time: 16:00:42, Nov 19 2024[0m
