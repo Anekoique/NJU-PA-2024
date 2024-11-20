@@ -118,6 +118,7 @@ extern "C"
 
     __EXPORT void difftest_init(int port)
     {
+        printf("here!");
         difftest_htif_args.push_back("");
         const char *isa = "RV" MUXDEF(CONFIG_RV64, "64", "32") MUXDEF(CONFIG_RVE, "E", "I") "MAFDC";
         cfg_t cfg(/*default_initrd_bounds=*/std::make_pair((reg_t)0, (reg_t)0),
