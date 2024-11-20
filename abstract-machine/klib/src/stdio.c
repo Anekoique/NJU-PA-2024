@@ -7,6 +7,53 @@
 
 int printf(const char *fmt, ...)
 {
+    va_list v;
+    va_start(v, fmt);
+    const char *copy = fmt;
+    const char *arg1;
+    int arg2;
+
+    while (*copy != '\0')
+    {
+        if (*copy == '%')
+        {
+            copy++;
+            switch (*copy)
+            {
+            case 's':
+                arg1 = va_arg(v, char *);
+                while (*arg1 != '\0')
+                {
+                    putch(*arg1);
+                    arg1++;
+                }
+                break;
+            case 'd':
+                arg2 = va_arg(v, int);
+                char num_buffer[34];
+                int i = 0;
+                if (arg2 == 0)
+                    putch('0');
+                else
+                {
+                    while (arg2 > 0)
+                    {
+                        num_buffer[i++] = (arg2 % 10) + '0';
+                        arg2 /= 10;
+                    }
+                }
+
+                for (int j = i - 1; j >= 0; j--)
+                    putch(num_buffer[j]);
+                break;
+            }
+        }
+        else
+        {
+            putch(*copy);
+        }
+        copy++;
+    }
     return 0;
 }
 
@@ -29,38 +76,43 @@ int sprintf(char *out, const char *fmt, ...)
         if (*copy == '%')
         {
             copy++;
-            switch(*copy)
+            switch (*copy)
             {
-                case 's':
-                    arg1 = va_arg(v, char*);
-                    while (*arg1 != '\0')
+            case 's':
+                arg1 = va_arg(v, char *);
+                while (*arg1 != '\0')
+                {
+                    *buffer = *arg1;
+                    buffer++;
+                    arg1++;
+                }
+                break;
+            case 'd':
+                arg2 = va_arg(v, int);
+                char num_buffer[34];
+                int i = 0;
+
+                if (arg2 == 0)
+                {
+                    num_buffer[i++] = '0';
+                }
+                else
+                {
+                    while (arg2 > 0)
                     {
-                        *buffer = *arg1;
-                        buffer++;
-                        arg1++;
+                        num_buffer[i++] = (arg2 % 10) + '0';
+                        arg2 /= 10;
                     }
-                    break;
-                case 'd':
-                    arg2 = va_arg(v, int);
-                    char num_buffer[34];
-                    int i = 0;
+                }
 
-                    if (arg2 == 0) {
-                        num_buffer[i++] = '0';
-                    } else {
-                        while (arg2 > 0) {
-                            num_buffer[i++] = (arg2 % 10) + '0';
-                            arg2 /= 10;
-                        }
-                    }
-
-                    for (int j = i - 1; j >= 0; j--) {
-                        *buffer++ = num_buffer[j];
-                    }
-                    break;
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    *buffer++ = num_buffer[j];
+                }
+                break;
             }
         }
-        else 
+        else
         {
             *buffer++ = *copy;
         }
