@@ -3,10 +3,9 @@ cmd_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/ris
 source_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/dut.o := src/isa/riscv32/difftest/dut.c
 
 deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/dut.o := \
-  /home/stoair/NJU-PA-2024/nemu/include/isa.h \
-  /home/stoair/NJU-PA-2024/nemu/src/isa/riscv32/include/isa-def.h \
+  src/isa/riscv32/difftest/../local-include/reg.h \
+    $(wildcard include/config/rt/check.h) \
     $(wildcard include/config/rve.h) \
-    $(wildcard include/config/rv64.h) \
   /home/stoair/NJU-PA-2024/nemu/include/common.h \
     $(wildcard include/config/target/am.h) \
     $(wildcard include/config/mbase.h) \
@@ -22,9 +21,10 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/ri
     $(wildcard include/config/isa/x86.h) \
     $(wildcard include/config/isa/mips32.h) \
     $(wildcard include/config/isa/riscv.h) \
+    $(wildcard include/config/rv64.h) \
     $(wildcard include/config/isa/loongarch32r.h) \
-  src/isa/riscv32/difftest/../local-include/reg.h \
-    $(wildcard include/config/rt/check.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/isa.h \
+  /home/stoair/NJU-PA-2024/nemu/src/isa/riscv32/include/isa-def.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/dut.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/dut.o)
 
