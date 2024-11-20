@@ -7,6 +7,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device
     $(wildcard include/config/has/port/io.h) \
     $(wildcard include/config/rtc/port.h) \
     $(wildcard include/config/rtc/mmio.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/device/alarm.h \
   /home/stoair/NJU-PA-2024/nemu/include/device/map.h \
   /home/stoair/NJU-PA-2024/nemu/include/cpu/difftest.h \
     $(wildcard include/config/difftest.h) \
@@ -25,7 +26,6 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device
     $(wildcard include/config/rv64.h) \
     $(wildcard include/config/rve.h) \
     $(wildcard include/config/isa/loongarch32r.h) \
-  /home/stoair/NJU-PA-2024/nemu/include/device/alarm.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device/timer.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device/timer.o)
 
