@@ -1,7 +1,7 @@
 #include <am.h>
 #include <nemu.h>
 
-static uint32_t boot_time;
+static uint32_t boot_time = 0;
 
 void __am_timer_init()
 {
