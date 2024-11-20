@@ -44,7 +44,9 @@ static void timer_intr()
 void init_timer()
 {
     rtc_port_base = (uint32_t *)new_space(8);
-    rtc_io_handler(4, 0, false);
+    uint64_t us = get_time();
+    rtc_port_base[0] = (uint32_t)us;
+    rtc_port_base[1] = us >> 32;
 #ifdef CONFIG_HAS_PORT_IO
     add_pio_map("rtc", CONFIG_RTC_PORT, rtc_port_base, 8, rtc_io_handler);
 #else

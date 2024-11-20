@@ -33,12 +33,16 @@ void init_alarm();
 void send_key(uint8_t, bool);
 void vga_update_screen();
 
+void mmio_read(paddr_t, int);
+void mmio_write(paddr_t, int, word_t);
+
 void device_update()
 {
     static uint64_t last = 0;
     uint64_t now = get_time();
     if (now - last < 1000000 / TIMER_HZ)
     {
+        mmio_write(CONFIG_RTC_MMIO, 8, now);
         return;
     }
     last = now;
@@ -69,12 +73,6 @@ void device_update()
             break;
         }
     }
-#endif
-
-#ifdef CONFIG_TARGET_AM 
-#ifdef CONFIG_HAS_TIMER 
-    current_time = mmio_read(CONFIG_RTC_MMIO, 8);
-#endif
 #endif
 }
 
