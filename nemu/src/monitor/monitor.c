@@ -213,7 +213,7 @@ void init_monitor(int argc, char *argv[])
     parse_args(argc, argv);
 
     /* initialize ftrace */
-#ifdef CONFIG_TRACE
+#ifdef CONFIG_FTRACE
     init_ftrace(elf_file);
 #endif
 
