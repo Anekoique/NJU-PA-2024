@@ -16,7 +16,7 @@ typedef struct Ftrace
         CALL_RET,
     } type;
     vaddr_t inst_addr;
-    char func_name[20];
+    char func_name[MAX_FUNC_NAME_LEN];
     vaddr_t func_addr;
     vaddr_t ret_addr;
 

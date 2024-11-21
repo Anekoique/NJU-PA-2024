@@ -46,7 +46,6 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     {
         log_write("%s\n", _this->logbuf);
     }
-#endif
     if (iring_position == 20) 
     {
         iring_inst_num_flag = 1;
@@ -59,6 +58,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     {
         IFDEF(CONFIG_ITRACE, puts(_this->logbuf));
     }
+#endif
     IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 #ifdef CONFIG_WATCHPOINT
     if (CONFIG_WATCHPOINT)
