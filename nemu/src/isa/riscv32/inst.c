@@ -80,7 +80,7 @@ enum
         *imm = (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7);                                                       \
     } while (0)
 
-static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, int type)
+static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, word_t *shamt, int type)
 {
     uint32_t i = s->isa.inst;
     int rs1 = BITS(i, 19, 15);
@@ -91,6 +91,7 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
     case TYPE_I:
         src1R();
         immI();
+        *shamt = rs2;
         break;
     case TYPE_U:
         immU();
@@ -157,8 +158,8 @@ static int decode_exec(Decode *s)
     {                                                                                                                  \
         int rd = 0;                                                                                                    \
         executed_inst++;                                                                                               \
-        word_t src1 = 0, src2 = 0, imm = 0;                                                                            \
-        decode_operand(s, &rd, &src1, &src2, &imm, concat(TYPE_, type));                                               \
+        word_t src1 = 0, src2 = 0, imm = 0, shamt = 0;                                                                            \
+        decode_operand(s, &rd, &src1, &src2, &imm, &shamt, concat(TYPE_, type));                                               \
         __VA_ARGS__;                                                                                                   \
     }
 
@@ -172,8 +173,8 @@ static int decode_exec(Decode *s)
     INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi, I, R(rd) = src1 + imm);
     INSTPAT("??????? ????? ????? 100 ????? 00100 11", xor, I, R(rd) = src1 ^ imm);
     INSTPAT("??????? ????? ????? 110 ????? 00100 11", ori, I, R(rd) = src1 | imm);
-    INSTPAT("000000? ????? ????? 001 ????? 00100 11", slli, I, R(rd) = src1 << SEXT(BITS(imm, 4, 0), 5));
-    INSTPAT("0000000 ????? ????? 101 ????? 00100 11", srli, I, R(rd) = src1 >> SEXT(BITS(imm, 4, 0), 5));
+    INSTPAT("000000? ????? ????? 001 ????? 00100 11", slli, I, R(rd) = src1 << shamt);
+    INSTPAT("0000000 ????? ????? 101 ????? 00100 11", srli, I, R(rd) = src1 >> shamt);
     INSTPAT("0100000 ????? ????? 101 ????? 00100 11", srai, I, R(rd) = (int32_t)src1 >> imm);
     INSTPAT("??????? ????? ????? 011 ????? 00100 11", sltiu, I, R(rd) = src1 < imm);
     INSTPAT("??????? ????? ????? 111 ????? 00100 11", andi, I, R(rd) = src1 & imm);
