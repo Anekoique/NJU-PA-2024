@@ -25,8 +25,11 @@
 #define Mw vaddr_write
 
 static int executed_inst = 0;
+
+#ifdef CONFIG_FTRACE
 int ftrace_len = 0;
 Ftrace ftrace[MAX_FTRACE_LEN];
+#endif
 
 enum
 {
@@ -111,38 +114,6 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
         panic("unsupported type = %d", type);
     }
 }
-
-//static void record_ftrace(Decode *s, word_t rd)
-//{
-//    Ftrace *ftr = &ftrace[ftrace_len];
-//    if (rd == 0) 
-//    {
-//        ftr->type = CALL_RET;
-//        ftr->inst_addr = s->pc;
-//        ftr->func_addr = s->dnpc;
-//        ftr->ret_addr = 0;
-//    }
-//    else 
-//    {
-//        vaddr_t func_addr = s->dnpc;
-//        ftr->func_addr = func_addr;
-//        ftr->type = CALL;
-//        ftr->inst_addr = s->pc;
-//        ftr->ret_addr = R(rd);
-//
-//        for (int i = 0; i < func_num; i++)
-//        {
-//            if (func_table[i].address == func_addr)
-//            {
-//                sprintf(ftr->func_name, "%s", func_table[i].func_name);
-//                break;
-//            }
-//        }
-//    }
-//
-//    ftrace_len++;
-//    return ;
-//}
 
 #ifdef CONFIG_FTRACE
 static void record_ftrace2(Decode *s, word_t rd)

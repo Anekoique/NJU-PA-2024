@@ -72,12 +72,13 @@ static long load_img()
     return size;
 }
 
+
+#ifdef CONFIG_FTRACE
 Elf32_Sym *sym_table = NULL;
 char *str_table = NULL;
 int func_num = 0;
 Func func_table[MAX_FUNC_NUM];
 
-#ifdef CONFIG_FTRACE
 static void init_ftrace(char *elf_file)
 {
     if (elf_file == NULL)
