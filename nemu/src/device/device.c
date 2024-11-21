@@ -41,7 +41,7 @@ word_t boot_time = 0;
 void device_update()
 {
     // static uint64_t last = 0;
-    if (!boot_time) mmio_read(CONFIG_RTC_MMIO, 4);
+    if (!boot_time) boot_time = mmio_read(CONFIG_RTC_MMIO, 4);
     uint64_t now = get_time();
     if (now - boot_time < 1000000 / TIMER_HZ)
     {
