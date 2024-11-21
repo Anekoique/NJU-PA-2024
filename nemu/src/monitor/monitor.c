@@ -77,6 +77,7 @@ char *str_table = NULL;
 int func_num = 0;
 Func func_table[MAX_FUNC_NUM];
 
+#ifdef CONFIG_FTRACE
 static void init_ftrace(char *elf_file)
 {
     if (elf_file == NULL)
@@ -155,6 +156,7 @@ static void init_ftrace(char *elf_file)
     fclose(fp);
     return;
 }
+#endif
 
 static int parse_args(int argc, char *argv[])
 {
@@ -211,7 +213,9 @@ void init_monitor(int argc, char *argv[])
     parse_args(argc, argv);
 
     /* initialize ftrace */
+#ifdef CONFIG_TRACE
     init_ftrace(elf_file);
+#endif
 
     /* Set random seed. */
     init_rand();

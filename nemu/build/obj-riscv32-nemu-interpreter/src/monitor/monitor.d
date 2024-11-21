@@ -5,6 +5,7 @@ source_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/moni
 deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/monitor.o := \
     $(wildcard include/config/trace.h) \
     $(wildcard include/config/target/am.h) \
+    $(wildcard include/config/ftrace.h) \
     $(wildcard include/config/device.h) \
     $(wildcard include/config/itrace.h) \
   /home/stoair/NJU-PA-2024/nemu/include/cpu/ftrace.h \
