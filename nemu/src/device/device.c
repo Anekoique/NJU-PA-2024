@@ -33,21 +33,19 @@ void init_alarm();
 void send_key(uint8_t, bool);
 void vga_update_screen();
 
-word_t mmio_read(paddr_t, int);
+void mmio_read(paddr_t, int);
 void mmio_write(paddr_t, int, word_t);
-
-word_t boot_time = 0;
 
 void device_update()
 {
-    // static uint64_t last = 0;
-    if (!boot_time) boot_time = mmio_read(CONFIG_RTC_MMIO, 4);
+    static uint64_t last = 0;
     uint64_t now = get_time();
-    if (now - boot_time < 1000000 / TIMER_HZ)
+    if (now - last < 1000000 / TIMER_HZ)
     {
         mmio_write(CONFIG_RTC_MMIO, 4, now);
         return;
     }
+    last = now;
 
     IFDEF(CONFIG_HAS_VGA, vga_update_screen());
 
