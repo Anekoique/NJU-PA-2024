@@ -4,6 +4,7 @@
 #define __NATIVE_USE_KLIB__
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 static unsigned long int next = 1;
+static char *heap_pos;
 
 int rand(void)
 {
@@ -45,7 +46,15 @@ void *malloc(size_t size)
 #if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
     panic("Not implemented");
 #endif
-    return NULL;
+    size = (size_t)ROUNDUP(size, 8);
+    char *old = heap_pos;
+    heap_pos += size;
+    assert((uintptr_t)heap.start <= (uintptr_t)heap_pos && (uintptr_t)heap_pos < (uintptr_t)heap.end);
+    for (uint32_t *p = (uint32_t *)old; p != (uint32_t *)heap_pos; p++)
+    {
+        *p = 0;
+    }
+    return old;
 }
 
 void free(void *ptr)
