@@ -28,6 +28,10 @@ int printf(const char *fmt, ...)
                     arg1++;
                 }
                 break;
+            case 'c':
+                arg2 = va_arg(v, int);
+                putch(arg2);
+                return 0;
             case 'd':
                 arg2 = va_arg(v, int);
                 char num_buffer[34];
