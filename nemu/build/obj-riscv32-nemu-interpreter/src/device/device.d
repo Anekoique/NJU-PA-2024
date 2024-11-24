@@ -7,7 +7,6 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device
     $(wildcard include/config/rtc/mmio.h) \
     $(wildcard include/config/has/vga.h) \
     $(wildcard include/config/has/keyboard.h) \
-    $(wildcard include/config/i8042/data/mmio.h) \
     $(wildcard include/config/has/serial.h) \
     $(wildcard include/config/has/timer.h) \
     $(wildcard include/config/has/audio.h) \
