@@ -42,7 +42,7 @@ void device_update()
     uint64_t now = get_time();
     if (now - last < 1000000 / TIMER_HZ)
     {
-        mmio_write(CONFIG_RTC_MMIO, 4, now);
+        //mmio_write(CONFIG_RTC_MMIO, 4, now);
         return;
     }
     last = now;
