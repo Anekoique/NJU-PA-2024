@@ -73,6 +73,7 @@ void send_key(uint8_t scancode, bool is_keydown)
     if (nemu_state.state == NEMU_RUNNING && keymap[scancode] != NEMU_KEY_NONE)
     {
         uint32_t am_scancode = keymap[scancode] | (is_keydown ? KEYDOWN_MASK : 0);
+        printf("%d\n", am_scancode);
         key_enqueue(am_scancode);
     }
 }
@@ -94,7 +95,6 @@ static void i8042_data_io_handler(uint32_t offset, int len, bool is_write)
     assert(!is_write);
     assert(offset == 0);
     i8042_data_port_base[0] = key_dequeue();
-    printf("here\n");
 }
 
 void init_i8042()
