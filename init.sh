@@ -44,7 +44,7 @@ case $1 in
     ;;
   abstract-machine)
     init NJU-ProjectN/abstract-machine ics2024 abstract-machine true AM_HOME
-    init NJU-ProjectN/fceux-am ics2021 fceux-am false
+    init NJU-ProjectN/fceux-am ics2021 fceux-am true
     ;;
   am-kernels)
     init NJU-ProjectN/am-kernels ics2021 am-kernels false
