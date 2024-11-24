@@ -9,5 +9,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
     kbd->keycode = AM_KEY_NONE;
     uint8_t am_scancode = inl(KBD_ADDR);
     (am_scancode & KEYDOWN_MASK) == KEYDOWN_MASK ? kbd->keydown = 1 : 0;
-    kbd->keycode = am_scancode & 0x7888;
+    kbd->keycode = am_scancode & 0x7fff;
 }
