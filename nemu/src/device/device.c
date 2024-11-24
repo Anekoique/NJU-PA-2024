@@ -68,12 +68,13 @@ void device_update()
         //    mmio_read(CONFIG_I8042_DATA_MMIO, 4);
         //    break;
         //}
+            mmio_read(CONFIG_I8042_DATA_MMIO, 4);
+            break;
         case SDL_KEYUP:
         {
             uint8_t k = event.key.keysym.scancode;
             bool is_keydown = (event.key.type == SDL_KEYDOWN);
             send_key(k, is_keydown);
-            mmio_read(CONFIG_I8042_DATA_MMIO, 4);
             break;
         }
 #endif
