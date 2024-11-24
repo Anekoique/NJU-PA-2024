@@ -9,7 +9,10 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
     kbd->keydown = 0;
     kbd->keycode = AM_KEY_NONE;
     uint32_t am_scancode = inl(KBD_ADDR);
-    printf("%d\n", am_scancode);
-    kbd->keydown = (am_scancode & KEYDOWN_MASK ? true : false);
-    kbd->keycode = am_scancode & ~KEYDOWN_MASK;
+    if (am_scancode != 0)
+    {
+        printf("%d\n", am_scancode);
+        kbd->keydown = (am_scancode & KEYDOWN_MASK ? true : false);
+        kbd->keycode = am_scancode & ~KEYDOWN_MASK;
+    }
 }
