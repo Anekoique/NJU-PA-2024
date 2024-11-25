@@ -43,9 +43,9 @@ void *malloc(size_t size)
     // On native, malloc() will be called during initializaion of C runtime.
     // Therefore do not call panic() here, else it will yield a dead recursion:
     //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
-//#if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
-    //panic("Not implemented");
-//#endif
+#if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
+    panic("Not implemented");
+#endif
     if (heap_pos == NULL) heap_pos = (void*)ROUNDUP(heap.start, 8);
     size = (size_t)ROUNDUP(size, 8);
     char *old = heap_pos;
