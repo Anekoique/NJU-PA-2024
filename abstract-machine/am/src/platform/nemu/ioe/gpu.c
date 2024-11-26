@@ -10,8 +10,8 @@ static int width = 0;
 
 void __am_gpu_init() {
     int i;
-    int w = io_read(AM_GPU_CONFIG).width / N;  // TODO: get the correct width
-    int h = io_read(AM_GPU_CONFIG).height / N;  // TODO: get the correct width
+    int w = io_read(AM_GPU_CONFIG).width;  // TODO: get the correct width
+    int h = io_read(AM_GPU_CONFIG).height;  // TODO: get the correct width
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
     for (i = 0; i < w * h; i ++) fb[i] = i;
     outl(SYNC_ADDR, 1);
@@ -30,16 +30,16 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
     {
         outl(SYNC_ADDR, 1);
     }
-    //else 
-    //{
-    //    for (int y = ctl->y; y < ctl->h + ctl->y; y++)
-    //    {
-    //        for (int x = ctl->x; x < ctl->w + ctl->x; x++)
-    //        {
-    //            outl(FB_ADDR + y * width + x, ((uint32_t *)ctl->pixels)[0]);
-    //        }
-    //    }
-    //}
+    else 
+    {
+        for (int y = ctl->y; y < ctl->h + ctl->y; y++)
+        {
+            for (int x = ctl->x; x < ctl->w + ctl->x; x++)
+            {
+                outl(FB_ADDR + y * width + x, ((uint32_t *)ctl->pixels)[0]);
+            }
+        }
+    }
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status)
