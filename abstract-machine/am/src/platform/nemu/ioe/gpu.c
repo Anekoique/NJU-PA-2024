@@ -32,12 +32,11 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
     }
     else 
     {
-        int i = 0;
         for (int y = ctl->y; y < ctl->h + ctl->y; y++)
         {
             for (int x = ctl->x; x < ctl->w + ctl->x; x++)
             {
-                outl(FB_ADDR + y * width + x, ((uint32_t *)ctl->pixels)[i++]);
+                outl(FB_ADDR + y * width + x, ((uint32_t *)ctl->pixels)[0]);
             }
         }
     }
