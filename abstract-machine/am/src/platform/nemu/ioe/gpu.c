@@ -37,7 +37,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
         {
             for (int x = ctl->x; x < ctl->w + ctl->x; x++)
             {
-                fb[y * ctl->w * N + x] = ((uint32_t *)ctl->pixels)[0];
+                fb[y * width + x] = ((uint32_t *)ctl->pixels)[0];
             }
         }
     }
