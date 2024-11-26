@@ -30,16 +30,16 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
     {
         outl(SYNC_ADDR, 1);
     }
-    else 
-    {
-        for (int y = ctl->y; y < ctl->h + ctl->y; y++)
-        {
-            for (int x = ctl->x; x < ctl->w + ctl->x; x++)
-            {
-                outl(FB_ADDR + y * width + x, ((uint32_t *)ctl->pixels)[0]);
-            }
-        }
-    }
+    //else 
+    //{
+    //    for (int y = ctl->y; y < ctl->h + ctl->y; y++)
+    //    {
+    //        for (int x = ctl->x; x < ctl->w + ctl->x; x++)
+    //        {
+    //            outl(FB_ADDR + y * width + x, ((uint32_t *)ctl->pixels)[0]);
+    //        }
+    //    }
+    //}
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status)
