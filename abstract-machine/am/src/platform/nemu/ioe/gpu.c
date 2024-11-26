@@ -5,6 +5,9 @@
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 #define N 32
 
+static int height = 0;
+static int width = 0;
+
 void __am_gpu_init() {
     int i;
     int w = io_read(AM_GPU_CONFIG).width / N;  // TODO: get the correct width
@@ -16,8 +19,8 @@ void __am_gpu_init() {
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg)
 {
     uint32_t code = inl(VGACTL_ADDR);
-    int height = code & 0xffff;
-    int width = (code >> 16) & 0xffff;
+    height = code & 0xffff;
+    width = (code >> 16) & 0xffff;
     *cfg = (AM_GPU_CONFIG_T){.present = true, .has_accel = false, .width = width, .height = height, .vmemsz = width * height};
 }
 
@@ -29,7 +32,6 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
     }
     else 
     {
-        int width = ctl->w * N;
         int i = 0;
         for (int y = ctl->y; y < ctl->h + ctl->y; y++)
         {
