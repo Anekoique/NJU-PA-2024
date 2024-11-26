@@ -18,8 +18,6 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg)
     uint32_t code = inl(VGACTL_ADDR);
     int height = code & 0xffff;
     int width = (code >> 16) & 0xffff;
-    printf("height : %d\n", height);
-    printf("width : %d\n", width);
     *cfg = (AM_GPU_CONFIG_T){.present = true, .has_accel = false, .width = width, .height = height, .vmemsz = width * height};
 }
 
