@@ -38,7 +38,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
                 outl(FB_ADDR + y * width + x, ((uint32_t *)ctl->pixels)[i++]);
             }
         }
-        printf("%d\n", i);
+        printf("%d\n", width);
     }
 }
 
