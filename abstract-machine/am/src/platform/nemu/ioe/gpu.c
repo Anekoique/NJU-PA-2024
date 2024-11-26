@@ -9,19 +9,15 @@ static int height = 0;
 static int width = 0;
 
 void __am_gpu_init() {
-    int i;
-    int w = io_read(AM_GPU_CONFIG).width;  // TODO: get the correct width
-    int h = io_read(AM_GPU_CONFIG).height;  // TODO: get the correct width
-    uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-    for (i = 0; i < w * h; i ++) fb[i] = i;
-    outl(SYNC_ADDR, 1);
+    width = io_read(AM_GPU_CONFIG).width;  // TODO: get the correct width
+    height = io_read(AM_GPU_CONFIG).height;  // TODO: get the correct width
 }
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg)
 {
     uint32_t code = inl(VGACTL_ADDR);
-    height = code & 0xffff;
-    width = (code >> 16) & 0xffff;
-    *cfg = (AM_GPU_CONFIG_T){.present = true, .has_accel = false, .width = width, .height = height, .vmemsz = width * height};
+    int h= code & 0xffff;
+    int w= (code >> 16) & 0xffff;
+    *cfg = (AM_GPU_CONFIG_T){.present = true, .has_accel = false, .width = w, .height = h, .vmemsz = width * height};
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
