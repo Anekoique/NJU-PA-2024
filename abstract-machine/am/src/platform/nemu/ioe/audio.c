@@ -44,8 +44,6 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
     printf("len : %d\n", len);
     while (len > inl(AUDIO_SBUF_SIZE_ADDR) - count)
     {
-        printf("AUDIO_SBUF_SIZE : %d\n", inl(AUDIO_SBUF_SIZE_ADDR));
-        printf("AUDIO_FREQ_ADDR : %d\n", inl(AUDIO_FREQ_ADDR));
         count = io_read(AM_AUDIO_STATUS).count;
     }
 
