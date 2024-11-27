@@ -73,7 +73,6 @@ static void open_audio()
     SDL_InitSubSystem(SDL_INIT_AUDIO);
     Assert(SDL_OpenAudio(&s, NULL) >= 0, "Unable to open audio subsystem!\n");
     audio_base[reg_sbuf_size] = s.size;
-    printf("size : %d\n", s.size);
     SDL_PauseAudio(0);
 }
 
