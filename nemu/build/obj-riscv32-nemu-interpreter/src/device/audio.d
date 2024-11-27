@@ -3,10 +3,10 @@ cmd_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device/
 source_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device/audio.o := src/device/audio.c
 
 deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/device/audio.o := \
+    $(wildcard include/config/sb/size.h) \
     $(wildcard include/config/has/port/io.h) \
     $(wildcard include/config/audio/ctl/port.h) \
     $(wildcard include/config/audio/ctl/mmio.h) \
-    $(wildcard include/config/sb/size.h) \
     $(wildcard include/config/sb/addr.h) \
   /home/stoair/NJU-PA-2024/nemu/include/common.h \
     $(wildcard include/config/target/am.h) \

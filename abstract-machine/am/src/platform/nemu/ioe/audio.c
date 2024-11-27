@@ -46,11 +46,13 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
         count = io_read(AM_AUDIO_STATUS).count;
     }
 
-    //sb = (uint8_t *)((uintptr_t)AUDIO_SBUF_ADDR + io_read(AM_AUDIO_STATUS).count);
+    sb = (uint8_t *)((uintptr_t)AUDIO_SBUF_ADDR + io_read(AM_AUDIO_STATUS).count);
     for (uint8_t *i = ctl->buf.start; i < (uint8_t *)(ctl->buf.end); i++)
     {
         *sb = *i;
         sb++;
+        if (sb > (uint8_t *)((uintptr_t)AUDIO_SBUF_ADDR + AUDIO_SBUF_SIZE))
+            sb = (uint8_t *)(uintptr_t)AUDIO_SBUF_ADDR;
     }
 
     outl(AUDIO_COUNT_ADDR, count + len);
