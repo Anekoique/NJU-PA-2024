@@ -50,7 +50,7 @@ void audio_callback(void *userdata, Uint8 *stream, int len)
         *sptr = *rptr;
         sptr++;
         rptr++;
-        if (rptr > sbuf + CONFIG_SB_SIZE)
+        if (rptr >= sbuf + CONFIG_SB_SIZE)
             rptr = sbuf;
     }
 
