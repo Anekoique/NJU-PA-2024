@@ -41,7 +41,6 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
 
 void audio_callback(void *userdata, Uint8 *stream, int len)
 {
-    printf("%p\n", sbuf + CONFIG_SB_SIZE);
     Uint8 *sptr = stream;
     int nread = len;
     if (audio_base[reg_count] < len)
@@ -100,5 +99,4 @@ void init_audio()
     sbuf = (uint8_t *)new_space(CONFIG_SB_SIZE);
     add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE, NULL);
     rptr = sbuf;
-    printf("%p\n", rptr);
 }
