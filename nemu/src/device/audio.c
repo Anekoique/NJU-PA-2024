@@ -41,7 +41,6 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write)
 
 void audio_callback(void *userdata, Uint8 *stream, int len)
 {
-    printf("here\n");
     Uint8 *sptr = stream;
     int nread = len;
     if (audio_base[reg_count] < len)
