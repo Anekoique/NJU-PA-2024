@@ -32,6 +32,7 @@ void init_alarm();
 
 void send_key(uint8_t, bool);
 void vga_update_screen();
+void audio_update();
 
 void mmio_read(paddr_t, int);
 void mmio_write(paddr_t, int, word_t);
@@ -47,6 +48,7 @@ void device_update()
     last = now;
 
     IFDEF(CONFIG_HAS_VGA, vga_update_screen());
+    IFDEF(CONFIG_HAS_AUDIO, audio_update());
 
 #ifndef CONFIG_TARGET_AM
     SDL_Event event;

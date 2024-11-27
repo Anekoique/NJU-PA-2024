@@ -30,30 +30,58 @@ enum
 
 static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
-//static SDL_AudioSpec s = {};
+static SDL_AudioSpec s = {};
+
+static uint8_t *rptr;
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
+    return;
 }
 
-//void audio_callback(void *userdata, Uint8 *stream, int len)
-//{
-//
-//}
-//
-//static void open_audio()
-//{
-//    s.format = AUDIO_S16SYS;
-//    s.userdata = NULL;
-//    s.freq = 0;
-//    s.samples = 8192;
-//    s.channels = 0;
-//    s.callback = audio_callback;
-//
-//    SDL_InitSubSystem(SDL_INIT_AUDIO);
-//    Assert(SDL_OpenAudio(&s, NULL) < 0, "Unable to open audio subsystem!\n");
-//    SDL_PauseAudio(0);
-//}
+void audio_callback(void *userdata, Uint8 *stream, int len)
+{
+    Uint8 *sptr = stream;
+    int nread = len;
+    if (audio_base[reg_count] < len)
+        nread = audio_base[reg_count];
+    for (int i = 0; i < nread; i++)
+    {
+        *sptr = *rptr;
+        sptr++;
+        rptr++;
+    }
+
+    audio_base[reg_count] -= nread;
+    if (len > nread)
+    {
+        memset(stream + nread, 0, len - nread);
+    }
+}
+
+static void open_audio()
+{
+    s.format = AUDIO_S16SYS;
+    s.userdata = NULL;
+    s.freq = audio_base[reg_freq];
+    s.samples = audio_base[reg_samples];
+    s.channels = audio_base[reg_channels];
+    s.callback = audio_callback;
+
+    SDL_InitSubSystem(SDL_INIT_AUDIO);
+    Assert(SDL_OpenAudio(&s, NULL) < 0, "Unable to open audio subsystem!\n");
+    audio_base[reg_sbuf_size] = s.size;
+    SDL_PauseAudio(0);
+}
+
+void audio_update()
+{
+    if (audio_base[reg_init] == 1)
+    {
+        open_audio();
+        audio_base[reg_init] = 0;
+    }
+}
 
 void init_audio()
 {
@@ -67,4 +95,5 @@ void init_audio()
 
     sbuf = (uint8_t *)new_space(CONFIG_SB_SIZE);
     add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE, NULL);
+    rptr = sbuf;
 }
