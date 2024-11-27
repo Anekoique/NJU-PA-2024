@@ -36,7 +36,7 @@ static uint8_t *rptr;
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write)
 {
-    return;
+    audio_base[reg_sbuf_size] = s.size;
 }
 
 void audio_callback(void *userdata, Uint8 *stream, int len)
