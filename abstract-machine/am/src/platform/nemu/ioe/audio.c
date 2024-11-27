@@ -42,6 +42,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
     int count = io_read(AM_AUDIO_STATUS).count;
 
     printf("len : %d\n", len);
+    printf("buffersize : %d\n", AUDIO_SBUF_SIZE);
     while (len > inl(AUDIO_SBUF_SIZE_ADDR) - count)
     {
         count = io_read(AM_AUDIO_STATUS).count;
