@@ -54,7 +54,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
         if (sb > (uint8_t *)((uintptr_t)AUDIO_SBUF_ADDR + AUDIO_SBUF_SIZE))
             sb = (uint8_t *)(uintptr_t)AUDIO_SBUF_ADDR;
     }
-    printf("%p\n", (uint8_t *)((uintptr_t)AUDIO_SBUF_ADDR + AUDIO_SBUF_SIZE));
+    printf("%p\n", *(uint8_t *)((uintptr_t)AUDIO_SBUF_ADDR + AUDIO_SBUF_SIZE));
 
     outl(AUDIO_COUNT_ADDR, count + len);
 }
