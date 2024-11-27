@@ -40,9 +40,9 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl)
 {
     uint32_t len = ctl->buf.end - ctl->buf.start;
     int count = io_read(AM_AUDIO_STATUS).count;
+    printf("AUDIO_SBUF_SIZE : %d\n", inl(AUDIO_SBUF_SIZE_ADDR));
     while (len > inl(AUDIO_SBUF_SIZE_ADDR) - count) {
         count = io_read(AM_AUDIO_STATUS).count;
-        printf("current\n");
     }
 
     sb = (uint8_t *)((uintptr_t)AUDIO_SBUF_ADDR + io_read(AM_AUDIO_STATUS).count);
