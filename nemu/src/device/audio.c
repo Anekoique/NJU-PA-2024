@@ -69,6 +69,7 @@ static void open_audio()
     s.callback = audio_callback;
 
     SDL_InitSubSystem(SDL_INIT_AUDIO);
+    Assert(1, "111111111\n");
     Assert(SDL_OpenAudio(&s, NULL) < 0, "Unable to open audio subsystem!\n");
     audio_base[reg_sbuf_size] = s.size;
     SDL_PauseAudio(0);
