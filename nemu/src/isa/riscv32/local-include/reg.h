@@ -41,6 +41,7 @@ static inline const int  map_addr2idx(word_t addr)
     else if (addr == 0x303) return 3;
     else 
     {
+        printf("0x%x\n", addr);
         printf("INVALID CSR !\n");
         abort();
     }
