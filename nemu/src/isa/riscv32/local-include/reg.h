@@ -25,11 +25,25 @@ static inline int check_reg_idx(int idx)
 }
 
 #define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
+#define csr(addr) (cpu.csr[map_addr2idx(addr)])
 
 static inline const char *reg_name(int idx)
 {
     extern const char *regs[];
     return regs[check_reg_idx(idx)];
+}
+
+static inline const int  map_addr2idx(word_t addr)
+{
+    if (addr == 0x342) return 0;
+    else if (addr == 0x300) return 1;
+    else if (addr == 0x341) return 2;
+    else if (addr == 0x303) return 3;
+    else 
+    {
+        printf("INVALID CSR !\n");
+        abort();
+    }
 }
 
 #endif

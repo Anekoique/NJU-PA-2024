@@ -53,3 +53,8 @@ __attribute__((noinline)) void invalid_inst(vaddr_t thispc)
 
     set_nemu_state(NEMU_ABORT, thispc, -1);
 }
+
+void raise_intr(vaddr_t thispc, vaddr_t *nextpc)
+{
+    *nextpc = isa_raise_intr(11, thispc);
+}
