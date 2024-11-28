@@ -38,7 +38,7 @@ static inline const int  map_addr2idx(word_t addr)
     if (addr == 0x342) return 0;
     else if (addr == 0x300) return 1;
     else if (addr == 0x341) return 2;
-    else if (addr == 0x303) return 3;
+    else if (addr == 0x305) return 3;
     else 
     {
         printf("0x%x\n", addr);
