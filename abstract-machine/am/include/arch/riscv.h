@@ -7,10 +7,11 @@
 #define NR_REGS 32
 #endif
 
-struct Context {
-  // TODO: fix the order of these members to match trap.S
-  uintptr_t mepc, mcause, gpr[NR_REGS], mstatus;
-  void *pdir;
+struct Context
+{
+    // TODO: fix the order of these members to match trap.S
+    uintptr_t mepc, mcause, gpr[NR_REGS], mstatus;
+    void *pdir;
 };
 
 #ifdef __riscv_e
