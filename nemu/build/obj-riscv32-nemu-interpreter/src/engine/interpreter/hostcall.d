@@ -3,6 +3,7 @@ cmd_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/engine/
 source_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o := src/engine/interpreter/hostcall.c
 
 deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o := \
+    $(wildcard include/config/etrace.h) \
   /home/stoair/NJU-PA-2024/nemu/include/cpu/difftest.h \
     $(wildcard include/config/difftest.h) \
   /home/stoair/NJU-PA-2024/nemu/include/common.h \

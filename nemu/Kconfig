@@ -138,6 +138,10 @@ config FTRACE
   bool "Activate the function trace"
   default y
 
+config ETRACE
+  bool "Activate the exception trace"
+  default y
+
 config TRACE
   bool "Enable tracer"
   default y
