@@ -130,24 +130,20 @@ config WATCHPOINT
   bool "Activate the watchpoint function"
   default y
 
-
-config TRACE
-  bool "Enable tracer"
-  default y
-
 config MTRACE
-  depends on TRACE
   bool "Activate the memory trace"
   default y
 
 config FTRACE
-  depends on TRACE
   bool "Activate the function trace"
   default y
 
 config ETRACE
-  depends on TRACE
   bool "Activate the exception trace"
+  default y
+
+config TRACE
+  bool "Enable tracer"
   default y
 
 config TRACE_START
