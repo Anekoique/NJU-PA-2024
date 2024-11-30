@@ -41,8 +41,8 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         uint32_t *segment = (uint32_t *)malloc(phdr.p_memsz);
         ramdisk_read(segment, phdr.p_offset, phdr.p_filesz);
         memcpy((uint32_t *)phdr.p_vaddr, segment, phdr.p_filesz);
-        memset((uint32_t *)phdr.p_vaddr + phdr.p_filesz, 0, phdr.p_memsz - phdr.p_vaddr);    
         printf("current\n");
+        memset((uint32_t *)phdr.p_vaddr + phdr.p_filesz, 0, phdr.p_memsz - phdr.p_vaddr);    
     }
 
     return entry;
