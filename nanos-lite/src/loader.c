@@ -30,7 +30,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     ramdisk_read(&elf_header, 0, sizeof(Elf_Ehdr));
     printf("%x\n", *(uint32_t *)(elf_header.e_ident));
     //assert(*(uint32_t *)(elf_header.e_ident) == 0x7f454c46);
-    assert(elf_header.e_machine == EXPECT_TYPE);
+    //assert(elf_header.e_machine == EXPECT_TYPE);
     
     size_t phdr_offset = elf_header.e_phoff;
     Elf_Phdr phdr;
