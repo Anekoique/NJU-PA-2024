@@ -7,8 +7,9 @@ void do_syscall(Context *c)
     a[1] = c->GPR2;
     a[2] = c->GPR3;
     a[3] = c->GPR4;
-#ifdef CONFIG_STRACE
-    printf("here\n");
+#ifdef STRACE
+    printf("syscall\ntype : %s\n", syscall_type[a[0]]);
+    printf("a0 : %d, a1 : %d, a2 : %d, a3 : %d\n", a[1], a[2], a[3]);
 #endif
     switch (a[0])
     {

@@ -27,4 +27,6 @@
 
 #define TODO() panic("please implement me")
 
+#define STRACE
+
 #endif
