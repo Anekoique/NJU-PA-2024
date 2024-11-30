@@ -38,10 +38,10 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         ramdisk_read(&phdr, phdr_offset + i * elf_header.e_phentsize, elf_header.e_phentsize);
         if (phdr.p_type != PT_LOAD) continue;
 
-        uint8_t *segment = (uint8_t *)malloc(phdr.p_memsz);
+        uint32_t *segment = (uint32_t *)malloc(phdr.p_memsz);
         ramdisk_read(segment, phdr.p_offset, phdr.p_filesz);
-        memcpy((uint32_t *)(uintptr_t)phdr.p_vaddr, segment, phdr.p_filesz);
-        memset((uint32_t *)(uintptr_t)phdr.p_vaddr + phdr.p_filesz, 0, phdr.p_memsz - phdr.p_vaddr);    
+        memcpy((uint32_t *)phdr.p_vaddr, segment, phdr.p_filesz);
+        memset((uint32_t *)phdr.p_vaddr + phdr.p_filesz, 0, phdr.p_memsz - phdr.p_vaddr);    
         printf("current\n");
     }
 
