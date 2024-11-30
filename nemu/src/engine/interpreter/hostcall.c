@@ -56,7 +56,7 @@ __attribute__((noinline)) void invalid_inst(vaddr_t thispc)
 
 void raise_intr(vaddr_t thispc, vaddr_t *nextpc)
 {
-    *nextpc = isa_raise_intr(cpu.gpr[17], thispc);
+    *nextpc = isa_raise_intr(0, thispc);
 #ifdef CONFIG_ETRACE
     printf("Find exception !\n");
     printf("Position : 0x%08x\n", thispc);
