@@ -17,7 +17,7 @@ size_t randisk_write(const void *buf, size_t offset, size_t len);
 #elif defined(ISA_X86__)
 #define EXPECT_TYPE EM_X86_64
 #elif defined(__ISA_RISCV32__)
-# define EXPECT_TYPE EM_ARM
+# define EXPECT_TYPE EM_RISCV
 #else 
 # error Unsupported ISA
 #endif
@@ -28,10 +28,8 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
     Elf_Ehdr elf_header;
     ramdisk_read(&elf_header, 0, sizeof(Elf_Ehdr));
-    printf("%d\n", *(uint32_t *)(elf_header.e_ident));
     assert(*(uint32_t *)(elf_header.e_ident) == 0x464c457f);
-    printf("%d\n", elf_header.e_machine);
-    //assert(elf_header.e_machine == EXPECT_TYPE);
+    assert(elf_header.e_machine == EXPECT_TYPE);
     
     size_t phdr_offset = elf_header.e_phoff;
     Elf_Phdr phdr;
