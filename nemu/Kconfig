@@ -142,6 +142,10 @@ config ETRACE
   bool "Activate the exception trace"
   default y
 
+config STRACE
+  bool "Activate the syscall trace"
+  default y
+
 config TRACE
   bool "Enable tracer"
   default y

@@ -7,6 +7,9 @@ void do_syscall(Context *c)
     a[1] = c->GPR2;
     a[2] = c->GPR3;
     a[3] = c->GPR4;
+#ifdef CONFIG_STRACE
+    printf("here\n");
+#endif
     switch (a[0])
     {
     case 1:
@@ -14,7 +17,7 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case 0:
-        halt(a[2]);
+        halt(a[1]);
         break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
