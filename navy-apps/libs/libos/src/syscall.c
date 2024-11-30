@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <assert.h>
@@ -66,6 +67,7 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count) {
+    printf("here\n");
   _exit(SYS_write);
   return 0;
 }
