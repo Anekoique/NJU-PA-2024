@@ -24,8 +24,6 @@ size_t randisk_write(const void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename)
 {
-    uintptr_t entry = 0x83000000;
-
     Elf_Ehdr elf_header;
     ramdisk_read(&elf_header, 0, sizeof(Elf_Ehdr));
     assert(*(uint32_t *)(elf_header.e_ident) == 0x464c457f);
@@ -41,13 +39,11 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         uint32_t *segment = (uint32_t *)malloc(phdr.p_memsz);
         ramdisk_read(segment, phdr.p_offset, phdr.p_filesz);
         memcpy((uint32_t *)phdr.p_vaddr, segment, phdr.p_filesz);
-        printf("current\n");
         memset((uint32_t *)(phdr.p_vaddr + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);    
-        printf("current\n");
 
     }
 
-    return entry;
+    return elf_header.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename)
