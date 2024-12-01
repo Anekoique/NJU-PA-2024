@@ -1,7 +1,7 @@
 #include "syscall.h"
 #include <common.h>
 
-int write(int fd, uint32_t *buf, size_t count)
+int write(int fd, uint8_t *buf, size_t count)
 {
     int num = 0;
     if (fd == 0 || fd == 1)
@@ -13,7 +13,7 @@ int write(int fd, uint32_t *buf, size_t count)
         }
     }
 
-    return num * sizeof(char);
+    return num;
 }
 
 void do_syscall(Context *c)
@@ -37,7 +37,7 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case 4:
-        c->GPRx = write((int)a[0], (uint32_t *)a[1], (size_t)a[2]);
+        c->GPRx = write((int)a[0], (uint8_t *)a[1], (size_t)a[2]);
         break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
