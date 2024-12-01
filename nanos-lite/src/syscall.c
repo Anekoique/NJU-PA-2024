@@ -8,9 +8,10 @@ int write(int fd, uint8_t *buf, size_t count)
     int num = 0;
     if (fd == 0 || fd == 1)
     {
-        for (int i = 0; i < count && buf[i] != '\0'; i++)
+        for (int i = 0; i < count && *buf != '\0'; i++)
         {
-            putch(buf[i]);
+            putch(*buf);
+            buf++;
             num++;
         }
     }
