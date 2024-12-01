@@ -25,10 +25,10 @@ int write(int fd, uint8_t *buf, size_t count)
 uintptr_t sbrk(intptr_t increment)
 {
     printf("before_end : %p\n", &_end);
-    char *pre = &_end;
-    char *ptr = &_end;
-    *ptr += increment;
-    _end = *ptr;
+    void *pre = &_end;
+    void *heap_end = &_end;
+    //void *ptr = heap_end;
+    heap_end += increment;
     printf("after_end : %p\n", &_end);
     return (uintptr_t)pre;
 }
