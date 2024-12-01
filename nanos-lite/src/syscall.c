@@ -1,6 +1,10 @@
 #include "syscall.h"
 #include <common.h>
 
+extern char _end;
+void *heap_start = &_end;
+void *heap_end = &_end;
+
 #define STRACE
 
 int write(int fd, uint8_t *buf, size_t count)
@@ -19,9 +23,10 @@ int write(int fd, uint8_t *buf, size_t count)
     return num;
 }
 
-uintptr_t sbrk(intptr_t addrss)
+uintptr_t sbrk(intptr_t address)
 {
-    printf("%p\n", addrss);
+    malloc(address - (intptr_t)heap_end);
+    heap_end = (intptr_t *)address;
     return 0;
 }
 
