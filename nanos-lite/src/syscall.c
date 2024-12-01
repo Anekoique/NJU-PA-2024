@@ -24,11 +24,12 @@ int write(int fd, uint8_t *buf, size_t count)
 
 uintptr_t sbrk(intptr_t increment)
 {
-    char pre = _end;
+    char *pre = &_end;
     char *ptr = &_end;
     *ptr += increment;
+    _end = *ptr;
 
-    return pre;
+    return (uintptr_t)pre;
 }
 
 void do_syscall(Context *c)
