@@ -1,7 +1,7 @@
 #include "syscall.h"
 #include <common.h>
 
-#define STRACE
+//#define STRACE
 
 int write(int fd, uint8_t *buf, size_t count)
 {
