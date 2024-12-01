@@ -12,7 +12,7 @@ int printf(const char *fmt, ...)
     const char *copy = fmt;
     const char *arg1;
     int arg2;
-    int *arg3;
+    void *arg3;
 
     while (*copy != '\0')
     {
@@ -52,8 +52,7 @@ int printf(const char *fmt, ...)
                     putch(num_buffer[j]);
                 break;
             case 'x':
-                arg3 = va_arg(v, int *);
-                arg2 = (int)arg3;
+                arg2 = va_arg(v, int);
                 printf("here\n");
                 if (arg2 == 0)
                 {
@@ -72,6 +71,36 @@ int printf(const char *fmt, ...)
                             hex_buffer[i++] = (digit - 10) + 'a'; // For lower case hexadecimal letters
                         arg2 /= 16;
                     }
+
+                    // Print the hex string in reverse order
+                    for (int j = i - 1; j >= 0; j--)
+                        putch(hex_buffer[j]);
+                }
+                break;
+            case 'p':  // Handle pointer address
+                arg3 = va_arg(v, void *);
+                unsigned int ptr_val = (unsigned int)arg3; // Cast pointer to unsigned int
+                if (ptr_val == 0)
+                {
+                    putch('0');
+                }
+                else
+                {
+                    char hex_buffer[9]; // For 32-bit address (max 8 hex digits + null terminator)
+                    int i = 0;
+                    while (ptr_val > 0)
+                    {
+                        int digit = ptr_val % 16;
+                        if (digit < 10)
+                            hex_buffer[i++] = digit + '0';
+                        else
+                            hex_buffer[i++] = (digit - 10) + 'a'; // Lower case hexadecimal
+                        ptr_val /= 16;
+                    }
+
+                    // Print "0x" prefix for pointer addresses
+                    putch('0');
+                    putch('x');
 
                     // Print the hex string in reverse order
                     for (int j = i - 1; j >= 0; j--)
