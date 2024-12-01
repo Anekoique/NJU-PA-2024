@@ -29,7 +29,7 @@ uintptr_t sbrk(intptr_t increment)
     void *heap_end = &_end;
     //void *ptr = heap_end;
     heap_end += increment;
-    printf("after_end : %p\n", &_end);
+    printf("after_end : %p\n", heap_end);
     return (uintptr_t)pre;
 }
 
