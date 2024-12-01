@@ -25,6 +25,8 @@ int write(int fd, uint8_t *buf, size_t count)
 
 uintptr_t sbrk(intptr_t address)
 {
+    printf("%p\n", address);
+    printf("%d\n", address - (intptr_t)heap_end);
     malloc(address - (intptr_t)heap_end);
     heap_end = (intptr_t *)address;
     return 0;
