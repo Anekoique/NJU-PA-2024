@@ -20,7 +20,8 @@ int write(int fd, uint8_t *buf, size_t count)
 
 uintptr_t sbrk(intptr_t address)
 {
-    //heap.end = (void *)address;    
+    printf("heap_end : %p\n", heap.end);
+    heap.end = (void *)address;    
     return 0;
 }
 
