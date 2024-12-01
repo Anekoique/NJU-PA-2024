@@ -81,10 +81,9 @@ int _write(int fd, void *buf, size_t count)
 
 void *_sbrk(intptr_t increment)
 {
-    
     intptr_t *addr = heap_end;
     addr += increment;
-    intptr_t ret = _syscall_(SYS_brk, (intptr_t)heap_start, 0, 0);
+    intptr_t ret = _syscall_(SYS_brk, (intptr_t)addr, 0, 0);
     printf("ret : %p\n", (void *)ret);
     return (void*)ret;
 }
