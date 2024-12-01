@@ -25,7 +25,7 @@ int write(int fd, uint8_t *buf, size_t count)
 uintptr_t sbrk(intptr_t increment)
 {
     int a = 1;
-    printf("%x\n", &a);
+    printf("%x\n", a);
     printf("_end : %x\n", &_end);
     char *pre = &_end;
     char *ptr = &_end;
