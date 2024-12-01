@@ -3,7 +3,7 @@
 
 //#define STRACE
 
-extern char end;
+extern char _end;
 
 int write(int fd, uint8_t *buf, size_t count)
 {
@@ -23,8 +23,8 @@ int write(int fd, uint8_t *buf, size_t count)
 
 uintptr_t sbrk(intptr_t increment)
 {
-    char pre = end;
-    char *ptr = &end;
+    char pre = _end;
+    char *ptr = &_end;
     *ptr += increment;
 
     return pre;
