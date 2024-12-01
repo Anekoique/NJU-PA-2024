@@ -3,6 +3,8 @@
 
 //#define STRACE
 
+extern char end;
+
 int write(int fd, uint8_t *buf, size_t count)
 {
     int num = 0;
@@ -17,6 +19,15 @@ int write(int fd, uint8_t *buf, size_t count)
     }
 
     return num;
+}
+
+uintptr_t sbrk(intptr_t increment)
+{
+    char pre = end;
+    char *ptr = &end;
+    *ptr += increment;
+
+    return pre;
 }
 
 void do_syscall(Context *c)
@@ -41,6 +52,9 @@ void do_syscall(Context *c)
         break;
     case 4:
         c->GPRx = write((int)a[1], (uint8_t *)a[2], (size_t)a[3]);
+        break;
+    case 9:
+        c->GPRx = sbrk(a[1]);
         break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
