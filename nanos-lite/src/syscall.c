@@ -10,6 +10,7 @@ void do_syscall(Context *c)
 #ifdef STRACE
     printf("syscall\ntype : %s\n", syscall_type[a[0]]);
     printf("a0 : %d, a1 : %d, a2 : %d, a3 : %d\n", a[1], a[2], a[3]);
+    printf("mcause : %d, mepc : %d\n", c->mcause, c->mepc);
 #endif
     switch (a[0])
     {
