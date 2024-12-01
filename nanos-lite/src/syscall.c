@@ -3,9 +3,6 @@
 
 #define STRACE
 
-
-extern char _end;
-
 int write(int fd, uint8_t *buf, size_t count)
 {
     int num = 0;
@@ -22,16 +19,10 @@ int write(int fd, uint8_t *buf, size_t count)
     return num;
 }
 
-uintptr_t sbrk(intptr_t increment)
+uintptr_t sbrk(intptr_t addrss)
 {
-    printf("before_end : %p\n", &_end);
-    void *pre = &_end;
-    void *heap_end = &_end;
-    //void *ptr = heap_end;
-    heap_end += increment;
-    printf("after_end : %p\n", heap_end);
-    printf("pre : %p", pre);
-    return (uintptr_t)pre;
+    printf("%p\n", addrss);
+    return 0;
 }
 
 void do_syscall(Context *c)

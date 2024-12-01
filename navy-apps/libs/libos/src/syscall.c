@@ -46,6 +46,10 @@
 #error _syscall_ is not implemented
 #endif
 
+extern char _end;
+void *heap_start = &_end;
+void *heap_end = &_end;
+
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2)
 {
     register intptr_t _gpr1 asm(GPR1) = type;
@@ -60,8 +64,7 @@ intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2)
 void _exit(int status)
 {
     _syscall_(SYS_exit, status, 0, 0);
-    while (1)
-        ;
+    while (1);
 }
 
 int _open(const char *path, int flags, mode_t mode)
@@ -78,8 +81,10 @@ int _write(int fd, void *buf, size_t count)
 
 void *_sbrk(intptr_t increment)
 {
-    intptr_t ret = _syscall_(SYS_brk, increment, 0, 0);
-    printf("%p", (void *)ret);
+    intptr_t *addr = heap_end;
+    addr += increment;
+    intptr_t ret = _syscall_(SYS_brk, *addr, 0, 0);
+    printf("ret : %p\n", (void *)ret);
     return (void*)ret;
 }
 
