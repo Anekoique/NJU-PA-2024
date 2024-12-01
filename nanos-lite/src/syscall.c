@@ -37,7 +37,7 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case 4:
-        c->GPRx = write((int)a[0], (uint8_t *)a[1], (size_t)a[2]);
+        c->GPRx = write((int)a[1], (uint8_t *)a[2], (size_t)a[3]);
         break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
