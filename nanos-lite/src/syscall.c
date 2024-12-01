@@ -19,6 +19,7 @@ void do_syscall(Context *c)
         c->GPRx = 0;
         break;
     case 0:
+        printf("here\n");
         halt(a[1]);
         break;
     default:
