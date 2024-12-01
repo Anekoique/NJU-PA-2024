@@ -24,12 +24,12 @@ int write(int fd, uint8_t *buf, size_t count)
 
 uintptr_t sbrk(intptr_t increment)
 {
-    printf("_end : %p\n", &_end);
+    printf("before_end : %p\n", &_end);
     char *pre = &_end;
     char *ptr = &_end;
     *ptr += increment;
     _end = *ptr;
-
+    printf("after_end : %p\n", &_end);
     return (uintptr_t)pre;
 }
 
