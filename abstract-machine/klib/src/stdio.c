@@ -50,6 +50,31 @@ int printf(const char *fmt, ...)
                 for (int j = i - 1; j >= 0; j--)
                     putch(num_buffer[j]);
                 break;
+            case 'x':
+                arg2 = va_arg(v, int);
+                if (arg2 == 0)
+                {
+                    putch('0');
+                }
+                else
+                {
+                    char hex_buffer[9]; // For 32-bit integer, max 8 hex digits + null terminator
+                    int i = 0;
+                    while (arg2 > 0)
+                    {
+                        int digit = arg2 % 16;
+                        if (digit < 10)
+                            hex_buffer[i++] = digit + '0';
+                        else
+                            hex_buffer[i++] = (digit - 10) + 'a'; // For lower case hexadecimal letters
+                        arg2 /= 16;
+                    }
+
+                    // Print the hex string in reverse order
+                    for (int j = i - 1; j >= 0; j--)
+                        putch(hex_buffer[j]);
+                }
+                break;
             }
         }
         else
