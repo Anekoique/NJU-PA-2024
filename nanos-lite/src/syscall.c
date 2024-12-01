@@ -1,7 +1,8 @@
 #include "syscall.h"
 #include <common.h>
 
-//#define STRACE
+#define STRACE
+
 
 extern char _end;
 
