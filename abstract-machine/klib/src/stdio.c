@@ -12,6 +12,7 @@ int printf(const char *fmt, ...)
     const char *copy = fmt;
     const char *arg1;
     int arg2;
+    int *arg3;
 
     while (*copy != '\0')
     {
@@ -51,7 +52,8 @@ int printf(const char *fmt, ...)
                     putch(num_buffer[j]);
                 break;
             case 'x':
-                arg2 = va_arg(v, int);
+                arg3 = va_arg(v, int *);
+                arg2 = (int)arg3;
                 printf("here\n");
                 if (arg2 == 0)
                 {
