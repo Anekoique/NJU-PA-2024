@@ -79,6 +79,7 @@ int _write(int fd, void *buf, size_t count)
 void *_sbrk(intptr_t increment)
 {
     intptr_t ret = _syscall_(SYS_brk, increment, 0, 0);
+    printf("%p", (void *)ret);
     return (void*)ret;
 }
 
