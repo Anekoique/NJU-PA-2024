@@ -13,7 +13,7 @@ int write(int fd, uint32_t *buf, size_t count)
         }
     }
 
-    return num;
+    return num * sizeof(char);
 }
 
 void do_syscall(Context *c)

@@ -58,7 +58,7 @@ void raise_intr(vaddr_t thispc, vaddr_t *nextpc)
 {
     *nextpc = isa_raise_intr(0, thispc);
 #ifdef CONFIG_ETRACE
-    //printf("Find exception !\n");
-    //printf("Position : 0x%08x\n", thispc);
+    printf("Find exception !\n");
+    printf("Position : 0x%08x\n", thispc);
 #endif
 }
