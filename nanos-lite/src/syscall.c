@@ -30,6 +30,7 @@ uintptr_t sbrk(intptr_t increment)
     //void *ptr = heap_end;
     heap_end += increment;
     printf("after_end : %p\n", heap_end);
+    printf("pre : %p", pre);
     return (uintptr_t)pre;
 }
 
