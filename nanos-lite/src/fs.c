@@ -110,7 +110,7 @@ size_t fs_lseek(int fd, size_t offset, int whence)
             break;
         case SEEK_END:
             if (offset > 0) return -1;
-            file_table[fd].open_offset += offset;
+            file_table[fd].open_offset = file_table[fd].size;
             break;
         default:
             printf("Invalid whence !\n");
