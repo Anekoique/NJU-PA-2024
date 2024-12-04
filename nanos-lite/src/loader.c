@@ -74,11 +74,11 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         fs_read(fd, segment, phdr.p_filesz);
         printf("p_vaddr : %p\n", phdr.p_vaddr);
         printf("address : %p\n", (uint32_t *)(phdr.p_vaddr + disk_offset));
-        memcpy((uint32_t *)(phdr.p_vaddr + disk_offset), segment, phdr.p_filesz);
+        memcpy((uint32_t *)(phdr.p_vaddr + disk_offset +1), segment, phdr.p_filesz);
         memset((uint32_t *)(phdr.p_vaddr + disk_offset + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
     printf("entry : %p", elf_header.e_entry + (uint32_t)disk_offset);
-    return elf_header.e_entry + (uint32_t)disk_offset + 2;
+    return elf_header.e_entry + (uint32_t)disk_offset;
 }
 
 void naive_uload(PCB *pcb, const char *filename)
