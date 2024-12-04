@@ -78,7 +78,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         memset((uint32_t *)(phdr.p_vaddr + disk_offset + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
     printf("entry : %p", elf_header.e_entry + (uint32_t)disk_offset);
-    return elf_header.e_entry + (uint32_t)disk_offset - 2;
+    return elf_header.e_entry + (uint32_t)disk_offset - 1;
 }
 
 void naive_uload(PCB *pcb, const char *filename)
