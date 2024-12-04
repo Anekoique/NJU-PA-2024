@@ -81,7 +81,7 @@ void do_syscall(Context *c)
         c->GPRx = fs_read(a[1], (void*)a[2], a[3]);
         break;
     case 4:
-        c->GPRx = write((int)a[1], (uint8_t *)a[2], (size_t)a[3]);
+        c->GPRx = fs_write((int)a[1], (uint8_t *)a[2], (size_t)a[3]);
         break;
     case 7:
         c->GPRx = fs_close(a[1]);

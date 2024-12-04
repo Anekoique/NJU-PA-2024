@@ -75,6 +75,18 @@ size_t fs_read(int fd, void *buf, size_t len)
 
 size_t fs_write(int fd, const void *buf, size_t len)
 {
+    if (fd == 0 || fd == 1)
+    {
+        int num = 0;
+        for (int i = 0; i < len && *(uint8_t *)buf != '\0'; i++)
+        {
+            putch(*(uint8_t *)buf);
+            buf++;
+            num++;
+        }
+        return num;
+    }
+
     if (file_table[fd].open_offset + len > file_table[fd].size)
     {
         len = file_table[fd].size - file_table[fd].open_offset;
