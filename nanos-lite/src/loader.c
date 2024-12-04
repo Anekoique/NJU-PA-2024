@@ -74,7 +74,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         assert(fs_lseek(fd, phdr.p_offset, SEEK_SET) != -1);
         fs_read(fd, segment, phdr.p_filesz);
         printf("p_vaddr : %p\n", phdr.p_vaddr + disk_offset);
-        memcpy((uint32_t *)phdr.p_vaddr + disk_offset, segment, phdr.p_filesz);
+        memcpy((uint32_t *)(phdr.p_vaddr + disk_offset), segment, phdr.p_filesz);
         memset((uint32_t *)(phdr.p_vaddr + disk_offset + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
     return elf_header.e_entry + disk_offset;
