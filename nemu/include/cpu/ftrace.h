@@ -5,7 +5,7 @@
 #include <elf.h>
 
 #define MAX_FTRACE_LEN 1000
-#define MAX_IRING_BUFFER_LEN 20
+#define MAX_IRING_BUFFER_LEN 30
 
 #define MAX_FUNC_NUM 400
 #define MAX_FUNC_NAME_LEN 20
