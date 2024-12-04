@@ -75,7 +75,7 @@ size_t fs_read(int fd, void *buf, size_t len)
 
 size_t fs_write(int fd, const void *buf, size_t len)
 {
-    if (fd == 0 || fd == 1)
+    if (fd == 2 || fd == 1)
     {
         int num = 0;
         for (int i = 0; i < len && *(uint8_t *)buf != '\0'; i++)
