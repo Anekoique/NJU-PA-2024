@@ -62,7 +62,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     uint32_t disk_offset = get_disk_offset(fd);
 
     size_t phdr_offset = elf_header.e_phoff;
-    assert(fs_lseek(fd, phdr_offset, SEEK_SET) != -1);
     Elf_Phdr phdr;
     for (int i = 0; i < elf_header.e_phnum; i++)
     {
@@ -79,7 +78,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         memset((uint32_t *)(phdr.p_vaddr + disk_offset + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
     printf("entry : %p", elf_header.e_entry + (uint32_t)disk_offset);
-    return elf_header.e_entry + (uint32_t)disk_offset;
+    return elf_header.e_entry + (uint32_t)disk_offset - 2;
 }
 
 void naive_uload(PCB *pcb, const char *filename)
