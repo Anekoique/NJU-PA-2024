@@ -154,10 +154,11 @@ static void show_frace()
 void show_iring_buffer()
 {
     if (iring_inst_num_flag) 
-        for (int i = iring_position; i < 20; i++)
+        for (int i = iring_position; i < MAX_IRING_BUFFER_LEN; i++)
             printf("%s\n", iring_buffer[i]);
     for (int i = 0; i < iring_position; i++)
         printf("%s\n", iring_buffer[i]);
+
 }
 #endif 
 
