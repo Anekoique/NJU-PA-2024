@@ -24,16 +24,15 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 100
-#define MAX_IRING_BUFFER_LEN 20
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
-static char iring_buffer[MAX_IRING_BUFFER_LEN][128];
-static int iring_position = 0;
-static int iring_inst_num_flag = 0;
+char iring_buffer[MAX_IRING_BUFFER_LEN][128];
+int iring_position = 0;
+int iring_inst_num_flag = 0;
 
 void device_update();
 
@@ -150,6 +149,17 @@ static void show_frace()
     }
 }
 #endif
+
+#ifdef CONFIG_ITRACE 
+void show_iring_buffer()
+{
+    if (iring_inst_num_flag) 
+        for (int i = iring_position; i < MAX_IRING_BUFFER_LEN; i++)
+            printf("%s\n", iring_buffer[i]);
+    for (int i = 0; i < iring_position; i++)
+        printf("%s\n", iring_buffer[i]);
+}
+#endif 
 
 static void statistic()
 {

@@ -7,6 +7,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/memory
     $(wildcard include/config/pmem/garray.h) \
     $(wildcard include/config/msize.h) \
     $(wildcard include/config/mbase.h) \
+    $(wildcard include/config/itrace.h) \
     $(wildcard include/config/mem/random.h) \
     $(wildcard include/config/mtrace.h) \
     $(wildcard include/config/device.h) \
@@ -26,6 +27,7 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/memory
     $(wildcard include/config/rt/check.h) \
   /home/stoair/NJU-PA-2024/nemu/include/memory/paddr.h \
     $(wildcard include/config/pc/reset/offset.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/cpu/ftrace.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/memory/paddr.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/memory/paddr.o)
 

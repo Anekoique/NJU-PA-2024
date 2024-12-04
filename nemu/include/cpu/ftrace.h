@@ -5,6 +5,8 @@
 #include <elf.h>
 
 #define MAX_FTRACE_LEN 1000
+#define MAX_IRING_BUFFER_LEN 20
+
 #define MAX_FUNC_NUM 400
 #define MAX_FUNC_NAME_LEN 20
 
@@ -35,4 +37,8 @@ extern char *str_table;
 extern Elf32_Sym *sym_table;
 extern int func_num;
 extern int ftrace_len;
+
+extern char iring_buffer[MAX_IRING_BUFFER_LEN][128];
+extern int iring_position;
+extern int iring_inst_num_flag;
 #endif
