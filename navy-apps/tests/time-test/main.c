@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+__uint32_t NDL_GetTicks();
+
 int main()
 {
-    struct timeval now;
     long int current;
     long int last;
-    gettimeofday(&now, NULL);
-    last = now.tv_sec * 100000 + now.tv_usec;
-    printf("time : %ld\n", now.tv_sec * 1000000 + now.tv_usec);
+    current = NDL_GetTicks();
+    last = current;
+    printf("time : %ld\n", current);
     int count = 0;
     while (count < 10)
     {
-        gettimeofday(&now, NULL);
-        current = now.tv_sec * 1000000 + now.tv_usec;
+        current = NDL_GetTicks();
         if (current - last > 5000000)
         {
             last = current;
