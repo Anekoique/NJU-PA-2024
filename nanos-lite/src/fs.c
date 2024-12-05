@@ -79,7 +79,7 @@ size_t fs_write(int fd, const void *buf, size_t len)
 {
     if (fd == 2 || fd == 1)
     {
-        file_table[fd].write(buf, 0, 0);
+        file_table[fd].write(buf, 0, len);
     }
 
     if (file_table[fd].open_offset + len > file_table[fd].size)
