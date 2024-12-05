@@ -8,7 +8,7 @@ int main()
     long int last;
     gettimeofday(&now, NULL);
     last = now.tv_sec * 100000 + now.tv_usec;
-    printf("time : %d\n", now.tv_sec * 1000000 + now.tv_usec);
+    printf("time : %ld\n", now.tv_sec * 1000000 + now.tv_usec);
     int count = 0;
     while (count < 10)
     {
