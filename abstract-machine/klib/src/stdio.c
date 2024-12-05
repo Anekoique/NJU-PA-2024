@@ -13,6 +13,7 @@ int printf(const char *fmt, ...)
     const char *arg1;
     int arg2;
     void *arg3;
+    int i;
 
     while (*copy != '\0')
     {
@@ -35,13 +36,13 @@ int printf(const char *fmt, ...)
                 return 0;
             case 'd':
                 arg2 = va_arg(v, int);
-                char num_buffer[34];
-                int i = 0;
+                char num_buffer[32];
+                i = 0;
                 if (arg2 == 0)
                     putch('0');
                 else
                 {
-                    while (arg2 > 0)
+                    while (arg2 > 0 && i < 32)
                     {
                         num_buffer[i++] = (arg2 % 10) + '0';
                         arg2 /= 10;
@@ -50,6 +51,25 @@ int printf(const char *fmt, ...)
 
                 for (int j = i - 1; j >= 0; j--)
                     putch(num_buffer[j]);
+                break;
+            case 'l':
+                arg2 = va_arg(v, int);
+                char num_buffer2[64];
+                copy++;
+                i = 0;
+                if (arg2 == 0)
+                    putch('0');
+                else
+                {
+                    while (arg2 > 0)
+                    {
+                        num_buffer2[i++] = (arg2 % 10) + '0';
+                        arg2 /= 10;
+                    }
+                }
+
+                for (int j = i - 1; j >= 0; j--)
+                    putch(num_buffer2[j]);
                 break;
             case 'x':
                 arg2 = va_arg(v, int);
