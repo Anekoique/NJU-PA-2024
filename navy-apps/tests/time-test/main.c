@@ -18,6 +18,7 @@ int main()
         {
             last = current;
             printf("after 5 s\n");
+            count++;
         }
     }
     printf("*****PASS*****\n");

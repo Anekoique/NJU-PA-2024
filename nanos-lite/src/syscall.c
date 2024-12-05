@@ -49,11 +49,7 @@ int write(int fd, uint8_t *buf, size_t count)
     return num;
 }
 
-int gettimeofday(struct timeval *tv, intptr_t tz)
-{
-    printf("here\n");
-    return 0;
-}
+int gettimeofday(struct timeval *tv, intptr_t tz);
 
 uintptr_t sbrk(intptr_t address)
 {
