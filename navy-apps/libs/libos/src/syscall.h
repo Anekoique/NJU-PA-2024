@@ -24,7 +24,7 @@ enum {
   SYS_gettimeofday
 };
 
-struct timeval 
+struct _timeval 
 {
     long int tv_sec;
     long int tv_uesc;

@@ -11,7 +11,7 @@
 
 static const char *keyname[256] __attribute__((used)) = {[AM_KEY_NONE] = "NONE", AM_KEYS(NAME)};
 
-int gettimeofday(struct timeval *tv, intptr_t tz)
+int gettimeofday(struct _timeval *tv, intptr_t tz)
 {
     long int now = io_read(AM_TIMER_UPTIME).us;
     //printf("time : %d\n", now);

@@ -49,7 +49,7 @@ int write(int fd, uint8_t *buf, size_t count)
     return num;
 }
 
-int gettimeofday(struct timeval *tv, intptr_t tz);
+int gettimeofday(struct _timeval *tv, intptr_t tz);
 
 uintptr_t sbrk(intptr_t address)
 {
@@ -95,7 +95,7 @@ void do_syscall(Context *c)
         c->GPRx = sbrk(a[1]);
         break;
     case 11:
-        c->GPRx = gettimeofday((struct timeval *)a[1], a[2]);
+        c->GPRx = gettimeofday((struct _timeval *)a[1], a[2]);
         break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
