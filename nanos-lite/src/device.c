@@ -14,6 +14,7 @@ static const char *keyname[256] __attribute__((used)) = {[AM_KEY_NONE] = "NONE",
 int gettimeofday(struct timeval *tv, intptr_t tz)
 {
     long int now = io_read(AM_TIMER_UPTIME).us;
+    printf("here\n");
     tv->tv_sec = now / 1000000;
     tv->tv_uesc = now % 1000000;
     return 0;
