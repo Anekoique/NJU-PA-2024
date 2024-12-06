@@ -246,7 +246,6 @@ int snprintf(char *out, size_t n, const char *fmt, ...)
                         arg2 /= 10;
                     }
                 }
-                printf("%s\n", num_buffer);
 
                 for (int j = i - 1; j >= 0; j--)
                 {
