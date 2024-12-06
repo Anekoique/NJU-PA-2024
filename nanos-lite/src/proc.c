@@ -31,7 +31,7 @@ void init_proc()
     Log("Initializing processes...");
 
     // load program here
-    naive_uload(NULL, "/bin/time-test");
+    naive_uload(NULL, "/bin/event-test");
 }
 
 Context *schedule(Context *prev)
