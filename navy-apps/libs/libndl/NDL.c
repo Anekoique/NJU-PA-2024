@@ -9,6 +9,12 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
+typedef size_t (*ReadFn)(void *buf, size_t offset, size_t len);
+typedef size_t (*WriteFn)(const void *buf, size_t offset, size_t len);
+
+ReadFn get_read_func(int fd);
+WriteFn get_write_func(int fd);
+
 uint32_t NDL_GetTicks()
 {
     struct timeval now;
@@ -18,7 +24,8 @@ uint32_t NDL_GetTicks()
 
 int NDL_PollEvent(char *buf, int len)
 {
-    return 0;
+    FILE *fp = fopen("/dev/events", 0);
+    return fscanf(fp, "%s", buf);
 }
 
 void NDL_OpenCanvas(int *w, int *h)
