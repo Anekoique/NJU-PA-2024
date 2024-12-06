@@ -38,6 +38,10 @@ void NDL_OpenCanvas(int *w, int *h)
     char line2[64];
     fgets(line1, sizeof(line1), fp);
         printf("%s", line1);
+    for (int i = 0; i < 64; i++)
+    {
+        printf("%c", line1[i]);
+    }
         fgets(line2, sizeof(line2), fp);
         printf("%s", line2); // 检查文件内容
 
