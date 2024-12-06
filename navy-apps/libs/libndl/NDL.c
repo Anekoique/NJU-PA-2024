@@ -36,11 +36,9 @@ void NDL_OpenCanvas(int *w, int *h)
     FILE *fp = fopen("/proc/dispinfo", "r+");
     char line[256];  
     fgets(line, sizeof(line), fp);
+    char *ptr = line;
+    while (*ptr != '\0') {printf("%c", *ptr); ptr++;}
     sscanf(line, "WIDTH : %d", &screen_w);
-    printf("%s\n", line);
-    fgets(line, sizeof(line), fp);
-    printf("%s\n", line);
-    sscanf(line, "HEIGHT : %d\n", &screen_h);
     *w = screen_w;
     *h = screen_h;
     if (getenv("NWM_APP"))
