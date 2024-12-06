@@ -34,12 +34,7 @@ int NDL_PollEvent(char *buf, int len)
 void NDL_OpenCanvas(int *w, int *h)
 {
     FILE *fp = fopen("/proc/dispinfo", "r+");
-    char line[256];  
-    fgets(line, sizeof(line), fp);
-    char *ptr = line;
-    while (*ptr != '\0') {printf("%c", *ptr); ptr++;}
-    printf("%s", line);
-    sscanf(line, "WIDTH : %d", &screen_w);
+    fscanf(fp, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
     *w = screen_w;
     *h = screen_h;
     if (getenv("NWM_APP"))
