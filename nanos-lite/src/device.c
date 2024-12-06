@@ -46,8 +46,6 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len)
 {
     int w = io_read(AM_GPU_CONFIG).width;
     int h = io_read(AM_GPU_CONFIG).height;
-    printf("h : %d\n", h);
-    printf("len : %d\n", len);
     int writed = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n", w, h);
     return writed;
 }
