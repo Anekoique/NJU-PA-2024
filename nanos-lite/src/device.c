@@ -44,10 +44,16 @@ size_t events_read(void *buf, size_t offset, size_t len)
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len)
 {
+    static int i = 0;
+    
     int w = io_read(AM_GPU_CONFIG).width;
     int h = io_read(AM_GPU_CONFIG).height;
-    printf("current\n");
-    int writed = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n", w, h);
+    int writed = 0;
+    if (i % 2 == 0)
+        writed = snprintf(buf, len, "WIDTH : %d\n", w);
+    else 
+        writed = snprintf(buf, len, "HEIGHT : %d\n", h);
+    i++;
     return writed;
 }
 
