@@ -40,7 +40,7 @@ void NDL_OpenCanvas(int *w, int *h)
     printf("%s\n", line);
     fgets(line, sizeof(line), fp);
     printf("%s\n", line);
-    sscanf(line, "height : %d", &screen_h);
+    sscanf(line, "HEIGHT : %d", &screen_h);
     *w = screen_w;
     *h = screen_h;
     if (getenv("NWM_APP"))
