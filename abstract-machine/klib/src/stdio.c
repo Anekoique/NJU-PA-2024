@@ -230,6 +230,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...)
                 }
                 break;
             case 'd':
+                printf("current\n");
                 arg2 = va_arg(v, int);
                 char num_buffer[34];
                 int i = 0;
