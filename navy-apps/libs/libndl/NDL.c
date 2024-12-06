@@ -42,6 +42,7 @@ void NDL_OpenCanvas(int *w, int *h)
     {
         printf("%c", line1[i]);
     }
+    printf("\n");
     printf("***************\n");
     printf("***************\n");
     fgets(line2, sizeof(line2), fp);
