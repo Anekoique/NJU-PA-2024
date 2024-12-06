@@ -37,8 +37,10 @@ void NDL_OpenCanvas(int *w, int *h)
     char line[256];  
     fgets(line, sizeof(line), fp);
     sscanf(line, "WIDTH : %d", &screen_w);
+    printf("%s\n", line);
+
     fgets(line, sizeof(line), fp);
-    printf("%s", line);
+    printf("%s\n", line);
     sscanf(line, "height : %d", &screen_h);
     *w = screen_w;
     *h = screen_h;
