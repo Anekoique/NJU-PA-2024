@@ -4,6 +4,7 @@
 int main()
 {
     NDL_Init(0);
+    printf("here\n");
     while (1)
     {
         char buf[64];
