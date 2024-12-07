@@ -60,7 +60,7 @@ extern "C"
     // -------------------- IOE: Input/Output Devices --------------------
     bool ioe_init(void);
     void ioe_read(int reg, void *buf);
-    void ioe_write(int reg, const void *buf);
+    void ioe_write(int reg, void *buf);
 #include "amdev.h"
 
     // ---------- CTE: Interrupt Handling and Context Switching ----------
