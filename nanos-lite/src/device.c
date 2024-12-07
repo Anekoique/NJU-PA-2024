@@ -49,7 +49,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len)
     int h = io_read(AM_GPU_CONFIG).height;
     int writed = 0;
     if (i % 2 == 0)
-        writed = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n", w, h);
+        writed = snprintf(buf, len, "WIDTH : %d\n\0HEIGHT : %d\n\0", w, h);
         //writed = snprintf(buf, len, "WIDTH : %d\n", w);
     //else 
         //writed = snprintf(buf, len, "HEIGHT : %d\n", h);
