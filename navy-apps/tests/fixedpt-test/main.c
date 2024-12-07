@@ -5,7 +5,7 @@ int main()
 {
     fixedpt a = fixedpt_rconst(-1.2);
     fixedpt b = fixedpt_rconst(2);
-    fixedpt c = fixedpt_mul(a, b);
+    fixedpt c = fixedpt_div(a, b);
     //int d = fixedpt_toint(c);
     printf("a : %d\n", a);
     printf("c : %d\n", c);
