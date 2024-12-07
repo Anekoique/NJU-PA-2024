@@ -24,6 +24,7 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 100010
+static int flag = 0;
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
@@ -53,7 +54,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     sprintf(iring_buffer[iring_position], "%s", _this->logbuf);
     iring_position++;
 
-    if (g_print_step)
+    if (_this->pc >= 0x83000000) flag = 1;
+
+    if (g_print_step && flag)
     {
         IFDEF(CONFIG_ITRACE, puts(_this->logbuf));
     }
