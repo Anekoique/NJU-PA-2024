@@ -47,7 +47,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len)
     int w = io_read(AM_GPU_CONFIG).width;
     int h = io_read(AM_GPU_CONFIG).height;
     int writed = 20;
-    writed = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n\n", w, h);
+    writed = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n\n\n\n\n", w, h);
     serial_write(buf, 0, len);
     return writed;
 }
