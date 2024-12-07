@@ -9,6 +9,7 @@ typedef size_t (*WriteFn)(const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t events_read(void *buf, size_t offset, size_t len);
 size_t dispinfo_read(void *buf, size_t ooffset, size_t len);
+size_t fb_write(const void *buf, size_t offset, size_t len);
 void init_fb(int *w, int *h);
 
 typedef struct
@@ -50,7 +51,7 @@ static Finfo file_table[] __attribute__((used)) = {
     [FD_STDERR] = {"stderr", 0, 0, 0, invalid_read, serial_write},
     [FD_EVENT] = {"/dev/events", 0, 0, 0, events_read, invalid_write},
     [FD_DISP] = {"/proc/dispinfo", 0, 0, 0, dispinfo_read, invalid_write},
-    [FD_FB] = {"/dev/fb", 0, 0, 0, invalid_read, invalid_write},
+    [FD_FB] = {"/dev/fb", 0, 0, 0, invalid_read, fb_write},
 #include "files.h"
 };
 
@@ -94,6 +95,7 @@ size_t fs_write(int fd, const void *buf, size_t len)
     {
         file_table[fd].write(buf, 0, len);
     }
+    else if (fd == 5) file_table[fd].write(buf, file_table[fd].open_offset, len);
 
     if (file_table[fd].open_offset + len > file_table[fd].size)
     {
