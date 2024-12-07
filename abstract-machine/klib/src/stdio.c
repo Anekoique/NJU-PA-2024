@@ -225,6 +225,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...)
                 while (*arg1 != '\0')
                 {
                     *buffer = *arg1;
+                    count++;
                     buffer++;
                     arg1++;
                 }
@@ -250,6 +251,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...)
                 for (int j = i - 1; j >= 0; j--)
                 {
                     *buffer++ = num_buffer[j];
+                    count++;
                 }
                 break;
             }
@@ -257,9 +259,10 @@ int snprintf(char *out, size_t n, const char *fmt, ...)
         else
         {
             *buffer++ = *copy;
+            count++;
         }
         copy++;
-        if (++count == n) break;
+        if (count == n) break;
     }
     *buffer = '\0';
     return count;
