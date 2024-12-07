@@ -9,6 +9,7 @@ typedef size_t (*WriteFn)(const void *buf, size_t offset, size_t len);
 size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t events_read(void *buf, size_t offset, size_t len);
 size_t dispinfo_read(void *buf, size_t ooffset, size_t len);
+void init_fb(int *w, int *h);
 
 typedef struct
 {
@@ -56,6 +57,9 @@ static Finfo file_table[] __attribute__((used)) = {
 void init_fs()
 {
     // TODO: initialize the size of /dev/fb
+    int w, h;
+    init_fb(&w, &h);
+    file_table[FD_FB].size = w * h;
 }
 
 int fs_open(const char *pathname, int flags, int mode)
