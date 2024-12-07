@@ -40,7 +40,7 @@ void NDL_OpenCanvas(int *w, int *h)
         printf("%s", line1);
     for (int i = 0; i < 64; i++)
     {
-        printf("%c", line1[i]);
+        printf("%c\n", line1[i]);
     }
     printf("current\n");
     printf("***************\n");
