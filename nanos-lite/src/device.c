@@ -56,7 +56,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len)
 
     i ++;
     printf("%d\n", i);
-    //serial_write(buf, 0, len);
+    serial_write(buf, 0, len);
     return writed;
 }
 
