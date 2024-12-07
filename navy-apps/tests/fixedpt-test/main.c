@@ -3,7 +3,7 @@
 
 int main()
 {
-    fixedpt a = fixedpt_rconst(-1.2);
+    fixedpt a = fixedpt_rconst(2.4);
     fixedpt b = fixedpt_rconst(2);
     fixedpt c = fixedpt_div(a, b);
     //int d = fixedpt_toint(c);
