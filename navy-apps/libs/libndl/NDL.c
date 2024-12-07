@@ -45,8 +45,8 @@ void NDL_OpenCanvas(int *w, int *h)
     printf("\ncurrent\n");
     printf("***************\n");
     printf("***************\n");
-    //fgets(line2, sizeof(line2), fp);
-    //printf("%s", line2); // 检查文件内容
+    fgets(line2, sizeof(line2), fp);
+    printf("%s", line2); // 检查文件内容
 
     *w = screen_w;
     *h = screen_h;
