@@ -158,6 +158,11 @@ static inline fixedpt fixedpt_ceil(fixedpt A) {
 	return ((A + FIXEDPT_ONE) >> FIXEDPT_FBITS) << FIXEDPT_FBITS;
 }
 
+static inline fixedpt fixedpt_fromfloat(void *p)
+{
+    return *(int *)p >> FIXEDPT_FBITS << FIXEDPT_FBITS;
+}
+
 /*
  * Note: adding and substracting fixedpt numbers can be done by using
  * the regular integer operators + and -.

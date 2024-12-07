@@ -3,9 +3,8 @@
 
 int main()
 {
-    fixedpt a = fixedpt_rconst(2.4);
-    int b = 2;
-    fixedpt c = fixedpt_divi(a, b);
+    float a = 1.2;
+    fixedpt c = fixedpt_fromfloat(&a);
     //int d = fixedpt_toint(c);
     printf("a : %d\n", a);
     printf("c : %d\n", c);
