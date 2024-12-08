@@ -33,9 +33,27 @@ int NDL_PollEvent(char *buf, int len)
 
 void NDL_OpenCanvas(int *w, int *h)
 {
-    FILE *fp = fopen("/proc/dispinfo", "r");
-    fscanf(fp, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
 
+    // 打开虚拟文件
+    FILE *fp = fopen("/proc/dispinfo", "r");
+    if (!fp) {
+        printf("Failed to open file\n");
+        abort();
+    }
+
+    int screen_w = 0, screen_h = 0;
+
+    // 从文件读取数据
+    if (fscanf(fp, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h) == 2) {
+        printf("Screen Width: %d\n", screen_w);
+        printf("Screen Height: %d\n", screen_h);
+    } else {
+        printf("Error reading data\n");
+        abort();
+    }
+
+    // 关闭文件
+    fclose(fp);
     if (*w == 0 && *h == 0)
     {
         *w = screen_w;
@@ -54,7 +72,7 @@ void NDL_OpenCanvas(int *w, int *h)
         char buf[64];
         int len = sprintf(buf, "%d %d", screen_w, screen_h);
         // let NWM resize the window and create the frame buffer
-        write(fbctl, buf, len);
+        int ret = write(fbctl, buf, len);
         while (1)
         {
             // 3 = evtdev
@@ -108,6 +126,7 @@ int NDL_Init(uint32_t flags)
 {
     if (getenv("NWM_APP"))
     {
+        printf("current");
         evtdev = 3;
     }
     return 0;

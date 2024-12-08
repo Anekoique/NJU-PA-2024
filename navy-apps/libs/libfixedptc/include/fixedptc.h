@@ -158,10 +158,31 @@ static inline fixedpt fixedpt_ceil(fixedpt A) {
 	return ((A + FIXEDPT_ONE) >> FIXEDPT_FBITS) << FIXEDPT_FBITS;
 }
 
-static inline fixedpt fixedpt_fromfloat(void *p)
-{
-    return *(int *)p >> FIXEDPT_FBITS << FIXEDPT_FBITS;
+// GPT 
+static inline fixedpt fixedpt_fromfloat(void *p) {
+    uint32_t bits = *(uint32_t *)p;  // 读取浮点数的二进制表示
+
+    // 提取符号位、指数位、尾数位
+    int sign = (bits >> 31) ? -1 : 1;
+    int exponent = ((bits >> 23) & 0xFF) - 127;  // 指数部分 (去掉偏移量 127)
+    uint32_t mantissa = bits & 0x7FFFFF;  // 尾数部分 (23 位)
+    if (exponent != -127) {  // 非非规格化数
+        mantissa |= (1 << 23);  // 加上隐含的最高位
+    }
+
+    // 计算定点数值
+    fixedpt result;
+    if (exponent >= 0) {
+        // 左移以放大至定点数表示范围
+        result = (fixedpt)(mantissa << exponent >> (23 - FIXEDPT_FBITS));
+    } else {
+        // 右移以缩小至定点数表示范围
+        result = (fixedpt)(mantissa >> ((23 - FIXEDPT_FBITS) - exponent));
+    }
+
+    return sign * result;  // 应用符号位
 }
+
 
 /*
  * Note: adding and substracting fixedpt numbers can be done by using

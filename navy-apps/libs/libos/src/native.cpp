@@ -41,7 +41,7 @@ static int (*glibc_execve)(const char *filename, char *const argv[], char *const
 static SDL_Window *window = NULL;
 static SDL_Surface *surface = NULL;
 static int dummy_fd = -1;
-static int dispinfo_fd = -1;
+static int dispinfo_fd = 4;
 static int fb_memfd = -1;
 static int evt_fd = -1;
 static int sb_fifo[2] = {-1, -1};
