@@ -35,7 +35,7 @@ void NDL_OpenCanvas(int *w, int *h)
 {
 
     // 打开虚拟文件
-    FILE *fp = fopen("/proc/dispinfo", "r");
+    FILE *fp = fopen("/proc/dispinfo", "r+");
     if (!fp) {
         printf("Failed to open file\n");
         abort();
