@@ -39,8 +39,7 @@ void NDL_OpenCanvas(int *w, int *h)
     sscanf(buffer, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
     printf("%d , %d\n", screen_w, screen_h);
 
-    //printf("%s\n", buffer);
-
+    // Error
     //FILE *fp = fopen("/proc/dispinfo", "r+");
     //if (!fp) {
     //    printf("Failed to open file\n");
@@ -108,7 +107,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
     for (int i = 0; i < h; i++)
     {
         lseek(fp, ((y + i) * screen_w + x) * sizeof(uint32_t), SEEK_SET);
-        write(fp, pixels + i * w, w);
+        write(fp, pixels + i * w, w * sizeof(uint32_t));
     }
 }
 

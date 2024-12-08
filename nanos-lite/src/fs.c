@@ -60,7 +60,7 @@ void init_fs()
     // TODO: initialize the size of /dev/fb
     int w, h;
     init_fb(&w, &h);
-    file_table[FD_FB].size = w * h;
+    file_table[FD_FB].size = w * h * sizeof(uint32_t);
 }
 
 int fs_open(const char *pathname, int flags, int mode)
