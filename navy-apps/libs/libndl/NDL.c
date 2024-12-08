@@ -40,9 +40,6 @@ void NDL_OpenCanvas(int *w, int *h)
         printf("Failed to open file\n");
         abort();
     }
-
-    int screen_w = 0, screen_h = 0;
-
     // 从文件读取数据
     if (fscanf(fp, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h) == 2) {
         printf("Screen Width: %d\n", screen_w);
