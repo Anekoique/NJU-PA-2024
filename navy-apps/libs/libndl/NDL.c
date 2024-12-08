@@ -33,24 +33,24 @@ int NDL_PollEvent(char *buf, int len)
 
 void NDL_OpenCanvas(int *w, int *h)
 {
+    int ret = open("/proc/dispinfo", 0);
+    char buffer[64];
+    read(ret, buffer, 64);
+    printf("%s\n", buffer);
 
-    // 打开虚拟文件
-    FILE *fp = fopen("/proc/dispinfo", "r+");
-    if (!fp) {
-        printf("Failed to open file\n");
-        abort();
-    }
-    // 从文件读取数据
-    if (fscanf(fp, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h) == 2) {
-        printf("Screen Width: %d\n", screen_w);
-        printf("Screen Height: %d\n", screen_h);
-    } else {
-        printf("Error reading data\n");
-        abort();
-    }
-
-    // 关闭文件
-    fclose(fp);
+    //FILE *fp = fopen("/proc/dispinfo", "r+");
+    //if (!fp) {
+    //    printf("Failed to open file\n");
+    //    abort();
+    //}
+    //if (fscanf(fp, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h) == 2) {
+    //    printf("Screen Width: %d\n", screen_w);
+    //    printf("Screen Height: %d\n", screen_h);
+    //} else {
+    //    printf("Error reading data\n");
+    //    abort();
+    //}
+    //fclose(fp);
     if (*w == 0 && *h == 0)
     {
         *w = screen_w;
