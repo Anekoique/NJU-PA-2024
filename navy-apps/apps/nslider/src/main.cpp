@@ -23,8 +23,8 @@ void render() {
   char fname[256];
   sprintf(fname, path, cur);
   SDL_Surface *slide = SDL_LoadBMP(fname);
-  assert(slide);
   printf("here2\n");
+  assert(slide);
   SDL_BlitSurface(slide, NULL, screen, NULL);
   SDL_UpdateRect(screen, 0, 0, 0, 0);
   SDL_FreeSurface(slide);
@@ -34,7 +34,7 @@ void prev(int rep) {
   if (rep == 0) rep = 1;
   cur -= rep;
   if (cur < 0) cur = 0;
-  printf("here1\n");
+  printf("rep : %d\n", rep);
   render();
 }
 
