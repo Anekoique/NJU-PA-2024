@@ -81,9 +81,10 @@ size_t fs_read(int fd, void *buf, size_t len)
 {
     if (*(uint8_t *)check_pos != 66 && check_flag) 
     {
+        printf("fd : %d\n", fd);
         printf("check_pos : %p\n", check_pos);
         printf("check_pos_value : %d\n", *(uint8_t *)check_pos);
-        printf("error");
+        printf("error\n");
         panic("error");
     }
     if (fd == 3) return events_read(buf, 0, len);
