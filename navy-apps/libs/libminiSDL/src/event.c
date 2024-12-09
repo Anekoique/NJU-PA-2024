@@ -27,6 +27,7 @@ int SDL_WaitEvent(SDL_Event *event)
         if (NDL_PollEvent(buf, sizeof(buf)) == 0) continue;
         else 
         {
+            printf("here\n");
             char type;
             char name[64];
             sscanf(buf, "k%c %s", &type, name);
