@@ -30,15 +30,13 @@ int SDL_WaitEvent(SDL_Event *event)
             char type;
             char name[64];
             sscanf(buf, "k%c %s", &type, name);
-            printf("here\n");
-            printf("type : %c\n", type);
-            printf("name : %s\n", name);
             
             if (type == 'u') event->key.type = SDL_KEYUP;
             else if (type == 'd') event->key.type = SDL_KEYDOWN;
             
             for (int i = 0; i < sizeof(keyname) / sizeof(keyname[0]); i++)
             {
+                printf("%s\n", keyname[i]);
                 if (strcmp(name, keyname[i]) == 0)
                 {
                     event->key.keysym.sym = i;
