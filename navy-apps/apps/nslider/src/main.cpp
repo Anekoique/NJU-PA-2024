@@ -32,6 +32,7 @@ void render() {
   SDL_FreeSurface(slide);
   char buffer[64];
   NDL_PollEvent(buffer, sizeof(buffer));
+  printf("here\n");
 }
 
 void prev(int rep) {
