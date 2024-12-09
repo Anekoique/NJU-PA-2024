@@ -70,8 +70,8 @@ int fs_open(const char *pathname, int flags, int mode)
     {
         if (!strcmp(file_table[i].name, pathname)) return i;
     }
-    printf("Invalid filename !\n");
-    assert(0);
+    printf("Invalid file !\n");
+    return -1;
 }
 
 size_t fs_read(int fd, void *buf, size_t len)
