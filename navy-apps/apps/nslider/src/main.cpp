@@ -2,7 +2,6 @@
 #include <SDL_bmp.h>
 #include <stdio.h>
 #include <assert.h>
-#include <NDL.h>
 
 
 #define W 400
@@ -24,7 +23,6 @@ static int cur = 0;
 void render() {
   char fname[256];
   sprintf(fname, path, cur);
-  printf("%s\n", fname);
   SDL_Surface *slide = SDL_LoadBMP(fname);
   assert(slide);
   SDL_BlitSurface(slide, NULL, screen, NULL);
