@@ -87,6 +87,9 @@ size_t fs_read(int fd, void *buf, size_t len)
     printf("pos : %p, disk_offset : %p, len : %d\n", pos, file_table[fd].disk_offset, len);
     //printf("fd : %d, open_offset : %d\n", fd, file_table[fd].open_offset);
     memcpy(buf, pos, len);
+    for (int i = 0; i < 64; i++)
+        printf("%c", pos[i]);
+    printf("\n");
     file_table[fd].open_offset += len;
     return len;
 }
