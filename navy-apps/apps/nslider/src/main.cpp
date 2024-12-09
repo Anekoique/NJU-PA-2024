@@ -27,8 +27,8 @@ void render() {
   assert(slide);
   SDL_BlitSurface(slide, NULL, screen, NULL);
   SDL_UpdateRect(screen, 0, 0, 0, 0);
-  printf("here\n");
   SDL_FreeSurface(slide);
+  printf("here\n");
 }
 
 void prev(int rep) {
