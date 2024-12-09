@@ -22,7 +22,6 @@ struct BitmapHeader {
 void* BMP_Load(const char *filename, int *width, int *height) {
   FILE *fp = fopen(filename, "r");
   if (!fp) return NULL;
-  printf("here\n");
 
   struct BitmapHeader hdr;
   assert(sizeof(hdr) == 54);
@@ -50,5 +49,6 @@ void* BMP_Load(const char *filename, int *width, int *height) {
   fclose(fp);
   if (width) *width = w;
   if (height) *height = h;
+  printf("here\n");
   return pixels;
 }
