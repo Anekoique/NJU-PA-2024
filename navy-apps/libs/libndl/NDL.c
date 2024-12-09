@@ -101,9 +101,9 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
     {
 
         lseek(fp, ((y + i) * screen_w + x) * sizeof(uint32_t), SEEK_SET);
-        char buffer[64];
-        NDL_PollEvent(buffer, sizeof(buffer));
-        printf("here\n");
+        //char buffer[64];
+        //NDL_PollEvent(buffer, sizeof(buffer));
+        //printf("here\n");
         write(fp, pixels + i * w, w * sizeof(uint32_t));
     }
 }
