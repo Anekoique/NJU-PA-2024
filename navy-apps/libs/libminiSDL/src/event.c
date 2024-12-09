@@ -32,7 +32,7 @@ int SDL_WaitEvent(SDL_Event *event)
             sscanf(buf, "k%c AM_%s", &type, name);
             printf("here\n");
             printf("type : %c\n", type);
-            printf("type : %c, name : %s", type, name);
+            printf("name : %s\n", name);
             
             if (type == 'u') event->key.type = SDL_KEYUP;
             else if (type == 'd') event->key.type = SDL_KEYDOWN;
