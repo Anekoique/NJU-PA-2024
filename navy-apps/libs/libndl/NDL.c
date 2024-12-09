@@ -9,11 +9,6 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
-typedef size_t (*ReadFn)(void *buf, size_t offset, size_t len);
-typedef size_t (*WriteFn)(const void *buf, size_t offset, size_t len);
-
-ReadFn get_read_func(int fd);
-WriteFn get_write_func(int fd);
 
 uint32_t NDL_GetTicks()
 {
@@ -24,11 +19,9 @@ uint32_t NDL_GetTicks()
 
 int NDL_PollEvent(char *buf, int len)
 {
-    FILE *fp = fopen("/dev/events", "r+");
-    if (fgets(buf, len, fp) != NULL) 
-        return 1;
+    int fp = open("/dev/events", 0);
+    if (read(fp, buf, len) != 0) return 1;
     else return 0;
-
 }
 
 void NDL_OpenCanvas(int *w, int *h)
