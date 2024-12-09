@@ -21,7 +21,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     width = s->w;
     height = s->h;
     NDL_OpenCanvas(&width, &height);
-    NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+    if (w == 0 && h == 0)
+        NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
+    else NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
     printf("here\n");
 }
 
