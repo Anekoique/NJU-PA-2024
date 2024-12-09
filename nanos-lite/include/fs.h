@@ -7,4 +7,6 @@
 enum {SEEK_SET, SEEK_CUR, SEEK_END};
 #endif
 
+extern bool check_flag;
+
 #endif

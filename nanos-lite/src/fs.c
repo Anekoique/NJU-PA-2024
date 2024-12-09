@@ -13,6 +13,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len);
 void init_fb(int *w, int *h);
 
 static intptr_t check_pos = 0x80064a37;
+bool check_flag = false;
 
 typedef struct
 {
@@ -78,7 +79,7 @@ int fs_open(const char *pathname, int flags, int mode)
 
 size_t fs_read(int fd, void *buf, size_t len)
 {
-    if (*(uint8_t *)check_pos != 66) 
+    if (*(uint8_t *)check_pos != 66 && check_flag) 
     {
         printf("error");
         panic("error");
