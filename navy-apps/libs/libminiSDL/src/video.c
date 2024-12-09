@@ -34,13 +34,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     width = s->w;
     height = s->h;
     NDL_OpenCanvas(&width, &height);
-    char buffer[64];
-    NDL_PollEvent(buffer, sizeof(buffer));
-    printf("here\n");
 
     if (w == 0 && h == 0)
         NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
     else NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+    char buffer[64];
+    NDL_PollEvent(buffer, sizeof(buffer));
+    printf("here\n");
 }
 
 // APIs below are already implemented.
