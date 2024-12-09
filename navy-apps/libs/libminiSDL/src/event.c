@@ -31,6 +31,7 @@ int SDL_WaitEvent(SDL_Event *event)
             char *name;
             sscanf(buf, "k%c AM_%s", &type, name);
             printf("here\n");
+            printf("type : %c\n", type);
             printf("type : %c, name : %s", type, name);
             
             if (type == 'u') event->key.type = SDL_KEYUP;
