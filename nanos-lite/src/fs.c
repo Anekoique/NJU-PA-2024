@@ -84,7 +84,7 @@ size_t fs_read(int fd, void *buf, size_t len)
         printf("Con't Reach here\n");
     }
     uint8_t *pos = &ramdisk_start + file_table[fd].disk_offset + file_table[fd].open_offset;
-    printf("pos : %p, disk_offset : %p\n", pos, file_table[fd].disk_offset);
+    printf("pos : %p, disk_offset : %p, len : %d\n", pos, file_table[fd].disk_offset, len);
     //printf("fd : %d, open_offset : %d\n", fd, file_table[fd].open_offset);
     memcpy(buf, pos, len);
     file_table[fd].open_offset += len;
