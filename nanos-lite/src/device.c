@@ -62,6 +62,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len)
     int x = offset / sizeof(uint32_t) % 400;
     int y = offset / sizeof(uint32_t) / 400;
     printf("x : %d, y : %d, len : %d\n", x, y, len);
+    printf("buffer position : %p\n", buf);
     io_write(AM_GPU_FBDRAW, x, y, buffer, len / sizeof(uint32_t), 1, false);
     if (*(uint8_t *)check_pos != 66 && check_flag) 
     {
