@@ -79,7 +79,7 @@ int fs_open(const char *pathname, int flags, int mode)
 
 size_t fs_read(int fd, void *buf, size_t len)
 {
-    if (*(uint8_t *)check_pos != 66) 
+    if (*(uint8_t *)check_pos != 66 && check_flag) 
     {
         printf("check_pos : %d", *(uint8_t *)check_pos);
         printf("error");
