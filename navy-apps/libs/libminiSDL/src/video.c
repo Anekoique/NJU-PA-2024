@@ -8,12 +8,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 {
     assert(dst && src);
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-    dst->h = src->h;
-    dst->w = src->w;
-    dst->flags = src->flags;
-    dst->pitch = src->pitch;
-    dst->format = (SDL_PixelFormat *)malloc(sizeof(SDL_PixelFormat));
-    *(dst->format) = *(src->format);
     dst->pixels = (void *)malloc(dst->w * dst->h * sizeof(uint32_t));
     for (int i = 0; i < dst->h; i++)
     {
