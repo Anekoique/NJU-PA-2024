@@ -72,7 +72,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len)
         printf("error\n");
         panic("error");
     }
-    return 0;
+    return len;
 }
 
 void init_fb(int *w, int *h)
