@@ -130,6 +130,14 @@ size_t fs_write(int fd, const void *buf, size_t len)
 
 size_t fs_lseek(int fd, size_t offset, int whence)
 {
+    if (*(uint8_t *)check_pos != 66 && check_flag) 
+    {
+        printf("fd : %d\n", fd);
+        printf("check_pos : %p\n", check_pos);
+        printf("check_pos_value : %d\n", *(uint8_t *)check_pos);
+        printf("error\n");
+        panic("error");
+    }
     switch(whence)
     {
         case SEEK_SET:
@@ -147,14 +155,6 @@ size_t fs_lseek(int fd, size_t offset, int whence)
         default:
             printf("Invalid whence !\n");
             assert(0);
-    }
-    if (*(uint8_t *)check_pos != 66 && check_flag) 
-    {
-        printf("fd : %d\n", fd);
-        printf("check_pos : %p\n", check_pos);
-        printf("check_pos_value : %d\n", *(uint8_t *)check_pos);
-        printf("error\n");
-        panic("error");
     }
     return file_table[fd].open_offset;
 }
