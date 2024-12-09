@@ -29,9 +29,6 @@ void render() {
   assert(slide);
   SDL_BlitSurface(slide, NULL, screen, NULL);
   SDL_UpdateRect(screen, 0, 0, 0, 0);
-  char buffer[64];
-  NDL_PollEvent(buffer, sizeof(buffer));
-  printf("here\n");
   SDL_FreeSurface(slide);
 }
 
