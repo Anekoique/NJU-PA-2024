@@ -2,6 +2,8 @@
 #include <SDL_bmp.h>
 #include <stdio.h>
 #include <assert.h>
+#include <NDL.h>
+
 
 #define W 400
 #define H 300
@@ -28,6 +30,8 @@ void render() {
   SDL_BlitSurface(slide, NULL, screen, NULL);
   SDL_UpdateRect(screen, 0, 0, 0, 0);
   SDL_FreeSurface(slide);
+  char buffer[64];
+  NDL_PollEvent(buffer, sizeof(buffer));
 }
 
 void prev(int rep) {
