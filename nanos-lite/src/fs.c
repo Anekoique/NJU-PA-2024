@@ -79,11 +79,11 @@ int fs_open(const char *pathname, int flags, int mode)
 
 size_t fs_read(int fd, void *buf, size_t len)
 {
-    if (*(uint8_t *)check_pos != 66 && check_flag) 
+    if (*(uint8_t *)check_pos != 66) 
     {
-        //printf("check_pos : %d", *(uint8_t *)check_pos);
-        //printf("error");
-        //panic("error");
+        printf("check_pos : %d", *(uint8_t *)check_pos);
+        printf("error");
+        panic("error");
     }
     if (fd == 3) return events_read(buf, 0, len);
     if (fd == 4) return dispinfo_read(buf, 0, len);
@@ -94,11 +94,15 @@ size_t fs_read(int fd, void *buf, size_t len)
     }
     uint8_t *pos = &ramdisk_start + file_table[fd].disk_offset + file_table[fd].open_offset;
     printf("pos : %p, disk_offset : %p, len : %d\n", pos, file_table[fd].disk_offset, len);
-    //printf("fd : %d, open_offset : %d\n", fd, file_table[fd].open_offset);
     memcpy(buf, pos, len);
     for (int i = 0; i < 1; i++)
         printf("%d", pos[i]);
     printf("\n");
+    if (file_table[fd].disk_offset == 0x61b0f && len == 1024 && !check_flag)
+    {
+        check_flag = true;
+        check_pos = (intptr_t)pos;
+    }
     file_table[fd].open_offset += len;
     return len;
 }
