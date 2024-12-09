@@ -12,6 +12,8 @@ size_t dispinfo_read(void *buf, size_t ooffset, size_t len);
 size_t fb_write(const void *buf, size_t offset, size_t len);
 void init_fb(int *w, int *h);
 
+static intptr_t check_pos = 0x80064a37;
+
 typedef struct
 {
     char *name;
@@ -76,7 +78,11 @@ int fs_open(const char *pathname, int flags, int mode)
 
 size_t fs_read(int fd, void *buf, size_t len)
 {
-    
+    if (*(uint8_t *)check_pos != 66) 
+    {
+        printf("error");
+        panic("error");
+    }
     if (fd == 3) return events_read(buf, 0, len);
     if (fd == 4) return dispinfo_read(buf, 0, len);
     if (file_table[fd].open_offset + len > file_table[fd].size)
