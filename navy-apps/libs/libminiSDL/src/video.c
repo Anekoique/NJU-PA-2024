@@ -8,6 +8,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 {
     assert(dst && src);
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+    memcpy(dst, src, sizeof(SDL_Surface));
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
@@ -16,6 +17,11 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
+    int width, height;
+    width = s->w;
+    height = s->h;
+    NDL_OpenCanvas(&width, &height);
+    NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
 }
 
 // APIs below are already implemented.
