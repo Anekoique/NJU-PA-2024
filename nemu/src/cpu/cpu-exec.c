@@ -46,7 +46,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     {
         log_write("%s\n", _this->logbuf);
     }
-    if (iring_position == 20) 
+    if (iring_position == MAX_IRING_BUFFER_LEN) 
     {
         iring_inst_num_flag = 1;
         iring_position = 0;
