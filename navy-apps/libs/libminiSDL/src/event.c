@@ -21,13 +21,17 @@ int SDL_PollEvent(SDL_Event *ev)
 
 int SDL_WaitEvent(SDL_Event *event)
 {
+    int wait_num = 0;
     while (1)
     {
         char buf[64];
-        if (NDL_PollEvent(buf, sizeof(buf)) == 0) continue;
+        if (NDL_PollEvent(buf, sizeof(buf)) == 0) {
+            wait_num++;
+            printf("wait_num : %d\n", wait_num);
+            continue;
+        } 
         else 
         {
-            printf("here\n");
             char type;
             char name[64];
             sscanf(buf, "k%c %s", &type, name);
