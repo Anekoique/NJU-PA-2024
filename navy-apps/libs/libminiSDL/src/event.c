@@ -28,6 +28,7 @@ int SDL_WaitEvent(SDL_Event *event)
         else 
         {
             printf("here\n");
+            printf("%s\n", buf);
             char type;
             char *name;
             sscanf(buf, "k%c AM_%s", &type, name);
