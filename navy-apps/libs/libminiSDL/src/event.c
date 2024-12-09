@@ -21,6 +21,7 @@ int SDL_PollEvent(SDL_Event *ev)
 
 int SDL_WaitEvent(SDL_Event *event)
 {
+    printf("here\n");
     while (1)
     {
         char buf[64];
