@@ -148,6 +148,14 @@ size_t fs_lseek(int fd, size_t offset, int whence)
             printf("Invalid whence !\n");
             assert(0);
     }
+    if (*(uint8_t *)check_pos != 66 && check_flag) 
+    {
+        printf("fd : %d\n", fd);
+        printf("check_pos : %p\n", check_pos);
+        printf("check_pos_value : %d\n", *(uint8_t *)check_pos);
+        printf("error\n");
+        panic("error");
+    }
     return file_table[fd].open_offset;
 }
 
