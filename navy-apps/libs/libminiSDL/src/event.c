@@ -28,7 +28,7 @@ int SDL_WaitEvent(SDL_Event *event)
         else 
         {
             char type;
-            char *name;
+            char name[64];
             sscanf(buf, "k%c AM_%s", &type, name);
             printf("here\n");
             printf("type : %c\n", type);
