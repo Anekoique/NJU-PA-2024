@@ -1,4 +1,5 @@
 #include "syscall.h"
+#include <fs.h>
 #include <common.h>
 
 #if defined(MULTIPROGRAM) && !defined(TIME_SHARING)
@@ -57,6 +58,12 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len)
 
 size_t fb_write(const void *buf, size_t offset, size_t len)
 {
+    if (*(uint8_t *)check_pos != 66 && check_flag) 
+    {
+        printf("check_pos : %d", *(uint8_t *)check_pos);
+        printf("error");
+        panic("error");
+    }
     uint32_t *buffer = (uint32_t *)buf;
     int x = offset / sizeof(uint32_t) % 400;
     int y = offset / sizeof(uint32_t) / 400;

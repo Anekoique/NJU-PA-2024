@@ -12,7 +12,7 @@ size_t dispinfo_read(void *buf, size_t ooffset, size_t len);
 size_t fb_write(const void *buf, size_t offset, size_t len);
 void init_fb(int *w, int *h);
 
-static intptr_t check_pos = 0x80064a37;
+intptr_t check_pos = 0x80064a37;
 bool check_flag = false;
 
 typedef struct

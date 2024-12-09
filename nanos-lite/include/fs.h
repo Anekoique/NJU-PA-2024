@@ -8,5 +8,6 @@ enum {SEEK_SET, SEEK_CUR, SEEK_END};
 #endif
 
 extern bool check_flag;
+extern intptr_t check_pos;
 
 #endif
