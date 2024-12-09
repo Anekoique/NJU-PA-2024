@@ -22,6 +22,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     height = s->h;
     NDL_OpenCanvas(&width, &height);
     NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+    printf("here\n");
 }
 
 // APIs below are already implemented.
