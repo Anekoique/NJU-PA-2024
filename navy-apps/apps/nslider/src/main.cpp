@@ -28,7 +28,6 @@ void render() {
   SDL_BlitSurface(slide, NULL, screen, NULL);
   SDL_UpdateRect(screen, 0, 0, 0, 0);
   SDL_FreeSurface(slide);
-  printf("here\n");
 }
 
 void prev(int rep) {
@@ -57,6 +56,7 @@ int main() {
   while (1) {
     SDL_Event e;
     SDL_WaitEvent(&e);
+    printf("here\n");
 
     if (e.type == SDL_KEYDOWN) {
       switch(e.key.keysym.sym) {
