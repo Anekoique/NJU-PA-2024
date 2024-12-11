@@ -3,12 +3,15 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+static int i = 0;
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect)
 {
     assert(dst && src);
     assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-    dst->pixels = (void *)malloc(dst->w * dst->h * sizeof(uint32_t));
+    printf("%d\n", i);
+    dst->pixels = (uint8_t *)malloc(dst->w * dst->h * sizeof(uint32_t));
+    printf("%d\n", i++);
     for (int i = 0; i < dst->h; i++)
     {
         for (int j = 0; j < dst->w; j++)
