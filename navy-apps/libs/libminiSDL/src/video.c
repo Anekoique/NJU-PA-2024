@@ -21,7 +21,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     {
         x = dstrect->x, y = dstrect->y, w = dstrect->w, h = dstrect->h;
     }
-    dst->pixels = (uint8_t *)malloc(screen_w * screen_h * sizeof(uint8_t));
+    //dst->pixels = (uint8_t *)malloc(screen_w * screen_h * sizeof(uint8_t));
     for (int i = y; i < y + h; i++)
     {
         for (int j = x; j < x + w; j++)
