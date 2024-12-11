@@ -15,18 +15,20 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int screen_w = dst->w;
     if (dstrect == NULL) 
     {
-        x = 0, y = 0, w = screen_w, h = screen_h;
+        x = 0, y = 0;
     }
     else
     {
-        x = dstrect->x, y = dstrect->y, w = dstrect->w, h = dstrect->h;
+        x = dstrect->x, y = dstrect->y;
     }
+    w = src->w;
+    h = src->h;
     //dst->pixels = (uint8_t *)malloc(screen_w * screen_h * sizeof(uint8_t));
-    for (int i = y; i < y + h; i++)
+    for (int i = 0; i < h; i++)
     {
-        for (int j = x; j < x + w; j++)
+        for (int j = 0; j < w; j++)
         {
-            (dst->pixels)[i * screen_w + j] = (src->pixels)[i * screen_w + j];
+            (dst->pixels)[(i + y) * screen_w + j + x] = (src->pixels)[i * w + j];
         }
     }
     //for (int i = 0; i < dst->h; i++)
