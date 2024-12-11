@@ -93,7 +93,7 @@ size_t fs_read(int fd, void *buf, size_t len)
     printf("open_offset : %d, len : %d\n", file_table[fd].open_offset, len);
     if (file_table[fd].open_offset + len > file_table[fd].size)
     {
-        len = file_table[fd].size - file_table[fd].open_offset - 1;
+        len = file_table[fd].size - file_table[fd].open_offset;
         
         printf("Con't Reach here\n");
     }
