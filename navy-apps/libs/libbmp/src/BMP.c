@@ -26,9 +26,9 @@ void* BMP_Load(const char *filename, int *width, int *height) {
   struct BitmapHeader hdr;
   assert(sizeof(hdr) == 54);
   assert(1 == fread(&hdr, sizeof(struct BitmapHeader), 1, fp));
-  printf("here\n");
-  printf("hdr.bitcount : %d\n", hdr.bitcount);
-  printf("hdr.compression : %d\n", hdr.compression);
+  //printf("here\n");
+  //printf("hdr.bitcount : %d\n", hdr.bitcount);
+  //printf("hdr.compression : %d\n", hdr.compression);
 
   if (hdr.bitcount != 24 && hdr.bitcount != 32) return NULL;
   if (hdr.compression != 0) return NULL;
