@@ -52,7 +52,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len)
     int writed;
     writed = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n", w, h);
     //printf("writed : %d", writed);
-    serial_write(buf, 0, len);
+    //serial_write(buf, 0, len);
     return writed;
 }
 
