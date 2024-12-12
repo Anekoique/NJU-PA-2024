@@ -24,7 +24,9 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 100010
+#ifdef CONFIG_ITRACE_COND
 static int flag = 0;
+#endif
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
