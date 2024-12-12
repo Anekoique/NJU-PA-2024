@@ -20,6 +20,7 @@ SDL_Surface *IMG_Load(const char *filename)
     long size = ftell(fd);
     void * buf = (void *)malloc(size);
     SDL_Surface *ptr = STBIMG_LoadFromMemory(buf, size);
+    printf("here\n");
     return ptr;
 }
 
