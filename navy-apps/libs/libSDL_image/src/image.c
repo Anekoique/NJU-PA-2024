@@ -22,7 +22,7 @@ SDL_Surface *IMG_Load(const char *filename)
     lseek(fd, 0, SEEK_SET);
     read(fd, buf, size);
     printf("here");
-    SDL_Surface *ptr = STBIMG_LoadFromMemory((unsigned char *)buf, size);
+    SDL_Surface *ptr = STBIMG_LoadFromMemory((unsigned char *)buf, size / sizeof(unsigned char));
     SDL_free(buf);
     return ptr;
 }
