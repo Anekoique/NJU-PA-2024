@@ -30,7 +30,7 @@ void NDL_OpenCanvas(int *w, int *h)
     char buffer[64];
     read(ret, buffer, 64);
     sscanf(buffer, "WIDTH : %d\nHEIGHT : %d\n", &screen_w, &screen_h);
-    printf("%d , %d\n", screen_w, screen_h);
+    //printf("%d , %d\n", screen_w, screen_h);
 
     // Error
     //FILE *fp = fopen("/proc/dispinfo", "r+");
