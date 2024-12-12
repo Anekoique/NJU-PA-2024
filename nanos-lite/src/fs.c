@@ -95,7 +95,7 @@ size_t fs_read(int fd, void *buf, size_t len)
     }
     uint8_t *pos = &ramdisk_start + file_table[fd].disk_offset + file_table[fd].open_offset;
     memcpy(buf, pos, len);
-
+    printf("read len : %d", len);
     //for (int i = 0; i < 1; i++)
     //    printf("%d", pos[i]);
     //printf("\n");
