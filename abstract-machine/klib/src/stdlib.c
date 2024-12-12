@@ -60,6 +60,7 @@ void *malloc(size_t size)
 
 void free(void *ptr)
 {
+    printf("not implemented!\n");
 }
 
 #endif
