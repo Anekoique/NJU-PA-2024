@@ -151,6 +151,7 @@ static void display_menu(int n) {
     auto *item = &items[page * 10 + i];
     sprintf(buf, "  [%d] %s", i, item->name);
     draw_text_row(buf, i);
+    SDL_UpdateRect(screen, 0, 0, 0, 0);
   }
 
   i = 11;
