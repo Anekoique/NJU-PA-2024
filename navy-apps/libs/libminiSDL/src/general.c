@@ -21,7 +21,7 @@ char *SDL_GetError()
 
 int SDL_SetError(const char *fmt, ...)
 {
-    panic("Please implement me!");
+    //panic("Please implement me!");
     return -1;
 }
 
