@@ -186,6 +186,7 @@ static SDL_Surface* STBIMG__CreateSurfaceImpl(STBIMG__image img, int origin_has_
 
 SDL_STBIMG_DEF SDL_Surface* STBIMG_LoadFromMemory(const unsigned char* buffer, int length)
 {
+    printf("gethere\n");
 	STBIMG__image img = {0};
 	int bppToUse = 0;
 	int inforet = 0;
@@ -237,7 +238,6 @@ SDL_STBIMG_DEF SDL_Surface* STBIMG_LoadFromMemory(const unsigned char* buffer, i
 
 SDL_STBIMG_DEF SDL_Surface* STBIMG_CreateSurface(unsigned char* pixelData, int width, int height, int bytesPerPixel, SDL_bool freeWithSurface)
 {
-    printf("gethere\n");
 	STBIMG__image img;
 
 	if(pixelData == NULL)
