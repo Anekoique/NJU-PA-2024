@@ -14,10 +14,10 @@ SDL_Surface *IMG_Load_RW(SDL_RWops *src, int freesrc)
 
 SDL_Surface *IMG_Load(const char *filename)
 {
-    printf("here\n");
+    printf("filename : %s\n", filename);
     int fd = open(filename, 0);
     size_t size = lseek(fd, 0, SEEK_END);
-    printf("here\n");
+    printf("size : %d\n", size);
     void * buf = (void *)malloc(size);
     SDL_Surface *ptr = STBIMG_LoadFromMemory(buf, size);
     return ptr;
