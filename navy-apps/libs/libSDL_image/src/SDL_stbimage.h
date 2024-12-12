@@ -224,11 +224,11 @@ SDL_STBIMG_DEF SDL_Surface* STBIMG_LoadFromMemory(const unsigned char* buffer, i
 	img.format = bppToUse;
 
 	ret = STBIMG__CreateSurfaceImpl(img, origin_has_alpha, 1);
-    printf("current\n");
 
 	if(ret == NULL)
 	{
 		// no need to log an error here, it was an SDL error which should still be available through SDL_GetError()
+        printf("current\n");
 		SDL_free(img.data);
 		return NULL;
 	}
