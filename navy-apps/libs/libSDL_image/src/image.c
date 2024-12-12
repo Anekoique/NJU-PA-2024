@@ -23,6 +23,7 @@ SDL_Surface *IMG_Load(const char *filename)
     lseek(fd, 0, SEEK_SET);
     read(fd, buf, size);
     SDL_Surface *ptr = STBIMG_LoadFromMemory((unsigned char *)buf, size);
+    SDL_free(buf);
     return ptr;
 }
 
