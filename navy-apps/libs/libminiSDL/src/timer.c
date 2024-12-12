@@ -17,8 +17,10 @@ int SDL_RemoveTimer(SDL_TimerID id)
 
 uint32_t SDL_GetTicks()
 {
-    panic("Please implement me!");
-    return 0;
+    static uint32_t start_time = 0;
+    if (!start_time) start_time = NDL_GetTicks();
+    uint32_t current = NDL_GetTicks();
+    return current - start_time;
 }
 
 void SDL_Delay(uint32_t ms)
