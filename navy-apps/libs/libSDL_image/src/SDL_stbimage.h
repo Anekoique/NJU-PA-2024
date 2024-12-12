@@ -123,6 +123,7 @@ SDL_STBIMG_DEF SDL_Surface* STBIMG_CreateSurface(unsigned char* pixelData, int w
 
 #endif // SDL__STBIMAGE_H
 
+#define SDL_STBIMAGE_IMPLEMENTATION
 
 // ############# Below: Implementation ###############
 
