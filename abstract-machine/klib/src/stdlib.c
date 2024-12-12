@@ -55,13 +55,11 @@ void *malloc(size_t size)
     {
         *p = 0;
     }
-    printf("get here\n");
     return old;
 }
 
 void free(void *ptr)
 {
-    printf("get here\n");
 }
 
 #endif
