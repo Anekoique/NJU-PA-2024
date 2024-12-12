@@ -42,20 +42,20 @@ int SDL_SetError(const char *fmt, ...)
                 arg1 = va_arg(v, char *);
                 while (*arg1 != '\0')
                 {
-                    putch(*arg1);
+                    putchar(*arg1);
                     arg1++;
                 }
                 break;
             case 'c':
                 arg2 = va_arg(v, int);
-                putch(arg2);
+                putchar(arg2);
                 return 0;
             case 'd':
                 arg2 = va_arg(v, int);
                 char num_buffer[32];
                 i = 0;
                 if (arg2 == 0)
-                    putch('0');
+                    putchar('0');
                 else
                 {
                     while (arg2 > 0 && i < 32)
@@ -66,7 +66,7 @@ int SDL_SetError(const char *fmt, ...)
                 }
 
                 for (int j = i - 1; j >= 0; j--)
-                    putch(num_buffer[j]);
+                    putchar(num_buffer[j]);
                 break;
             case 'l':
                 arg2 = va_arg(v, int);
@@ -74,7 +74,7 @@ int SDL_SetError(const char *fmt, ...)
                 copy++;
                 i = 0;
                 if (arg2 == 0)
-                    putch('0');
+                    putchar('0');
                 else
                 {
                     while (arg2 > 0)
@@ -85,14 +85,14 @@ int SDL_SetError(const char *fmt, ...)
                 }
 
                 for (int j = i - 1; j >= 0; j--)
-                    putch(num_buffer2[j]);
+                    putchar(num_buffer2[j]);
                 break;
             case 'x':
                 arg2 = va_arg(v, int);
                 printf("here\n");
                 if (arg2 == 0)
                 {
-                    putch('0');
+                    putchar('0');
                 }
                 else
                 {
@@ -110,7 +110,7 @@ int SDL_SetError(const char *fmt, ...)
 
                     // Print the hex string in reverse order
                     for (int j = i - 1; j >= 0; j--)
-                        putch(hex_buffer[j]);
+                        putchar(hex_buffer[j]);
                 }
                 break;
             case 'p':  // Handle pointer address
@@ -118,7 +118,7 @@ int SDL_SetError(const char *fmt, ...)
                 unsigned int ptr_val = (unsigned int)arg3; // Cast pointer to unsigned int
                 if (ptr_val == 0)
                 {
-                    putch('0');
+                    putchar('0');
                 }
                 else
                 {
@@ -135,19 +135,19 @@ int SDL_SetError(const char *fmt, ...)
                     }
 
                     // Print "0x" prefix for pointer addresses
-                    putch('0');
-                    putch('x');
+                    putchar('0');
+                    putchar('x');
 
                     // Print the hex string in reverse order
                     for (int j = i - 1; j >= 0; j--)
-                        putch(hex_buffer[j]);
+                        putchar(hex_buffer[j]);
                 }
                 break;
             }
         }
         else
         {
-            putch(*copy);
+            putchar(*copy);
         }
         copy++;
     }
