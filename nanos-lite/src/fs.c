@@ -171,3 +171,8 @@ WriteFn get_write_func(int fd)
 {
     return file_table[fd].write;
 }
+
+size_t get_size(int fd)
+{
+    return file_table[fd].size;
+}
