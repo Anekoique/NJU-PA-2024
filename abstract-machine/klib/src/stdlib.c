@@ -55,12 +55,13 @@ void *malloc(size_t size)
     {
         *p = 0;
     }
+    printf("get here\n");
     return old;
 }
 
 void free(void *ptr)
 {
-    printf("not implemented!\n");
+    printf("get here\n");
 }
 
 #endif
