@@ -52,9 +52,11 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
                     ((uint8_t *)(src->pixels))[(i + src_y) * src_w + j + src_x];
             }
         }
+        printf("get here\n");
         return;
     }
 
+    printf("can not get here\n");
     for (int i = 0; i < h; i++)
     {
         for (int j = 0; j < w; j++)
