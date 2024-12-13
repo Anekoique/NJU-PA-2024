@@ -121,6 +121,7 @@ SDL_Surface *SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
                                   uint32_t Bmask, uint32_t Amask)
 {
     assert(depth == 8 || depth == 32);
+    printf("%d\n", depth);
     SDL_Surface *s = malloc(sizeof(SDL_Surface));
     assert(s);
     s->flags = flags;
