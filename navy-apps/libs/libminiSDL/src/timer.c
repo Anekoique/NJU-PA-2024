@@ -20,6 +20,7 @@ uint32_t SDL_GetTicks()
     static uint32_t start_time = 0;
     if (!start_time) start_time = NDL_GetTicks();
     uint32_t current = NDL_GetTicks();
+    printf("return : %d\n", current-start_time);
     return current - start_time;
 }
 
