@@ -32,5 +32,5 @@ void SDL_Delay(uint32_t ms)
         if (current - start > ms)
             return;
     }
-    panic("Please implement me!");
+    panic("Con't Reach here\n");
 }
