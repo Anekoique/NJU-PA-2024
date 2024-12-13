@@ -110,6 +110,17 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
     //assert(s->format->BitsPerPixel == 32);
+    if (s->format->BitsPerPixel == 8)
+    {
+        int width, height;
+        width = s->w;
+        height = s->h;
+        NDL_OpenCanvas(&width, &height);
+
+        if (w == 0 && h == 0)
+            NDL_DrawRect((uint8_t *)s->pixels, x, y, width, height);
+        else NDL_DrawRect((uint8_t *)s->pixels, x, y, w, h);
+    }
     int width, height;
     width = s->w;
     height = s->h;
