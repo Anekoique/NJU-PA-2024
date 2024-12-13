@@ -103,7 +103,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     {
 
         uint32_t *pixels;
-        printf("width : %d, height : %d", width, height);
         pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
         SDL_Color *colors = s->format->palette->colors;
 
