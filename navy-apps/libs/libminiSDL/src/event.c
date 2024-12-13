@@ -35,7 +35,10 @@ int SDL_PollEvent(SDL_Event *ev)
         {
             if (strcmp(name, keyname[i]) == 0)
             {
-                keystate[i] = 1;
+                if (ev->key.type == SDL_KEYDOWN) 
+                    keystate[i] = 1;
+                else 
+                    keystate[i] = 0;
                 ev->key.keysym.sym = i;
                 return 1;
             }
