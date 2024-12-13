@@ -53,7 +53,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
                     ((uint8_t *)(src->pixels))[(i + src_y) * src_w + j + src_x];
             }
         }
-        printf("here\n");
         return;
     }
 
@@ -130,7 +129,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 
         NDL_DrawRect(pixels, x, y, width, height);
         free(pixels);
-        printf("here2\n");
         return;
     }
 
