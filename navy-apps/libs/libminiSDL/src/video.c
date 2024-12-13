@@ -42,6 +42,18 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         src_x = srcrect->x, src_y = srcrect->y;
     }
 
+    if (src->format->BitsPerPixel == 8)
+    {
+        for (int i = 0; i < h; i++)
+        {
+            for (int j = 0; j < w; j++)
+            {
+                ((uint8_t *)(dst->pixels))[(i + y) * screen_w + j + x] = 
+                    ((uint8_t *)(src->pixels))[(i + src_y) * src_w + j + src_x];
+            }
+        }
+    }
+
     for (int i = 0; i < h; i++)
     {
         for (int j = 0; j < w; j++)
