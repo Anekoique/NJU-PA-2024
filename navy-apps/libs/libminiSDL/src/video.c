@@ -56,6 +56,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         return;
     }
 
+    printf("can not get here\n");
     for (int i = 0; i < h; i++)
     {
         for (int j = 0; j < w; j++)
@@ -131,6 +132,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         free(pixels);
         return;
     }
+
+    printf("can not get here\n");
     NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
 }
 
