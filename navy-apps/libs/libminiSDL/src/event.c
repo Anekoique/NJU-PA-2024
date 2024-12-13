@@ -6,6 +6,9 @@
 #define keyname(k) #k,
 
 static const char *keyname[] = {"NONE", _KEYS(keyname)};
+#define KEYNUM (sizeof(keyname) / sizeof(keyname[0]))
+static uint8_t keystate[KEYNUM] = { 0 };
+
 
 int SDL_PushEvent(SDL_Event *ev)
 {
@@ -58,7 +61,7 @@ int SDL_WaitEvent(SDL_Event *event)
             if (type == 'u') event->key.type = SDL_KEYUP;
             else if (type == 'd') event->key.type = SDL_KEYDOWN;
             
-            for (int i = 0; i < sizeof(keyname) / sizeof(keyname[0]); i++)
+            for (int i = 0; i < KEYNUM; i++)
             {
                 if (strcmp(name, keyname[i]) == 0)
                 {
@@ -80,6 +83,8 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask)
 
 uint8_t *SDL_GetKeyState(int *numkeys)
 {
-    panic("Please implement me!");
-    return NULL;
+    if (numkeys)
+        *numkeys = KEYNUM;
+    
+    return keystate;
 }
