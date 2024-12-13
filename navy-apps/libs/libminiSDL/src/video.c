@@ -5,6 +5,9 @@
 #include <stdlib.h>
 static int i = 0;
 
+static int maskToShift(uint32_t);
+uint32_t SDL_MapRGB(SDL_PixelFormat *, uint8_t, uint8_t, uint8_t, uint8_t);
+
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect)
 {
     assert(dst && src);
@@ -39,18 +42,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         src_x = srcrect->x, src_y = srcrect->y;
     }
 
-    if (src->format->BitsPerPixel == 8)
-    {
-        for (int i = 0; i < h; i++)
-        {
-            for (int j = 0; j < w; j++)
-            {
-                ((uint8_t *)(dst->pixels))[(i + y) * screen_w + j + x] = 
-                    ((uint8_t *)(src->pixels))[(i + src_y) * src_w + j + src_x];
-            }
-        }
-        return;
-    }
     for (int i = 0; i < h; i++)
     {
         for (int j = 0; j < w; j++)
@@ -62,29 +53,6 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 {
-    if (dst->format->BitsPerPixel == 8)
-    {
-        int x, y;
-        uint16_t w, h;
-        if (dstrect == NULL) 
-        {
-            x = 0, y = 0, w = dst->w, h = dst->h;
-        }
-        else
-        {
-            x = dstrect->x, y = dstrect->y, w = dstrect->w, h = dstrect->h;
-        }
-        int screen_w = dst->w;
-        int screen_h = dst->h;
-        for (int i = y; i < y + h; i++)
-        {
-            for (int j = x; j < x + w; j++)
-            {
-                ((uint8_t *)(dst->pixels))[i * screen_w + j] = color;
-            }
-        }
-        return;
-    }
     int x, y;
     uint16_t w, h;
     if (dstrect == NULL) 
@@ -109,26 +77,44 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
-    //assert(s->format->BitsPerPixel == 32);
-    if (s->format->BitsPerPixel == 8)
-    {
-        int width, height;
-        width = s->w;
-        height = s->h;
-        NDL_OpenCanvas(&width, &height);
 
-        if (w == 0 && h == 0)
-            NDL_DrawRect((uint8_t *)s->pixels, x, y, width, height);
-        else NDL_DrawRect((uint8_t *)s->pixels, x, y, w, h);
-    }
     int width, height;
-    width = s->w;
-    height = s->h;
+    width = w == 0 ? s->w : w;
+    height = h == 0 ? s->h : h;
     NDL_OpenCanvas(&width, &height);
 
-    if (w == 0 && h == 0)
+    if (s->format->BitsPerPixel == 8)
+    {
+
+        uint32_t *pixels;
+        pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
+        uint32_t *ptr = pixels;
+        SDL_Color *colors = s->format->palette->colors;
+
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+
+        SDL_PixelFormat fmt;
+        fmt.Rshift = maskToShift(0x00ff0000);
+        fmt.Gshift = maskToShift(0x0000ff00);
+        fmt.Bshift = maskToShift(0x000000ff);
+
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                r = colors[i * width + j].r;
+                g = colors[i * width + j].g;
+                b = colors[i * width + j].b;
+                pixels[i * width + j] = SDL_MapRGB(&fmt, r, g, b, 0);
+            }
+        }
+
         NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
-    else NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+        return;
+    }
+    NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
 }
 
 // APIs below are already implemented.
