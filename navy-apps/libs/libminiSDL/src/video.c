@@ -7,7 +7,7 @@
 static int i = 0;
 
 static int maskToShift(uint32_t);
-uint32_t SDL_MapRGB(SDL_PixelFormat *, uint8_t, uint8_t, uint8_t, uint8_t);
+uint32_t SDL_MapRGBA(SDL_PixelFormat *, uint8_t, uint8_t, uint8_t, uint8_t);
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect)
 {
@@ -124,7 +124,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                 r = colors[i * width + j].r;
                 g = colors[i * width + j].g;
                 b = colors[i * width + j].b;
-                pixels[i * width + j] = SDL_MapRGB(&fmt, r, g, b, 0);
+                pixels[i * width + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
             }
         }
 
