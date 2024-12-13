@@ -68,25 +68,54 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 {
-    //int x, y;
-    //uint16_t w, h;
-    //if (dstrect == NULL) 
-    //{
-    //    x = 0, y = 0, w = dst->w, h = dst->h;
-    //}
-    //else
-    //{
-    //    x = dstrect->x, y = dstrect->y, w = dstrect->w, h = dstrect->h;
-    //}
-    //int screen_w = dst->w;
-    //int screen_h = dst->h;
-    //for (int i = y; i < y + h; i++)
-    //{
-    //    for (int j = x; j < x + w; j++)
-    //    {
-    //        ((uint32_t *)(dst->pixels))[i * screen_w + j] = color;
-    //    }
-    //}
+    int x, y;
+    uint16_t w, h;
+    if (dstrect == NULL) 
+    {
+        x = 0, y = 0, w = dst->w, h = dst->h;
+    }
+    else
+    {
+        x = dstrect->x, y = dstrect->y, w = dstrect->w, h = dstrect->h;
+    }
+    int screen_w = dst->w;
+    int screen_h = dst->h;
+
+    if (dst->format->BitsPerPixel == 8)
+    {
+        uint8_t r = (color & 0x00ff0000) >> 4;
+        uint8_t g = (color & 0x0000ff00) >> 2;
+        uint8_t b = (color & 0x000000ff) >> 0;
+        SDL_Color *colors = dst->format->palette->colors;
+        uint8_t flag;
+
+        for (int i = 0; i < dst->format->palette->ncolors; i++)
+        {
+            if (r == colors[i].r && g == colors[i].g && b == colors[i].b)
+            {
+                flag = i;
+                break;
+            }
+        }
+
+        for (int i = y; i < y + h; i++)
+        {
+            for (int j = x; j < x + w; j++)
+            {
+                ((uint8_t *)(dst->pixels))[i * screen_w + j] = flag;
+            }
+        }
+        return;
+    }
+
+    printf("can not get here\n");
+    for (int i = y; i < y + h; i++)
+    {
+        for (int j = x; j < x + w; j++)
+        {
+            ((uint32_t *)(dst->pixels))[i * screen_w + j] = color;
+        }
+    }
 
 }
 
