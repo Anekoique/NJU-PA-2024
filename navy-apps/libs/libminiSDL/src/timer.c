@@ -18,8 +18,8 @@ int SDL_RemoveTimer(SDL_TimerID id)
 uint32_t SDL_GetTicks()
 {
     static uint32_t start_time = 0;
-    if (!start_time) start_time = NDL_GetTicks() / 1000000;
-    uint32_t current = NDL_GetTicks() / 1000000;
+    if (!start_time) start_time = NDL_GetTicks();
+    uint32_t current = NDL_GetTicks();
     return current - start_time;
 }
 
