@@ -68,27 +68,25 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 {
-    if (dst->format->BitsPerPixel == 8)
-        printf("***************\n");
-    int x, y;
-    uint16_t w, h;
-    if (dstrect == NULL) 
-    {
-        x = 0, y = 0, w = dst->w, h = dst->h;
-    }
-    else
-    {
-        x = dstrect->x, y = dstrect->y, w = dstrect->w, h = dstrect->h;
-    }
-    int screen_w = dst->w;
-    int screen_h = dst->h;
-    for (int i = y; i < y + h; i++)
-    {
-        for (int j = x; j < x + w; j++)
-        {
-            ((uint32_t *)(dst->pixels))[i * screen_w + j] = color;
-        }
-    }
+    //int x, y;
+    //uint16_t w, h;
+    //if (dstrect == NULL) 
+    //{
+    //    x = 0, y = 0, w = dst->w, h = dst->h;
+    //}
+    //else
+    //{
+    //    x = dstrect->x, y = dstrect->y, w = dstrect->w, h = dstrect->h;
+    //}
+    //int screen_w = dst->w;
+    //int screen_h = dst->h;
+    //for (int i = y; i < y + h; i++)
+    //{
+    //    for (int j = x; j < x + w; j++)
+    //    {
+    //        ((uint32_t *)(dst->pixels))[i * screen_w + j] = color;
+    //    }
+    //}
 
 }
 
