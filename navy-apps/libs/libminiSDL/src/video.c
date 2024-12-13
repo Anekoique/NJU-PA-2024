@@ -113,6 +113,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         uint8_t b;
 
         SDL_PixelFormat fmt;
+        fmt.BytesPerPixel = 4;
         fmt.Rshift = maskToShift(0x00ff0000);
         fmt.Gshift = maskToShift(0x0000ff00);
         fmt.Bshift = maskToShift(0x000000ff);
