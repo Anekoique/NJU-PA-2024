@@ -62,6 +62,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 {
+    if (dst->format->BitsPerPixel == 8)
+    {
+        
+    }
     int x, y;
     uint16_t w, h;
     if (dstrect == NULL) 
@@ -86,6 +90,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
+    assert(s->format->BitsPerPixel == 32);
     int width, height;
     width = s->w;
     height = s->h;
@@ -121,7 +126,6 @@ SDL_Surface *SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
                                   uint32_t Bmask, uint32_t Amask)
 {
     assert(depth == 8 || depth == 32);
-    printf("%d\n", depth);
     SDL_Surface *s = malloc(sizeof(SDL_Surface));
     assert(s);
     s->flags = flags;
