@@ -103,8 +103,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     {
 
         uint32_t *pixels;
+        printf("width : %d, height : %d", width, height);
         pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
-        uint32_t *ptr = pixels;
         SDL_Color *colors = s->format->palette->colors;
 
         uint8_t r;
@@ -121,9 +121,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         {
             for (int j = 0; j < width; j++)
             {
-                r = colors[i * width + j].r;
-                g = colors[i * width + j].g;
-                b = colors[i * width + j].b;
+                r = colors[s->pixels[i * width + j]].r;
+                g = colors[s->pixels[i * width + j]].g;
+                b = colors[s->pixels[i * width + j]].b;
                 pixels[i * width + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
             }
         }
