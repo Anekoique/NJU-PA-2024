@@ -165,9 +165,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
             }
         }
 
+        int mid_x = 200, mid_y = 150;
+        int offset_x = mid_x - screen_w / 2;
+        int offset_y = mid_y - screen_h / 2;
+
         printf("x : %d, y : %d\n", x, y);
         //printf("width : %d, pitch : %d\n", width, pitch);
-        NDL_DrawRect(pixels, x, y, width, height);
+        NDL_DrawRect(pixels, offset_x + x, offset_y + y, width, height);
         free(pixels);
         return;
     }
