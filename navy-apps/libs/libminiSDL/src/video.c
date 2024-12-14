@@ -154,7 +154,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
                 r = colors[s->pixels[i * width + j]].r;
                 g = colors[s->pixels[i * width + j]].g;
                 b = colors[s->pixels[i * width + j]].b;
-                pixels[i * pitch + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
+                pixels[i * width + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
             }
         }
 
