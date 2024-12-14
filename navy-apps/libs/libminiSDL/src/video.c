@@ -47,6 +47,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
     if (src->format->BitsPerPixel == 8)
     {
+        printf("h : %d, w : %d\n", h, w);
         for (int i = 0; i < h; i++)
         {
             for (int j = 0; j < w; j++)
@@ -163,7 +164,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
             }
         }
 
-        printf("width : %d, pitch : %d\n", width, pitch);
+        //printf("width : %d, pitch : %d\n", width, pitch);
         NDL_DrawRect(pixels, x, y, width, height);
         free(pixels);
         return;
