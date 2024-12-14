@@ -140,8 +140,42 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     if (s->format->BitsPerPixel == 8)
     {
 
+        //uint32_t *pixels;
+        //pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
+        //SDL_Color *colors = s->format->palette->colors;
+
+        //uint8_t r;
+        //uint8_t g;
+        //uint8_t b;
+
+        //SDL_PixelFormat fmt;
+        //fmt.BytesPerPixel = 4;
+        //fmt.Rshift = maskToShift(0x00ff0000);
+        //fmt.Gshift = maskToShift(0x0000ff00);
+        //fmt.Bshift = maskToShift(0x000000ff);
+
+        //for (int i = 0; i < height; i++)
+        //{
+        //    for (int j = 0; j < width; j++)
+        //    {
+        //        r = colors[s->pixels[(i + y) * screen_w + x + j]].r;
+        //        g = colors[s->pixels[(i + y) * screen_w + x + j]].g;
+        //        b = colors[s->pixels[(i + y) * screen_w + x + j]].b;
+        //        pixels[i * width + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
+        //    }
+        //}
+
+        //int mid_x = 200, mid_y = 150;
+        //int offset_x = mid_x - screen_w / 2;
+        //int offset_y = mid_y - screen_h / 2;
+
+        //printf("x : %d, y : %d\n", x, y);
+        ////printf("width : %d, pitch : %d\n", width, pitch);
+        //NDL_DrawRect(pixels, offset_x + x, offset_y + y, width, height);
+        //free(pixels);
+        //return;
         uint32_t *pixels;
-        pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
+        pixels = (uint32_t *)malloc(sizeof(uint32_t) * screen_h * screen_w);
         SDL_Color *colors = s->format->palette->colors;
 
         uint8_t r;
@@ -154,24 +188,20 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         fmt.Gshift = maskToShift(0x0000ff00);
         fmt.Bshift = maskToShift(0x000000ff);
 
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < screen_h; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < screen_w; j++)
             {
-                r = colors[s->pixels[(i + y) * screen_w + x + j]].r;
-                g = colors[s->pixels[(i + y) * screen_w + x + j]].g;
-                b = colors[s->pixels[(i + y) * screen_w + x + j]].b;
-                pixels[i * width + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
+                r = colors[s->pixels[(i) * screen_w + j]].r;
+                g = colors[s->pixels[(i) * screen_w + j]].g;
+                b = colors[s->pixels[(i) * screen_w + j]].b;
+                pixels[i * screen_w + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
             }
         }
 
-        int mid_x = 200, mid_y = 150;
-        int offset_x = mid_x - screen_w / 2;
-        int offset_y = mid_y - screen_h / 2;
-
         printf("x : %d, y : %d\n", x, y);
         //printf("width : %d, pitch : %d\n", width, pitch);
-        NDL_DrawRect(pixels, offset_x + x, offset_y + y, width, height);
+        NDL_DrawRect(pixels, 0, 0, screen_w, screen_h);
         free(pixels);
         return;
     }
