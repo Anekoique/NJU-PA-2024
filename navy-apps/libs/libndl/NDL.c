@@ -8,6 +8,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int offset_x = 0, offset_y = 0;
 
 
 uint32_t NDL_GetTicks()
@@ -51,7 +52,15 @@ void NDL_OpenCanvas(int *w, int *h)
     {
         *w = screen_w;
         *h = screen_h;
+        offset_x = 0;
+        offset_y = 0;
     }
+    else 
+    {
+        offset_x = screen_w / 2 - *w / 2;
+        offset_y = screen_h / 2 - *h / 2;
+    }
+
     if (getenv("NWM_APP"))
     {
         printf("here ***********\n");
@@ -82,12 +91,8 @@ void NDL_OpenCanvas(int *w, int *h)
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
 {
-    int mid_x = screen_w / 2, mid_y = screen_h / 2;
-    if (x + w < screen_w && x + h < screen_h)
-    {
-        x = mid_x - w / 2;
-        y = mid_y - h / 2;
-    }
+    x += offset_x;
+    y += offset_y;
 
     //int fp = open("/dev/fb", 0);
     //for (int i = 0; i < h; i++)
