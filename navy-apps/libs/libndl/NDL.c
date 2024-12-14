@@ -82,12 +82,12 @@ void NDL_OpenCanvas(int *w, int *h)
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
 {
-    int mid_x = screen_w / 2, mid_y = screen_h / 2;
-    if (x + w < screen_w && x + h < screen_h)
-    {
-        x = mid_x - w / 2;
-        y = mid_y - h / 2;
-    }
+    //int mid_x = screen_w / 2, mid_y = screen_h / 2;
+    //if (x + w < screen_w && x + h < screen_h)
+    //{
+    //    x = mid_x - w / 2;
+    //    y = mid_y - h / 2;
+    //}
 
     //int fp = open("/dev/fb", 0);
     //for (int i = 0; i < h; i++)
