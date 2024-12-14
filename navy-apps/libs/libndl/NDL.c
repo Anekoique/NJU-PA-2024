@@ -96,6 +96,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
     //    fwrite(pixels + i * w, sizeof(uint32_t), w, fp);
     //}
     //
+    printf("x : %d y : %d\n", x, y);
     int fp = open("/dev/fb", 0);
     for (int i = 0; i < h; i++)
     {
