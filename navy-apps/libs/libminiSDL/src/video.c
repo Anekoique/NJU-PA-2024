@@ -139,7 +139,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     {
 
         uint32_t *pixels;
-        pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
+        pixels = (uint32_t *)malloc(sizeof(uint32_t) * screen_w * screen_h);
         SDL_Color *colors = s->format->palette->colors;
 
         uint8_t r;
@@ -152,9 +152,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         fmt.Gshift = maskToShift(0x0000ff00);
         fmt.Bshift = maskToShift(0x000000ff);
 
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < screen_h; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < screen_w; j++)
             {
                 r = colors[s->pixels[i * screen_w + j]].r;
                 g = colors[s->pixels[i * screen_w + j]].g;
