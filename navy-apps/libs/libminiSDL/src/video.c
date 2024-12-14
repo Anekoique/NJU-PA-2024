@@ -125,9 +125,14 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
 
     int width, height;
+
+    int screen_w = s->w;
+    int screen_h = s->h;
+
     width = w == 0 ? s->w : w;
     height = h == 0 ? s->h : h;
-    NDL_OpenCanvas(&width, &height);
+
+    NDL_OpenCanvas(&screen_w, &screen_h);
     uint16_t pitch = s->pitch;
 
     if (s->format->BitsPerPixel == 8)
@@ -151,10 +156,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         {
             for (int j = 0; j < width; j++)
             {
-                r = colors[s->pixels[i * width + j]].r;
-                g = colors[s->pixels[i * width + j]].g;
-                b = colors[s->pixels[i * width + j]].b;
-                pixels[i * width + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
+                r = colors[s->pixels[i * screen_w + j]].r;
+                g = colors[s->pixels[i * screen_w + j]].g;
+                b = colors[s->pixels[i * screen_w + j]].b;
+                pixels[i * screen_w + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
             }
         }
 
