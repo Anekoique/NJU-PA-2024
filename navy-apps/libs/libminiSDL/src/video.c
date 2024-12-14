@@ -23,6 +23,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     int src_h = src->h;
     int src_w = src->w;
 
+    uint16_t pitch = src->pitch;
+
     if (dstrect == NULL) 
     {
         x = 0, y = 0;
@@ -126,6 +128,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
     width = w == 0 ? s->w : w;
     height = h == 0 ? s->h : h;
     NDL_OpenCanvas(&width, &height);
+    uint16_t pitch = s->pitch;
 
     if (s->format->BitsPerPixel == 8)
     {
@@ -148,9 +151,9 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         {
             for (int j = 0; j < width; j++)
             {
-                r = colors[s->pixels[i * width + j]].r;
-                g = colors[s->pixels[i * width + j]].g;
-                b = colors[s->pixels[i * width + j]].b;
+                r = colors[s->pixels[i * pitch + j]].r;
+                g = colors[s->pixels[i * pitch + j]].g;
+                b = colors[s->pixels[i * pitch + j]].b;
                 pixels[i * width + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
             }
         }
