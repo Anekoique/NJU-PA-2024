@@ -123,50 +123,60 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
 {
+    // Determine the width and height of the update region
+    int width = (w == 0) ? s->w : w;
+    int height = (h == 0) ? s->h : h;
 
-    int width, height;
-    width = w == 0 ? s->w : w;
-    height = h == 0 ? s->h : h;
+    // Ensure canvas dimensions match the update region
     NDL_OpenCanvas(&width, &height);
-    uint16_t pitch = s->pitch;
+
+    uint16_t pitch = s->pitch; // Number of bytes per row
 
     if (s->format->BitsPerPixel == 8)
     {
+        // Allocate a temporary buffer for converted pixel data
+        uint32_t *pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
+        if (pixels == NULL)
+        {
+            fprintf(stderr, "Memory allocation failed\n");
+            return;
+        }
 
-        uint32_t *pixels;
-        pixels = (uint32_t *)malloc(sizeof(uint32_t) * width * height);
+        // Extract palette information
         SDL_Color *colors = s->format->palette->colors;
 
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
+        // Define the target pixel format (RGBA8888)
+        SDL_PixelFormat fmt = {
+            .BytesPerPixel = 4,
+            .Rshift = maskToShift(0x00ff0000),
+            .Gshift = maskToShift(0x0000ff00),
+            .Bshift = maskToShift(0x000000ff),
+            .Ashift = maskToShift(0xff000000),
+        };
 
-        SDL_PixelFormat fmt;
-        fmt.BytesPerPixel = 4;
-        fmt.Rshift = maskToShift(0x00ff0000);
-        fmt.Gshift = maskToShift(0x0000ff00);
-        fmt.Bshift = maskToShift(0x000000ff);
-
+        // Convert 8-bit indexed pixels to 32-bit RGBA pixels
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                r = colors[s->pixels[i * pitch + j]].r;
-                g = colors[s->pixels[i * pitch + j]].g;
-                b = colors[s->pixels[i * pitch + j]].b;
-                pixels[i * pitch + j] = SDL_MapRGBA(&fmt, r, g, b, 0);
+                uint8_t index = s->pixels[i * pitch + j];
+                SDL_Color color = colors[index];
+                pixels[i * width + j] = SDL_MapRGBA(&fmt, color.r, color.g, color.b, 255);
             }
         }
 
+        // Draw the converted pixels to the canvas
         NDL_DrawRect(pixels, x, y, width, height);
+
+        // Free the temporary buffer
         free(pixels);
-        return;
     }
-
-    printf("can not get here\n");
-    NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
+    else
+    {
+        // Handle other pixel formats (e.g., 16-bit or 32-bit)
+        NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
+    }
 }
-
 // APIs below are already implemented.
 
 static inline int maskToShift(uint32_t mask)
