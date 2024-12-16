@@ -1,7 +1,7 @@
 #include <am.h>
 #include <navy.h>
 
-Area heap;
+//Area heap;
 
 void putch(char ch)
 {
