@@ -1,7 +1,7 @@
 #include <am.h>
 #include <navy.h>
 
-//Area heap;
+Area heap;
 
 void putch(char ch)
 {
@@ -9,4 +9,5 @@ void putch(char ch)
 
 void halt(int code)
 {
+    panic("con't reach here\n");
 }
