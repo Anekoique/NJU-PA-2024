@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
 #include "NDL.h"
 
 #define SYS_exit 0
