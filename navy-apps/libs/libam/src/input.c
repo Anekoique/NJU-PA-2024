@@ -21,7 +21,6 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
             if (strcmp(name, keyname[i]) == 0)
             {
                 kbd->keycode = i;
-                return 1;
             }
         } 
     }
