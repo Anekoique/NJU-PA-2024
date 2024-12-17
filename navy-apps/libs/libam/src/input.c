@@ -11,11 +11,12 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
     kbd->keycode = AM_KEY_NONE;
 
     char buf[64];
-    if (!NDL_PollEvent(buf, sizeof(buf)))
+    if (NDL_PollEvent(buf, sizeof(buf)))
     {
         char type, name[64];
         sscanf(buf, "k%c %s", &type, name);
         printf("here\n");
+        printf("")
         kbd->keydown = type == 'u' ? false : true;
         for (int i = 0; i < KEYNUM; i++)
         {
