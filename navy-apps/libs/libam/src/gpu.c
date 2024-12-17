@@ -28,7 +28,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
     {
 
         lseek(fp, ((ctl->y + i) * screen_w + ctl->x) * sizeof(uint32_t), SEEK_SET);
-        write(fp, ctl->pixels + i * ctl->w, ctl->w * sizeof(uint32_t));
+        write(fp, ((uint32_t *)ctl->pixels) + i * ctl->w, ctl->w * sizeof(uint32_t));
     }
 }
 
