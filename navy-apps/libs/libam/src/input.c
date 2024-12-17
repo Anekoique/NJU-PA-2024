@@ -26,6 +26,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
                 break;
             }
         }
-        printf("i : %d\n", kbd->keycode);
     }
 }
