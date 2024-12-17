@@ -2,12 +2,14 @@
 #include <navy.h>
 
 Area heap;
+extern int _syscall_(int, uintptr_t, uintptr_t, uintptr_t);
 
 void putch(char ch)
 {
+    printf("%c", ch);
 }
 
 void halt(int code)
 {
-    panic("con't reach here\n");
+    _syscall_(SYS_exit, code, 0, 0);
 }
