@@ -15,6 +15,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
     {
         char type, name[64];
         sscanf(buf, "k%c %s", &type, name);
+        printf("%c , %s\n", type, name);
         kbd->keydown = ((type == 'u') ? false : true);
         for (int i = 0; i < KEYNUM; i++)
         {
@@ -23,6 +24,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
                 kbd->keycode = i;
             }
         }
-        printf("%c , %s\n", type, name);
     }
 }
