@@ -19,7 +19,6 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
         kbd->keydown = ((type == 'u') ? false : true);
         for (int i = 0; i < KEYNUM; i++)
         {
-            printf("%s\n", keyname[i]);
             if (strcmp(name, keyname[i]) == 0)
             {
                 kbd->keycode = i;
