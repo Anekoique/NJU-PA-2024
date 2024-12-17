@@ -11,5 +11,5 @@ void putch(char ch)
 
 void halt(int code)
 {
-    _syscall_(SYS_exit, code, 0, 0);
+    _syscall_((intptr_t)SYS_exit, (intptr_t)code, (inptr_t)0, (intptr_t)0);
 }
