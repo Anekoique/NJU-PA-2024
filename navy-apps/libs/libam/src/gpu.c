@@ -23,6 +23,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
         return;
     int fp = open("/dev/fb", 0);
     printf("x %d, y %d, w %d, h %d\n", ctl->x, ctl->y, ctl->w, ctl->h);
+    printf("screen_w : %d\n", screen_w);
     for (int i = 0; i < ctl->h; i++)
     {
 
