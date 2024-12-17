@@ -25,7 +25,7 @@
  */
 #define MAX_INST_TO_PRINT 100010
 #ifdef CONFIG_ITRACE_COND
-static int flag = 0;
+//static int flag = 0;
 #endif
 
 CPU_state cpu = {};
@@ -56,9 +56,9 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc)
     sprintf(iring_buffer[iring_position], "%s", _this->logbuf);
     iring_position++;
 
-    if (_this->pc >= 0x83000000) flag = 1;
+    //if (_this->pc >= 0x83000000) flag = 1;
 
-    if (g_print_step && flag)
+    if (g_print_step/* && flag*/)
     {
         IFDEF(CONFIG_ITRACE, puts(_this->logbuf));
     }
