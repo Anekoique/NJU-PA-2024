@@ -23,6 +23,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
             if (strcmp(name, keyname[i]) == 0)
             {
                 kbd->keycode = i;
+                break;
             }
         }
         printf("i : %d\n", kbd->keycode);
