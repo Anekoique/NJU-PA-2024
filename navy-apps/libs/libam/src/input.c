@@ -3,6 +3,7 @@
 
 #define NAME(key) [AM_KEY_##key] = #key,
 static const char *keyname[256] __attribute__((used)) = {[AM_KEY_NONE] = "NONE", AM_KEYS(NAME)};
+#define KEYNUM (sizeof(keyname) / sizeof(keyname[0]))
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
 {
@@ -15,15 +16,11 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd)
         char type, name[64];
         sscanf(buf, "k%c %s", &type, name);
         kbd->keydown = type == 'u' ? false : true;
-        for (int i = 0; i < sizeof(keyname) / sizeof(keyname[0]); i++)
+        for (int i = 0; i < KEYNUM; i++)
         {
             if (strcmp(name, keyname[i]) == 0)
             {
-                if (ev->key.type == SDL_KEYDOWN) 
-                    keystate[i] = 1;
-                else 
-                    keystate[i] = 0;
-                ev->key.keysym.sym = i;
+                kbd->keycode = i;
                 return 1;
             }
         } 
