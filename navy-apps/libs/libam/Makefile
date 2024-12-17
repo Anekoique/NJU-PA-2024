@@ -13,7 +13,4 @@ endif
 NAME = libam
 SRCS = $(shell find ./src -name "*.c" -o -name "*.cpp")
 LIB_DEP = libndl 
-
-CFLAGS += -I/home/stoair/NJU-PA-2024/navy-apps/libs/libndl/include
-
 include $(NAVY_HOME)/Makefile
