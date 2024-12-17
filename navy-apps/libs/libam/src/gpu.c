@@ -19,8 +19,15 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg)
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl)
 {
-    NDL_OpenCanvas(&ctl->w, &ctl->h);
-    NDL_DrawRect((void *)ctl->pixels, ctl->x, ctl->y, ctl->w, ctl->h);
+    if (ctl->sync)
+        return;
+    int fp = open("/dev/fb", 0);
+    for (int i = 0; i < ctl->h; i++)
+    {
+
+        lseek(fp, ((ctl->y + i) * screen_w + ctl->x) * sizeof(uint32_t), SEEK_SET);
+        write(fp, ctl->pixels + i * ctl->w, ctl->w * sizeof(uint32_t));
+    }
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status)
