@@ -58,8 +58,8 @@ bool ioe_init()
             lut[i] = fail;
     __am_gpu_init();
     __am_timer_init();
-    printf("here\n");
     __am_audio_init();
+    printf("here\n");
     return true;
 }
 
