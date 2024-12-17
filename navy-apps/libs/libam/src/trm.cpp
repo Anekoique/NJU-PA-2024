@@ -2,7 +2,7 @@
 #include <navy.h>
 
 Area heap;
-extern int _syscall_(intptr, intptr_t, intptr_t, intptr_t);
+extern int _syscall_(intptr_t, intptr_t, intptr_t, intptr_t);
 
 void putch(char ch)
 {
