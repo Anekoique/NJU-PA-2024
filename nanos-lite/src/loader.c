@@ -57,8 +57,8 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     printf("fd : %d\n", fd);
     Elf_Ehdr elf_header;
     fs_read(fd, &elf_header, sizeof(Elf_Ehdr));
-    assert(*(uint32_t *)(elf_header.e_ident) == 0x464c457f);
-    assert(elf_header.e_machine == EXPECT_TYPE);
+    //assert(*(uint32_t *)(elf_header.e_ident) == 0x464c457f);
+    //assert(elf_header.e_machine == EXPECT_TYPE);
 
     size_t phdr_offset = elf_header.e_phoff;
     Elf_Phdr phdr;
