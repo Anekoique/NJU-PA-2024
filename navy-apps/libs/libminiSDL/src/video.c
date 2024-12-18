@@ -111,7 +111,6 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
         return;
     }
 
-    printf("can not get here\n");
     for (int i = y; i < y + h; i++)
     {
         for (int j = x; j < x + w; j++)
@@ -170,7 +169,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h)
         return;
     }
 
-    printf("can not get here\n");
     NDL_DrawRect((uint32_t *)s->pixels, x, y, width, height);
 }
 // APIs below are already implemented.
