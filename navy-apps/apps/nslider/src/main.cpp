@@ -81,6 +81,7 @@ int main() {
             rep = 0; g = 0;
           }
           break;
+        case SDLK_A: return 0;
       }
     }
   }
