@@ -85,11 +85,5 @@ void naive_uload(PCB *pcb, const char *filename, char *argv[])
 {
     uintptr_t entry = loader(pcb, filename);
     Log("Jump to entry = %p", entry);
-    int argc = 0;
-    while (argv[argc] != NULL) {
-        printf("%s\n", argv[argc]);
-        argc++;
-    }
-    printf("%d\n", argc);
-    ((void (*)(int, char **))entry)(argc, argv);
+    ((void (*)(char **))entry)(argv);
 }
