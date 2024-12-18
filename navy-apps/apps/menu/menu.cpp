@@ -180,8 +180,9 @@ static void display_menu(int n) {
 
   SDL_UpdateRect(screen, 0, 0, 0, 0);
 
-  printf("=\n");
+  printf("========================================\n");
   printf("Please Choose.\n");
+  fflush(stdout);
   printf("gethere?\n");
   fflush(stdout);
 }
