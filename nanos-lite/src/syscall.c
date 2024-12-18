@@ -60,6 +60,7 @@ uintptr_t sbrk(intptr_t address)
 
 int execve(const char *filename)
 {
+    printf("%s\n", filename);
     naive_uload(NULL, filename, NULL);
     return -1;
 }
