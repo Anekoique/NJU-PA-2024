@@ -31,7 +31,7 @@ void init_proc(char *argv[])
     Log("Initializing processes...");
 
     // load program here
-    naive_uload(NULL, "/bin/typing-game", argv);
+    naive_uload(NULL, "/bin/fceux", argv);
 }
 
 Context *schedule(Context *prev)
