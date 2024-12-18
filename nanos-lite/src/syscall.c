@@ -9,7 +9,7 @@ size_t fs_lseek(int fd, size_t offset, int whence);
 int fs_close(int fd);
 void naive_uload(PCB *pcb, const char *filename, char *argv[]);
 
-//#define STRACE
+#define STRACE
 #ifdef STRACE
 const char* syscall_names[] = {
     "SYS_exit",
