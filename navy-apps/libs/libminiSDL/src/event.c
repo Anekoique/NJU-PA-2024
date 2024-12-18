@@ -70,6 +70,7 @@ int SDL_WaitEvent(SDL_Event *event)
                 if (strcmp(name, keyname[i]) == 0)
                 {
                     event->key.keysym.sym = i;
+                    printf("i : %d\n", i);
                     return 1;
                 }
             }
