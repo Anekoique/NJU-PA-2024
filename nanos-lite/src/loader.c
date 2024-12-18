@@ -56,6 +56,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
     int fd = fs_open(filename, 0, 0);
     printf("fd : %d\n", fd);
     Elf_Ehdr elf_header;
+    fs_lseek(fd, 0, SEEK_SET);
     fs_read(fd, &elf_header, sizeof(Elf_Ehdr));
     printf("%s\n", elf_header.e_ident);
     assert(*(uint32_t *)(elf_header.e_ident) == 0x464c457f);
