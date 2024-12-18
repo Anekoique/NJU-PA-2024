@@ -9,6 +9,7 @@ void init_proc(char **);
 
 int main(int argc, char *argv[])
 {
+    printf("%s\n", argv[0]);
     extern const char logo[];
     printf("%s", logo);
     Log("'Hello World!' from Nanos-lite");
