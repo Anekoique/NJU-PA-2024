@@ -6,7 +6,7 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
 
-void naive_uload(PCB *, const char *);
+void naive_uload(PCB *, const char *, char **);
 
 void switch_boot_pcb()
 {
@@ -24,14 +24,14 @@ void hello_fun(void *arg)
     }
 }
 
-void init_proc()
+void init_proc(char *argv[])
 {
     switch_boot_pcb();
 
     Log("Initializing processes...");
 
     // load program here
-    naive_uload(NULL, "/bin/fceux");
+    naive_uload(NULL, "/bin/fceux", argv);
 }
 
 Context *schedule(Context *prev)

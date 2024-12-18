@@ -5,11 +5,10 @@ void init_device(void);
 void init_ramdisk(void);
 void init_irq(void);
 void init_fs(void);
-void init_proc(void);
+void init_proc(char **);
 
 int main(int argc, char *argv[])
 {
-    printf("%s*************\n", argv);
     extern const char logo[];
     printf("%s", logo);
     Log("'Hello World!' from Nanos-lite");
@@ -27,7 +26,7 @@ int main(int argc, char *argv[])
 
     init_fs();
 
-    init_proc();
+    init_proc(argv);
 
     Log("Finish initialization");
 
