@@ -20,7 +20,7 @@ void halt(int code) {
 }
 
 void _trm_init() {
-    printf("here\n");
+    printf("%s\n", mainargs);
   int ret = main(mainargs);
   halt(ret);
 }
