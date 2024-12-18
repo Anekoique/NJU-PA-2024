@@ -90,8 +90,6 @@ void naive_uload(PCB *pcb, const char *filename, char *argv[])
         argc++;
     }
     printf("%d\n", argc);
-    printf("%c\n", argv[0]);
-    printf("%c\n", argv[1]);
-    printf("%c\n", argv[2]);
+    printf("%s\n", argv);
     ((void (*)(int, char **))entry)(argc, argv);
 }
