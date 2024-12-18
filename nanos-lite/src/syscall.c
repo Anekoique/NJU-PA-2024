@@ -1,4 +1,5 @@
 #include "syscall.h"
+#include <proc.h>
 #include <common.h>
 
 int fs_open(const char *pathname, int flags, int mode);
@@ -6,6 +7,7 @@ size_t fs_read(int fd, void *buf, size_t len);
 size_t fs_write(int fd, const void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
 int fs_close(int fd);
+void naive_uload(PCB *pcb, const char *filename, char *argv[]);
 
 //#define STRACE
 #ifdef STRACE
@@ -56,6 +58,12 @@ uintptr_t sbrk(intptr_t address)
     return 0;
 }
 
+int execve(const char *filename)
+{
+    naive_uload(NULL, filename, NULL);
+    return -1;
+}
+
 void do_syscall(Context *c)
 {
     uintptr_t a[4];
@@ -96,6 +104,10 @@ void do_syscall(Context *c)
         break;
     case 11:
         c->GPRx = gettimeofday((struct _timeval *)a[1], a[2]);
+        break;
+    case 13:
+        c->GPRx = execve((char *)a[1]);
+        panic("Con't Reach here!");
         break;
     default:
         panic("Unhandled syscall ID = %d", a[0]);
