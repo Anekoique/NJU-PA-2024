@@ -33,7 +33,8 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
     else if (strcmp(command, "echo") == 0)
     {
         //printf("%s\n", mainargs[0]);
-        sh_printf("%s", mainargs[0]);
+        if (mainargs != NULL)
+            sh_printf("%s", mainargs[0]);
     }
 }
 
@@ -50,7 +51,7 @@ static void sh_handle_cmd(const char *cmd) {
         if (arg_pos == -1) 
         {
             while (cmd[pos] == ' ') pos++;
-            while (cmd[pos] != ' ' && cmd[pos] != '\n' && cmd[pos] != '\0') 
+            while (cmd[pos] != ' ' && cmd[pos] != '\n') 
                 command[current_pos++] = cmd[pos++];
             if (current_pos == 0) return;
             command[current_pos] = '\0';
@@ -68,7 +69,10 @@ static void sh_handle_cmd(const char *cmd) {
             current_pos = 0;
         }
     }
-    sh_execute(command, mainargs, arg_pos);
+    if (arg_pos == -1)
+        sh_execute(command, NULL, NULL);
+    else 
+        sh_execute(command, mainargs, arg_pos);
 }
 
 void builtin_sh_run() {
