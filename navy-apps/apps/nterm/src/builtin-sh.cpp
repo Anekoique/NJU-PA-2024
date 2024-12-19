@@ -39,7 +39,7 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
 
 static void sh_handle_cmd(const char *cmd) {
     if (cmd == nullptr) return;
-    //printf("%s\n", cmd);
+    printf("%s\n", cmd);
     char command[20];
     char *mainargs[20];
     int pos = 0;
