@@ -24,7 +24,6 @@ static void sh_prompt() {
 
 static void sh_execute(char *command, char **mainargs, int arg_num) 
 {
-    printf("%s\n", command);
     if (strcmp(command, "execve") == 0)
     {
         //printf("%s\n", mainargs[0]);
@@ -35,15 +34,12 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
         if (mainargs != NULL)
         {
             sh_printf("%s", mainargs[0]);
-
-            printf("%s\n", mainargs[0]);
         }
     }
 }
 
 static void sh_handle_cmd(const char *cmd) {
     if (cmd == nullptr) return;
-    printf("%s\n", cmd);
     char command[20];
     char *mainargs[20];
     int pos = 0;
@@ -72,7 +68,6 @@ static void sh_handle_cmd(const char *cmd) {
             current_pos = 0;
         }
     }
-    printf("%d\n", arg_pos);
     if (arg_pos == 0)
         sh_execute(command, NULL, NULL);
     else 
@@ -89,6 +84,7 @@ void builtin_sh_run() {
       if (ev.type == SDL_KEYUP || ev.type == SDL_KEYDOWN) {
         const char *res = term->keypress(handle_key(&ev));
         if (res) {
+            printf("%s\n", res);
           sh_handle_cmd(res);
           sh_prompt();
         }
