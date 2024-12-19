@@ -4,7 +4,7 @@
 #include <SDL.h>
 
 char handle_key(SDL_Event *ev);
-static char *PATH;
+static char PATH[20];
 
 static void sh_printf(const char *format, ...) {
   static char buf[256] = {};
