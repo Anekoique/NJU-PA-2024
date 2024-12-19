@@ -24,6 +24,7 @@ static void sh_prompt() {
 
 static void sh_execute(char *command, char **mainargs, int arg_num) 
 {
+    printf("here\n");
     if (strcmp(command, "execve") == 0)
     {
         //printf("%s\n", mainargs[0]);
@@ -68,7 +69,6 @@ static void sh_handle_cmd(const char *cmd) {
             current_pos = 0;
         }
     }
-    printf("%d\n", arg_pos);
     if (arg_pos == 0)
         sh_execute(command, NULL, NULL);
     else 
