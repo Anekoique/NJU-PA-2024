@@ -46,7 +46,7 @@ static void sh_handle_cmd(const char *cmd) {
         if (arg_pos == -1) 
         {
             while (cmd[pos] == ' ') pos++;
-            while (cmd[pos] != ' ') 
+            while (cmd[pos] != ' ' && cmd[pos] != '\0') 
                 command[current_pos++] = cmd[pos++];
             if (current_pos == 0) return;
             arg_pos++;
@@ -55,8 +55,8 @@ static void sh_handle_cmd(const char *cmd) {
         else 
         {
             while (cmd[pos] == ' ') pos++;
-            while (cmd[pos] != ' ')
-                mainargs[arg_pos][current_pos] = cmd[pos++];
+            while (cmd[pos] != ' ' && cmd[pos] != '\0')
+                mainargs[arg_pos][current_pos++] = cmd[pos++];
             if (current_pos == 0) break;
             arg_pos++;
             current_pos = 0;
