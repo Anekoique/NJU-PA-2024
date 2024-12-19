@@ -27,18 +27,19 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
     printf("%s\n", command);
     if (strcmp(command, "execve") == 0)
     {
-        printf("%s\n", mainargs[0]);
+        //printf("%s\n", mainargs[0]);
         if (arg_num == 1) execve(mainargs[0], NULL, NULL);
     }
     else if (strcmp(command, "echo") == 0)
     {
-        printf("%s\n", mainargs[0]);
+        //printf("%s\n", mainargs[0]);
         sh_printf("%s", mainargs[0]);
     }
 }
 
 static void sh_handle_cmd(const char *cmd) {
     if (cmd == nullptr) return;
+    printf("%s\n", cmd);
     char command[20];
     char *mainargs[20];
     int pos = 0;
