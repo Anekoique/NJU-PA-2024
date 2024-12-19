@@ -69,6 +69,7 @@ static void sh_handle_cmd(const char *cmd) {
             current_pos = 0;
         }
     }
+    printf("%d\n", arg_pos);
     if (arg_pos == -1)
         sh_execute(command, NULL, NULL);
     else 
