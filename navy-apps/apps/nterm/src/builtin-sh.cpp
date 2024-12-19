@@ -26,10 +26,12 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
 {
     if (strcmp(command, "execve") == 0)
     {
+        printf("%s\n", mainargs[0]);
         if (arg_num == 1) execve(mainargs[0], NULL, NULL);
     }
     else if (strcmp(command, "echo") == 0)
     {
+        printf("%s\n", mainargs[0]);
         sh_printf("%s", mainargs[0]);
     }
 }
@@ -75,7 +77,6 @@ void builtin_sh_run() {
       if (ev.type == SDL_KEYUP || ev.type == SDL_KEYDOWN) {
         const char *res = term->keypress(handle_key(&ev));
         if (res) {
-            printf("%s\n", res);
           sh_handle_cmd(res);
           sh_prompt();
         }
