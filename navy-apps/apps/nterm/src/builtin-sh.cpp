@@ -68,6 +68,7 @@ static void sh_handle_cmd(const char *cmd) {
             current_pos = 0;
         }
     }
+    printf("%d\n", arg_pos);
     if (arg_pos == 0)
         sh_execute(command, NULL, NULL);
     else 
@@ -84,7 +85,6 @@ void builtin_sh_run() {
       if (ev.type == SDL_KEYUP || ev.type == SDL_KEYDOWN) {
         const char *res = term->keypress(handle_key(&ev));
         if (res) {
-            printf("%s\n", res);
           sh_handle_cmd(res);
           sh_prompt();
         }
