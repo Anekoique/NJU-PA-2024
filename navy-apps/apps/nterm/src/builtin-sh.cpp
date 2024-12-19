@@ -70,7 +70,7 @@ static void sh_handle_cmd(const char *cmd) {
         }
     }
     printf("%d\n", arg_pos);
-    if (arg_pos == -1)
+    if (arg_pos == 0)
         sh_execute(command, NULL, NULL);
     else 
         sh_execute(command, mainargs, arg_pos);
