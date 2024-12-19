@@ -42,15 +42,16 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
         if (mainargs != NULL)
         {
             sscanf(mainargs[0], "PATH=%s", PATH);
-            sh_printf("PATH=%s", PATH);
+            sh_printf("PATH=%s\n", PATH);
         }
     }
     else if (strcmp(command, "execvp") == 0)
     {
         if (arg_num == 1)
         {
+            if (*(mainargs[0]) != '/') strcat(PATH, "/");
             strcat(PATH, mainargs[0]);
-            printf("%s\n", PATH);
+            execve(PATH, NULL, NULL);
         }
     }
 }
