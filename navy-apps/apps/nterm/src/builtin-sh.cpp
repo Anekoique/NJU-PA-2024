@@ -22,7 +22,48 @@ static void sh_prompt() {
   sh_printf("sh> ");
 }
 
+static void sh_execute(char *command, char **mainargs, int arg_num) 
+{
+    if (strcmp(command, "execve") == 0)
+    {
+        if (arg_num == 1) execve(mainargs[0], NULL, NULL);
+    }
+    else if (strcmp(command, "echo") == 0)
+    {
+        assert(arg_num = 1);
+        sh_printf("%s", mainargs[0]);
+    }
+}
+
 static void sh_handle_cmd(const char *cmd) {
+    if (cmd == nullptr) return;
+    char command[20];
+    char *mainargs[20];
+    int pos = 0;
+    int current_pos = 0;
+    int arg_pos = -1;
+    while (cmd[pos] != '\0')
+    {
+        if (arg_pos == -1) 
+        {
+            while (cmd[pos] == ' ') pos++;
+            while (cmd[pos] != ' ') 
+                command[current_pos++] = cmd[pos];
+            if (current_pos == 0) return;
+            arg_pos++;
+            current_pos = 0;
+        }
+        else 
+        {
+            while (cmd[pos] == ' ') pos++;
+            while (cmd[pos] != ' ')
+                mainargs[arg_pos][current_pos] = cmd[pos];
+            if (current_pos == 0) break;
+            arg_pos++;
+            current_pos = 0;
+        }
+    }
+    sh_execute(command, mainargs, arg_pos);
 }
 
 void builtin_sh_run() {
