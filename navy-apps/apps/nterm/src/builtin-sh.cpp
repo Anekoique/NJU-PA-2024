@@ -54,6 +54,8 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
             execve(PATH, NULL, NULL);
         }
     }
+    else if (strcmp(command, "exit") == 0)
+        exit(0);
 }
 
 static void sh_handle_cmd(const char *cmd) {
