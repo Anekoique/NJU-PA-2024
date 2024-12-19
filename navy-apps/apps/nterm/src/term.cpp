@@ -251,6 +251,11 @@ void Terminal::write(const char *str, size_t count) {
           break;
         case '\t':
           // TODO: implement it.
+          for (int j = 0; j < 4; j++)
+          {
+            putch(cursor.x, cursor.y, ' ');
+            move_one();
+          }
           break;
         case '\r':
           cursor.x = 0;
