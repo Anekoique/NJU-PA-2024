@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 char handle_key(SDL_Event *ev);
+static char *PATH;
 
 static void sh_printf(const char *format, ...) {
   static char buf[256] = {};
@@ -34,6 +35,14 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
         if (mainargs != NULL)
         {
             sh_printf("%s\n", mainargs[0]);
+        }
+    }
+    else if (strcmp(command, "setenv") == 0)
+    {
+        if (mainargs != NULL)
+        {
+            sscanf(mainargs[0], "PATH=%s", PATH);
+            printf("%s\n", PATH);
         }
     }
 }
