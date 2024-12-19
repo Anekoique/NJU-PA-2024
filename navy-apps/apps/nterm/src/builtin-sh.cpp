@@ -30,7 +30,6 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
     }
     else if (strcmp(command, "echo") == 0)
     {
-        assert(arg_num = 1);
         sh_printf("%s", mainargs[0]);
     }
 }
