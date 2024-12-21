@@ -41,7 +41,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int *ptr = (int *)((intptr_t)argv - sizeof(int));
     *ptr = argc;
     pcb->cp->GPRx = (uintptr_t)ptr;
-    printf("hello\n");
 }
 
 void init_proc()
@@ -52,6 +51,7 @@ void init_proc()
     };
     context_kload(&pcb[0], hello_fun, (void *)('a'));
     context_uload(&pcb[1], "/bin/pal", argv, NULL);
+    printf("hello\n");
 
     switch_boot_pcb();
 
