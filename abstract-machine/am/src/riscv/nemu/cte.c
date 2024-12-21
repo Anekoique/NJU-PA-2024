@@ -53,7 +53,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg)
     //c->gpr[2] = (uintptr_t)c;
     c->mcause = 0;
     c->mstatus = 0x1800;
-    c->mepc = (uintptr_t)entry;
+    //c->mepc = (uintptr_t)entry;
 
     return c;
 }
