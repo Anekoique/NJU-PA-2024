@@ -28,6 +28,7 @@ void hello_fun(void *arg)
 void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 {
     pcb->cp = kcontext((Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, entry, arg);
+    printf("%p\n", pcb->cp);
 }
 
 void init_proc(char *argv[])
@@ -47,5 +48,6 @@ Context *schedule(Context *prev)
 {
     current->cp = prev;
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    printf("%p\n", current->cp);
     return current->cp;
 }
