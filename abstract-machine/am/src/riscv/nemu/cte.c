@@ -50,10 +50,10 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg)
 {
     Context *c = (Context *)(kstack.end - sizeof(Context));
     memset(c->gpr, 0, sizeof(c->gpr));
-    //c->gpr[2] = (uintptr_t)c;
+    c->gpr[2] = (uintptr_t)c;
     c->mcause = 0;
     c->mstatus = 0x1800;
-    //c->mepc = (uintptr_t)entry;
+    c->mepc = (uintptr_t)entry;
 
     return c;
 }
