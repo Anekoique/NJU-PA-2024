@@ -41,6 +41,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int *ptr = (int *)((intptr_t)argv - sizeof(int));
     *ptr = argc;
     pcb->cp->GPRx = (intptr_t)ptr;
+    printf("%d\n", argc);
     printf("hello\n");
 }
 
