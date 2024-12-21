@@ -31,16 +31,26 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
     pcb->cp = kcontext((Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, entry, arg);
 }
 
-void context_uload(PCB *pcb, const char *filename)
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
     uintptr_t entry = naive_uload(pcb, filename, NULL);
     pcb->cp = ucontext(NULL, (Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, (void *)entry);
+    
+    int argc = 0;
+    while (argv[argc] != NULL) argc++;
+    int *ptr = (int *)((intptr_t)argv - sizeof(int));
+    *ptr = argc;
+    pcb->cp->GPRx = (intptr_t)ptr;
 }
 
-void init_proc(char *argv[])
+void init_proc()
 {
+    char *const argv[] = {
+        "--skip",    
+        NULL     
+    };
     context_kload(&pcb[0], hello_fun, (void *)('a'));
-    context_uload(&pcb[1], "/bin/pal");
+    context_uload(&pcb[1], "/bin/pal", argv, NULL);
 
     switch_boot_pcb();
 

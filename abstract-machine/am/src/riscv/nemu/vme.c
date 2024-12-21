@@ -84,7 +84,6 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry)
     Context *c = (Context *)(kstack.end - sizeof(Context));
     memset(c->gpr, 0, sizeof(c->gpr));
     c->gpr[2] = (uintptr_t)c;
-    c->GPRx = (uintptr_t)(heap.end);
     c->mcause = 0;
     c->mstatus = 0x1800;
     c->mepc = (uintptr_t)entry;
