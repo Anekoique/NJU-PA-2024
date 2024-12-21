@@ -51,10 +51,10 @@ void init_proc()
     };
     context_kload(&pcb[0], hello_fun, (void *)('a'));
     context_uload(&pcb[1], "/bin/pal", argv, NULL);
+    printf("hello\n");
 
     switch_boot_pcb();
 
-    printf("hello\n");
     Log("Initializing processes...");
 
     // load program here
