@@ -10,7 +10,6 @@ static Context *do_event(Event e, Context *c)
     case EVENT_YIELD:
         printf("yield\n");
         schedule(c);
-        c->mepc += 4;
         break;
     case EVENT_SYSCALL:
         do_syscall(c);
