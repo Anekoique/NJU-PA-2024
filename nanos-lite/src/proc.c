@@ -41,8 +41,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int *ptr = (int *)((intptr_t)argv - sizeof(int));
     *ptr = argc;
     pcb->cp->GPRx = (intptr_t)ptr;
-    printf("%p\n", (intptr_t)ptr);
-    printf("hello\n");
 }
 
 void init_proc()
@@ -56,6 +54,7 @@ void init_proc()
 
     switch_boot_pcb();
 
+    printf("hello\n");
     Log("Initializing processes...");
 
     // load program here
