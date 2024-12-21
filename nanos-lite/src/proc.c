@@ -40,7 +40,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     while (argv[argc] != NULL) argc++;
     int *ptr = (int *)((intptr_t)argv - sizeof(int));
     *ptr = argc;
-    //pcb->cp->GPRx = (intptr_t)ptr;
+    pcb->cp->GPRx = (uintptr_t)ptr;
     printf("hello\n");
 }
 
