@@ -32,7 +32,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 void init_proc(char *argv[])
 {
     context_kload(&pcb[0], hello_fun, (void *)('a'));
-    context_kload(&pcb[1], hello_fun, (void *)('a'));
+    context_kload(&pcb[1], hello_fun, (void *)('b'));
 
     switch_boot_pcb();
 
