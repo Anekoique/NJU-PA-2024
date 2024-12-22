@@ -45,6 +45,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     while (argv[argc] != NULL) argc++;
     void *addr = (void *)0x87800000;
     memcpy((void *)addr, (void *)argv, sizeof((void *)argv));
+    printf("%s\n", argv[0]);
+    printf("%s\n", ((char **)addr)[0]);
     int *ptr = (int *)0x87000000;
     *ptr = argc;
     pcb->cp->GPRx = (intptr_t)ptr;
