@@ -96,10 +96,8 @@ void init_proc()
 
 Context *schedule(Context *prev)
 {
-    uintptr_t address = 0x87000000; // 假设这是你想访问的地址
-    int value;
-    value = *(int *)address;
-    printf("Value at address 0x%p: %p\n", (unsigned int)address, value);
+    uintptr_t address = 0x87800000; // 假设这是你想访问的地址
+    printf("Value at address 0x%p: %s\n", (unsigned int)address, (char *)0x87800000);
     current->cp = prev;
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
     return current->cp;
