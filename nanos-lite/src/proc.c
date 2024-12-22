@@ -43,12 +43,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     
     int argc = 10;
     while (argv[argc] != NULL) argc++;
-    int *ptr = (int *)((intptr_t)(&argv) - sizeof(int));
+    int *ptr = (int *)((intptr_t)(argv) - sizeof(int));
     *ptr = argc;
-    pcb->cp->GPRx = (intptr_t)(&argv) - sizeof(int);
+    pcb->cp->GPRx = (intptr_t)(argv) - sizeof(int);
     printf("%p\n", heap.end);
-    printf("%p\n", (intptr_t)(&argv) - sizeof(int));
-    printf("%x\n", *(int *)((intptr_t)(&argv) - sizeof(int)));
+    printf("%p\n", (intptr_t)(argv) - sizeof(int));
+    printf("%x\n", *(int *)((intptr_t)(argv) - sizeof(int)));
     uintptr_t address = 0x8220cf98; // 假设这是你想访问的地址
     int value;
     value = *(int *)address;
