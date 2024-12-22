@@ -68,7 +68,7 @@ Context *schedule(Context *prev)
     uintptr_t address = 0x8220cf98; // 假设这是你想访问的地址
     int value;
     value = *(int *)address;
-    printf("Value at address 0x%x: %x\n", (unsigned int)address, value);
+    printf("Value at address 0x%p: %d\n", (unsigned int)address, value);
     current->cp = prev;
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
     return current->cp;
