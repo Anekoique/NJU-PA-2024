@@ -50,10 +50,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     for (int i = 0; argv[i] != NULL; i++)
     {
         printf("addr : %p, v_ptr : %p\n", addr, v_ptr);
-        memcpy(addr, argv[i], sizeof((void *)(argv[i])));
+        memcpy(addr, argv[i], sizeof((char *)(argv[i])));
         *v_ptr = addr;
         printf("%s\n", v_ptr[i]);
-        addr += sizeof((void *)(argv[i]));
+        addr += sizeof((char *)(argv[i]));
         v_ptr += 1;
     }
 
