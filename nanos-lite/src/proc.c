@@ -44,14 +44,30 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int argc = 0;
     while (argv[argc] != NULL) argc++;
     void *addr = (void *)0x87800000;
-    memcpy((void *)addr, (void *)argv, sizeof((void *)argv));
-    int *ptr = (int *)0x87000000;
-    *ptr = argc;
-    pcb->cp->GPRx = (intptr_t)ptr;
-    char **ptr2 = (char **)((intptr_t)0x87000000 + sizeof(int));
-    *ptr2 = addr; 
-    printf("%p\n", ptr2);
-    printf("%s\n", ((char **)(*ptr2))[0]);
+    int *c_ptr = (int *)0x87000000;
+    *c_ptr = argc;
+    char **v_ptr = (char **)((intptr_t)0x87000000 + sizeof(int));
+    for (int i = 0; argv[i] != NULL; i++)
+    {
+        memcpy(addr + (i == 0 ? 0 : sizeof(argv[i-1])), argv[i], sizeof((void *)(argv[i])));
+        *v_ptr = addr + (i == 0 ? 0 : sizeof(argv[i-1]));
+        v_ptr += 1;
+    }
+    *v_ptr = NULL;
+    pcb->cp->GPRx = (uintptr_t)c_ptr;
+
+    // error 2
+    //void *addr = (void *)0x87800000;
+    //memcpy((void *)addr, (void *)argv, sizeof((void *)argv));
+    //int *ptr = (int *)0x87000000;
+    //*ptr = argc;
+    //pcb->cp->GPRx = (intptr_t)ptr;
+    //char **ptr2 = (char **)((intptr_t)0x87000000 + sizeof(int));
+    //*ptr2 = addr; 
+    //printf("%p\n", ptr2);
+    //printf("%s\n", ((char **)(*ptr2))[0]);
+
+    // error 1
     //int *ptr = (int *)((intptr_t)(&argv) - sizeof(int));
     //*ptr = argc;
     //printf("%p\n", heap.start);
