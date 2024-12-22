@@ -38,10 +38,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     
     int argc = 0;
     while (argv[argc] != NULL) argc++;
-    int *ptr = (int *)((intptr_t)argv - sizeof(int));
+    int *ptr = (int *)((intptr_t)(&argv) - sizeof(int));
     *ptr = argc;
-    //pcb->cp->gpr[11] = (intptr_t)argv - sizeof(int);
-    printf("%p\n", (intptr_t)argv - sizeof(int));
+    pcb->cp->gpr[11] = (intptr_t)(&argv) - sizeof(int);
+    printf("%p\n", (intptr_t)(&argv) - sizeof(int));
 }
 
 void init_proc()
