@@ -49,8 +49,11 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     char **v_ptr = (char **)((intptr_t)0x87000000 + sizeof(int));
     for (int i = 0; argv[i] != NULL; i++)
     {
-        memcpy(addr + (i == 0 ? 0 : sizeof(argv[i-1])), argv[i], sizeof((void *)(argv[i])));
-        *v_ptr = addr + (i == 0 ? 0 : sizeof(argv[i-1]));
+        printf("addr : %p, v_ptr : %p\n", addr, v_ptr);
+        memcpy(addr, argv[i], sizeof((void *)(argv[i])));
+        *v_ptr = addr;
+        printf("%s\n", v_ptr[i]);
+        addr += sizeof((void *)(argv[i]));
         v_ptr += 1;
     }
     uintptr_t address = 0x87800000; // 假设这是你想访问的地址
