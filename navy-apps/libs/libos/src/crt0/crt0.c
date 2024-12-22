@@ -13,6 +13,7 @@ void call_main(uintptr_t *args)
     environ = (char **)envp;
     printf("args address: %p\n", args);
     printf("args value: 0x%lx\n", *(uintptr_t *)args);
+    printf("%p\n", (void *)argv);
     exit(main(argc, (char **)argv, (char **)envp));
     assert(0);
 }
