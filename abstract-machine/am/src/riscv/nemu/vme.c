@@ -87,6 +87,7 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry)
     c->mcause = 0;
     c->mstatus = 0x1800;
     c->mepc = (uintptr_t)entry;
+    printf("entry : %p\n", entry);
 
     return c;
 }
