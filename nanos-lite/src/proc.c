@@ -6,7 +6,7 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
 
-char *const argv[] = {
+static char *const argv[] = {
     "--skip",    
     NULL     
 };

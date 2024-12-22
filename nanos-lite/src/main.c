@@ -5,7 +5,7 @@ void init_device(void);
 void init_ramdisk(void);
 void init_irq(void);
 void init_fs(void);
-void init_proc(char **);
+void init_proc();
 
 int main(int argc, char *argv[])
 {
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
     init_fs();
 
-    init_proc(argv);
+    init_proc();
 
     Log("Finish initialization");
     uintptr_t address = 0x8220cf98; // 假设这是你想访问的地址
