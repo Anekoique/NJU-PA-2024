@@ -36,7 +36,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     uintptr_t entry = naive_uload(pcb, filename, NULL);
     pcb->cp = ucontext(NULL, (Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, (void *)entry);
     
-    int argc = 0;
+    int argc = 10;
     while (argv[argc] != NULL) argc++;
     int *ptr = (int *)((intptr_t)(&argv) - sizeof(int));
     *ptr = argc;
