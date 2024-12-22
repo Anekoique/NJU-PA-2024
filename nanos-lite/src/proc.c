@@ -5,6 +5,7 @@
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
+
 char *const argv[] = {
     "--skip",    
     NULL     
@@ -45,6 +46,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int *ptr = (int *)((intptr_t)(&argv) - sizeof(int));
     *ptr = argc;
     pcb->cp->GPRx = (intptr_t)(&argv) - sizeof(int);
+    printf("%p\n", heap.end);
     printf("%p\n", (intptr_t)(&argv) - sizeof(int));
     printf("%x\n", *(int *)((intptr_t)(&argv) - sizeof(int)));
     uintptr_t address = 0x8220cf98; // 假设这是你想访问的地址
