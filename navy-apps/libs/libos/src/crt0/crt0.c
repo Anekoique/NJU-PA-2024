@@ -11,8 +11,8 @@ void call_main(uintptr_t *args)
     uintptr_t argv = (uintptr_t)((int *)(args) + 1);
     uintptr_t envp = (uintptr_t)((char **)argv + argc);
     environ = (char **)envp;
-    printf("argc : %p\n", (int*)args);
-    printf("argc : %d\n", argc);
+    printf("args address: %p\n", args);
+    printf("args value: 0x%lx\n", *(uintptr_t *)args);
     exit(main(argc, (char **)argv, (char **)envp));
     assert(0);
 }
