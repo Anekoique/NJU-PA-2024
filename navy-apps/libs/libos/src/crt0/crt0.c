@@ -7,7 +7,7 @@ int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
 void call_main(uintptr_t *args)
 {
-    printf("%p\n", args);
+    //printf("%p\n", args);
     int argc = *((int *)(args));
     uintptr_t argv = (uintptr_t)((int *)(args) + 1);
     uintptr_t envp = (uintptr_t)((char **)argv + argc);
