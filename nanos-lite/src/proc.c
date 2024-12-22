@@ -53,6 +53,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         *v_ptr = addr + (i == 0 ? 0 : sizeof(argv[i-1]));
         v_ptr += 1;
     }
+    uintptr_t address = 0x87800000; // 假设这是你想访问的地址
+    printf("Value at address 0x%p: %s\n", (unsigned int)address, (char *)0x87800000);
+
     *v_ptr = NULL;
     pcb->cp->GPRx = (uintptr_t)c_ptr;
 
