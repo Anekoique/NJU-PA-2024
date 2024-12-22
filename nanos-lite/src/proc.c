@@ -17,11 +17,11 @@ void switch_boot_pcb()
 void hello_fun(void *arg)
 {
     printf("here\n");
-    int j = 1;
+    //int j = 1;
     while (1)
     {
-        Log("Hello World from Nanos-lite with arg '%c' for the %dth time!", (uintptr_t)arg, j);
-        j++;
+        //Log("Hello World from Nanos-lite with arg '%c' for the %dth time!", (uintptr_t)arg, j);
+        //j++;
         yield();
     }
 }
