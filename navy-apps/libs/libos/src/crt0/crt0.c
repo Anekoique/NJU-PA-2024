@@ -8,12 +8,12 @@ extern char **environ;
 void call_main(uintptr_t *args)
 {
     int argc = *((int *)(args));
-    uintptr_t argv = (uintptr_t)((int *)(args) + 1);
-    uintptr_t envp = (uintptr_t)((char **)argv + argc);
+    char ** argv = (char **)((int *)(args) + 1);
+    char ** envp = (char **)((char **)argv + argc);
     environ = (char **)envp;
     printf("args address: %p\n", args);
     printf("args value: 0x%lx\n", *(uintptr_t *)args);
-    printf("%p\n", (void *)argv);
+    printf("%s\n", argv[0]);
     exit(main(argc, (char **)argv, (char **)envp));
     assert(0);
 }
