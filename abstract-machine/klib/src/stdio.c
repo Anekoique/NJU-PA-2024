@@ -73,7 +73,6 @@ int printf(const char *fmt, ...)
                 break;
             case 'x':
                 arg2 = va_arg(v, int);
-                printf("here\n");
                 if (arg2 == 0)
                 {
                     putch('0');

@@ -43,16 +43,23 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     
     int argc = 0;
     while (argv[argc] != NULL) argc++;
-    int *ptr = (int *)((intptr_t)(&argv) - sizeof(int));
+    void *addr = (void *)0x87800000;
+    memcpy((void *)addr, (void *)argv, sizeof((void *)argv));
+    int *ptr = (int *)0x87000000;
     *ptr = argc;
-    printf("%p\n", heap.start);
-    pcb->cp->GPRx = (intptr_t)(&argv) - sizeof(int);
-    printf("%p\n", (intptr_t)(&argv) - sizeof(int));
-    printf("%x\n", *(int *)((intptr_t)(&argv) - sizeof(int)));
-    uintptr_t address = 0x8220cf98; // 假设这是你想访问的地址
-    int value;
-    value = *(int *)address;
-    printf("Value at address 0x%p: %p\n", (unsigned int)address, value);
+    pcb->cp->GPRx = (intptr_t)ptr;
+    char **ptr2 = (char **)((intptr_t)0x87000000 + sizeof(int));
+    *ptr2 = addr; 
+    //int *ptr = (int *)((intptr_t)(&argv) - sizeof(int));
+    //*ptr = argc;
+    //printf("%p\n", heap.start);
+    //pcb->cp->GPRx = (intptr_t)(&argv) - sizeof(int);
+    //printf("%p\n", (intptr_t)(&argv) - sizeof(int));
+    //printf("%x\n", *(int *)((intptr_t)(&argv) - sizeof(int)));
+    //uintptr_t address = 0x8220cf98; // 假设这是你想访问的地址
+    //int value;
+    //value = *(int *)address;
+    //printf("Value at address 0x%p: %p\n", (unsigned int)address, value);
 }
 
 void init_proc()
