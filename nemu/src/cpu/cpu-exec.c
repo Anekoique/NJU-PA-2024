@@ -23,7 +23,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INST_TO_PRINT 100010
+#define MAX_INST_TO_PRINT 100
 #ifdef CONFIG_ITRACE_COND
 //static int flag = 0;
 #endif
