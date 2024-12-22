@@ -56,8 +56,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         addr += sizeof((void *)(argv[i]));
         v_ptr += 1;
     }
-    uintptr_t address = 0x87800000; // 假设这是你想访问的地址
-    printf("Value at address 0x%p: %s\n", (unsigned int)address, (char *)0x87800000);
 
     *v_ptr = NULL;
     pcb->cp->GPRx = (uintptr_t)c_ptr;
@@ -102,8 +100,8 @@ void init_proc()
 
 Context *schedule(Context *prev)
 {
-    uintptr_t address = 0x87800000; // 假设这是你想访问的地址
-    printf("Value at address 0x%p: %s\n", (unsigned int)address, (char *)0x87800000);
+    //uintptr_t address = 0x87800000; // 假设这是你想访问的地址
+    //printf("Value at address 0x%p: %s\n", (unsigned int)address, (char *)0x87800000);
     current->cp = prev;
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
     return current->cp;
