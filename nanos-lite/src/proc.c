@@ -9,7 +9,7 @@ PCB *pre = NULL;
 static int pcb_num = 0;
 
 static char *const argv[] = {
-    "--skip",    
+    "/bin/exec-test",    
     NULL     
 };
 
