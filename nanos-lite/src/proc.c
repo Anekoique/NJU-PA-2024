@@ -59,12 +59,14 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int argc = 0;
     size_t string_tab = 0;
     int offset = 0x20;
-    while (argv[argc] != NULL) {
-        string_tab += strlen(argv[argc]);
-        argc++;
-    }
-    for (int i = 0; envp[i] != NULL; i++)
-        string_tab += strlen(envp[i]);
+    if (argv != NULL)
+        while (argv[argc] != NULL) {
+            string_tab += strlen(argv[argc]);
+            argc++;
+        }
+    if (envp != NULL)
+        for (int i = 0; envp[i] != NULL; i++)
+            string_tab += strlen(envp[i]);
     printf("gethere\n");
 
     void *addr = (void *)(ROUNDUP((uintptr_t)new_page(4) + 4 * PGSIZE, PGSIZE) - string_tab);
