@@ -78,8 +78,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     {
         memcpy(addr, argv[i], strlen(argv[i]) + 1);
         *v_ptr = addr;
-        addr += sizeof((char *)(argv[i]));
-        printf("len : %d\n", sizeof((char *)(argv[i])));
+        addr += strlen(argv[i] + 1);
         v_ptr += 1;
     }
 
