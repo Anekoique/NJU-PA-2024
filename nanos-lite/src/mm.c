@@ -30,6 +30,7 @@ void init_mm()
     pf = (void *)ROUNDUP(heap.start, PGSIZE);
     printf("pf : %p\n", pf);
     printf("heap.start : %p\n", heap.start);
+    printf("heap.end : %p\n", heap.end);
     Log("free physical pages starting from %p", pf);
 
 #ifdef HAS_VME
