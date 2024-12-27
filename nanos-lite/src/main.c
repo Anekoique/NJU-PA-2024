@@ -30,11 +30,6 @@ int main(int argc, char *argv[])
     init_proc();
 
     Log("Finish initialization");
-    uintptr_t address = 0x87000000; // 假设这是你想访问的地址
-    int value;
-    value = *(int *)address;
-    printf("Value at address 0x%p: %p\n", (unsigned int)address, value);
-    printf("hello\n");
 #ifdef HAS_CTE
     yield();
 #endif

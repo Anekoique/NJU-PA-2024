@@ -49,10 +49,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     char **v_ptr = (char **)((intptr_t)0x87000000 + sizeof(int));
     for (int i = 0; argv[i] != NULL; i++)
     {
-        printf("addr : %p, v_ptr : %p\n", addr, v_ptr);
         memcpy(addr, argv[i], strlen(argv[i]) + 1);
         *v_ptr = addr;
-        printf("%s\n", v_ptr[i]);
         addr += sizeof((char *)(argv[i]));
         v_ptr += 1;
     }
@@ -88,8 +86,6 @@ void init_proc()
 {
     context_kload(&pcb[0], hello_fun, (void *)('a'));
     context_uload(&pcb[1], "/bin/pal", argv, NULL);
-    printf("hello\n");
-
     switch_boot_pcb();
 
     Log("Initializing processes...");
@@ -100,8 +96,6 @@ void init_proc()
 
 Context *schedule(Context *prev)
 {
-    //uintptr_t address = 0x87800000; // 假设这是你想访问的地址
-    //printf("Value at address 0x%p: %s\n", (unsigned int)address, (char *)0x87800000);
     current->cp = prev;
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
     return current->cp;
