@@ -140,6 +140,7 @@ Context *schedule(Context *prev)
 {
     if (current == &pcb_boot)
     {
+        printf("here\n");
         current = (pre == NULL ? &pcb[pcb_num-1] : pre);
         pre = (pre == NULL ? &pcb[0] : &pcb[pcb_num-1]);
     }
