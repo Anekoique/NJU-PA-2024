@@ -4,7 +4,9 @@ static void *pf = NULL;
 
 void *new_page(size_t nr_page)
 {
-    return NULL;
+    void *current = pf;
+    pf = (void *)ROUNDUP((uintptr_t)pf + nr_page * PGSIZE, PGSIZE);
+    return current;
 }
 
 #ifdef HAS_VME

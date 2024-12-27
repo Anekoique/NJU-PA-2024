@@ -5,6 +5,8 @@
 static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
+PCB *pre = NULL;
+static int pcb_num = 0;
 
 static char *const argv[] = {
     "--skip",    
@@ -13,10 +15,22 @@ static char *const argv[] = {
 
 uintptr_t naive_uload(PCB *, const char *, char **);
 
-
 void switch_boot_pcb()
 {
     current = &pcb_boot;
+}
+
+PCB* new_pcb()
+{
+    pcb_num++;
+    if (pcb_num > MAX_NR_PROC)
+        panic("Too much proc to be called!");
+    return &pcb[pcb_num-1];
+}
+
+PCB free_pcb(int num)
+{
+    return pcb_boot;
 }
 
 void hello_fun(void *arg)
@@ -41,12 +55,21 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     uintptr_t entry = naive_uload(pcb, filename, NULL);
     pcb->cp = ucontext(NULL, (Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, (void *)entry);
     
+    //implement : placed mm maloc
     int argc = 0;
-    while (argv[argc] != NULL) argc++;
-    void *addr = (void *)0x87800000;
-    int *c_ptr = (int *)0x87000000;
+    size_t string_tab = 0;
+    int offset = 0x20;
+    while (argv[argc] != NULL) {
+        string_tab += strlen(argv[argc]);
+        argc++;
+    }
+    for (int i = 0; envp[i] != NULL; i++)
+        string_tab += strlen(envp[i]);
+
+    void *addr = (void *)(ROUNDUP((uintptr_t)new_page(4) + 4 * PGSIZE, PGSIZE) - string_tab);
+    int *c_ptr = (int *)(addr - sizeof(argv[0]) - sizeof(envp[0]) - sizeof(int) - offset);
     *c_ptr = argc;
-    char **v_ptr = (char **)((intptr_t)0x87000000 + sizeof(int));
+    char **v_ptr = (char **)((intptr_t)c_ptr + sizeof(int));
     for (int i = 0; argv[i] != NULL; i++)
     {
         memcpy(addr, argv[i], strlen(argv[i]) + 1);
@@ -57,6 +80,25 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     *v_ptr = NULL;
     pcb->cp->GPRx = (uintptr_t)c_ptr;
+
+
+    // implement : placed heap.end
+    //int argc = 0;
+    //while (argv[argc] != NULL) argc++;
+    //void *addr = (void *)0x87800000;
+    //int *c_ptr = (int *)0x87000000;
+    //*c_ptr = argc;
+    //char **v_ptr = (char **)((intptr_t)0x87000000 + sizeof(int));
+    //for (int i = 0; argv[i] != NULL; i++)
+    //{
+    //    memcpy(addr, argv[i], strlen(argv[i]) + 1);
+    //    *v_ptr = addr;
+    //    addr += sizeof((char *)(argv[i]));
+    //    v_ptr += 1;
+    //}
+
+    //*v_ptr = NULL;
+    //pcb->cp->GPRx = (uintptr_t)c_ptr;
 
     // error 2
     //void *addr = (void *)0x87800000;
@@ -84,8 +126,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
 void init_proc()
 {
-    context_kload(&pcb[0], hello_fun, (void *)('a'));
-    context_uload(&pcb[1], "/bin/pal", argv, NULL);
+    context_kload(new_pcb(), hello_fun, (void *)('a'));
+    context_uload(new_pcb(), "/bin/pal", argv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
@@ -96,7 +138,17 @@ void init_proc()
 
 Context *schedule(Context *prev)
 {
-    current->cp = prev;
-    current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    if (current == &pcb_boot)
+    {
+        current = (pre == NULL ? &pcb[pcb_num-1] : pre);
+        pre = (pre == NULL ? &pcb[0] : &pcb[pcb_num-1]);
+    }
+    else 
+    {
+        current->cp = prev;
+        PCB* temp = current;
+        current = pre;
+        pre = temp;
+    }
     return current->cp;
 }
