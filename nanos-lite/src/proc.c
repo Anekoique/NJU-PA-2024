@@ -63,9 +63,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         string_tab += strlen(argv[argc]);
         argc++;
     }
-    printf("gethere\n");
     for (int i = 0; envp[i] != NULL; i++)
         string_tab += strlen(envp[i]);
+    printf("gethere\n");
 
     void *addr = (void *)(ROUNDUP((uintptr_t)new_page(4) + 4 * PGSIZE, PGSIZE) - string_tab);
     int *c_ptr = (int *)(addr - sizeof(argv[0]) - sizeof(envp[0]) - sizeof(int) - offset);
