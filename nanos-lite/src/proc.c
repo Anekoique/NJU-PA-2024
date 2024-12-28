@@ -54,8 +54,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 {
     printf("uload : %s\n", argv[0]);
     printf("%p\n", argv[0]);
-    uintptr_t entry = naive_uload(pcb, filename, NULL);
-    pcb->cp = ucontext(NULL, (Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, (void *)entry);
     
     //implement : placed mm maloc
     int argc = 0;
@@ -87,6 +85,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     *v_ptr = NULL;
     pcb->cp->GPRx = (uintptr_t)c_ptr;
 
+    uintptr_t entry = naive_uload(pcb, filename, NULL);
+    pcb->cp = ucontext(NULL, (Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, (void *)entry);
 
     // implement : placed heap.end
     //int argc = 0;
