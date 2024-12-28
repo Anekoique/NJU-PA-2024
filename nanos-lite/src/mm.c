@@ -6,6 +6,7 @@ void *new_page(size_t nr_page)
 {
     void *current = pf;
     pf = (void *)ROUNDUP((uintptr_t)pf + nr_page * PGSIZE, PGSIZE);
+    current = malloc((uintptr_t)pf - (uintptr_t)current);
     return current;
 }
 
