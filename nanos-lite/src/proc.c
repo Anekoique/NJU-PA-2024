@@ -82,8 +82,10 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         v_ptr += 1;
     }
 
+    printf("1 : %d\n", *c_ptr);
     uintptr_t entry = naive_uload(pcb, filename, NULL);
     pcb->cp = ucontext(NULL, (Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, (void *)entry);
+    printf("2 : %d\n", *c_ptr);
 
     *v_ptr = NULL;
     pcb->cp->GPRx = (uintptr_t)c_ptr;
