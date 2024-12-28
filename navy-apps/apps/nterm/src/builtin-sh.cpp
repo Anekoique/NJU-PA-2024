@@ -38,6 +38,7 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
     {
         if (mainargs != NULL)
         {
+            printf("%s\n", mainargs[0]);
             sh_printf("%s\n", mainargs[0]);
         }
     }
