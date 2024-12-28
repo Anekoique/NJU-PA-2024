@@ -38,7 +38,7 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
             strcpy(argv[i], mainargs[i]);
         printf("char : %s\n", argv[1]);
         argv[arg_num] = NULL;
-        printf("%p\n", argv);
+        printf("%p\n", argv[0]);
 
         if (arg_num == 1)
             execve(mainargs[0], NULL, NULL);
