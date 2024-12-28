@@ -120,6 +120,7 @@ static void sh_handle_cmd(const char *cmd)
             current_pos = 0;
         }
     }
+    mainargs[arg_pos] = NULL;
     if (arg_pos == 0)
         sh_execute(command, NULL, NULL);
     else
