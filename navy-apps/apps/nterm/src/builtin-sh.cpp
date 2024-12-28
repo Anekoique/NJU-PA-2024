@@ -28,6 +28,7 @@ static void sh_prompt()
 
 static void sh_execute(char *command, char **mainargs, int arg_num)
 {
+    printf("gethere\n");
     if (strcmp(command, "execve") == 0)
     {
         // printf("%s\n", mainargs[0]);
