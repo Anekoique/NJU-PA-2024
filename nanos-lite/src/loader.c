@@ -70,7 +70,8 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         fs_read(fd, &phdr, elf_header.e_phentsize);
         if (phdr.p_type != PT_LOAD) continue;
 
-        uint32_t *segment = (uint32_t *)malloc(phdr.p_memsz);
+        //uint32_t *segment = (uint32_t *)malloc(phdr.p_memsz);
+        uint32_t segment[phdr.p_memsz];
         assert(fs_lseek(fd, phdr.p_offset, SEEK_SET) != -1);
         fs_read(fd, segment, phdr.p_filesz);
         memcpy((uint32_t *)(phdr.p_vaddr), segment, phdr.p_filesz);
