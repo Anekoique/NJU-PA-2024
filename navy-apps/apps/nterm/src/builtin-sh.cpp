@@ -33,6 +33,8 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
         // printf("%s\n", mainargs[0]);
         if (arg_num == 1)
             execve(mainargs[0], NULL, NULL);
+        if (arg_num == 2)
+            execve(mainargs[0], (char **)mainargs[1], NULL);
         if (arg_num == 3)
         {
             sh_printf("%s ", mainargs[0]);
