@@ -9,7 +9,6 @@ PCB *pre = NULL;
 static int pcb_num = 0;
 
 static char *const argv[] = {
-    "/bin/exec-test",    
     NULL     
 };
 
