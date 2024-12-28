@@ -140,7 +140,6 @@ void init_proc()
 
 Context *schedule(Context *prev)
 {
-    if (pcb_num == 1) return pcb[0].cp;
     if (current == &pcb_boot)
     {
         current = (pre == NULL ? &pcb[pcb_num-1] : pre);
