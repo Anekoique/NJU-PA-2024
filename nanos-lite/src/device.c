@@ -60,7 +60,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len)
 
 size_t fb_write(const void *buf, size_t offset, size_t len)
 {
-    yield();
+    //yield();
     uint32_t *buffer = (uint32_t *)buf;
     int x = offset / sizeof(uint32_t) % 400;
     int y = offset / sizeof(uint32_t) / 400;
