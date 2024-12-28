@@ -128,7 +128,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 void init_proc()
 {
     context_kload(new_pcb(), hello_fun, (void *)('a'));
-    context_uload(new_pcb(), "/bin/pal", argv, NULL);
+    context_uload(new_pcb(), "/bin/nterm", argv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
