@@ -127,6 +127,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     //value = *(int *)address;
     //printf("Value at address 0x%p: %p\n", (unsigned int)address, value);
 }
+void call_app(PCB *pcb, const char *filename, char *argv[]);
 
 void init_proc()
 {
@@ -137,7 +138,8 @@ void init_proc()
     Log("Initializing processes...");
 
     // load program here
-    //naive_uload(NULL, "/bin/nterm", argv);
+    //naive_uload(NULL, "/bin/nterm", NULL);
+    call_app(NULL, "/bin/nterm", NULL);
 }
 
 Context *schedule(Context *prev)
