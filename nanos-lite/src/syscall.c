@@ -67,7 +67,7 @@ int execve(const char *filename, char *const argv[], char *const envp[])
     //naive_uload(NULL, filename, NULL);
     //return -1;
     //
-    printf("%s\n", argv[0]);
+    printf("execve : %s\n", argv[0]);
     context_uload(new_pcb(), filename, argv, envp);    
     switch_boot_pcb();
     yield();
