@@ -34,12 +34,17 @@ PCB free_pcb(int num)
 
 void hello_fun(void *arg)
 {
+//#define TOPRINT
     printf("here\n");
+#ifdef TOPRINT
     int j = 1;
+#endif
     while (1)
     {
+#ifdef TOPRINT
         Log("Hello World from Nanos-lite with arg '%c' for the %dth time!", (uintptr_t)arg, j);
         j++;
+#endif
         yield();
     }
 }
