@@ -34,11 +34,9 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
         char *argv[5];
         for (int i = 0; i < 5; i++)
             argv[i] = (char *)malloc(sizeof(char) * 10);
-        for (int i = 1; i < arg_num; i++)
-            strcpy(argv[i], mainargs[i]);
-        printf("char : %s\n", argv[1]);
+        for (int i = 0; i < arg_num - 1; i++)
+            strcpy(argv[i], mainargs[i + 1]);
         argv[arg_num] = NULL;
-        printf("%p\n", argv[0]);
 
         if (arg_num == 1)
             execve(mainargs[0], NULL, NULL);
