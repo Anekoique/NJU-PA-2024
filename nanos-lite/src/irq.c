@@ -8,7 +8,6 @@ static Context *do_event(Event e, Context *c)
     switch (e.event)
     {
     case EVENT_YIELD:
-        printf("yield\n");
         c = schedule(c);
         break;
     case EVENT_SYSCALL:
