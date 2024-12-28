@@ -28,7 +28,6 @@ static void sh_prompt()
 
 static void sh_execute(char *command, char **mainargs, int arg_num)
 {
-    printf("gethere\n");
     if (strcmp(command, "execve") == 0)
     {
         // printf("%s\n", mainargs[0]);
@@ -39,7 +38,6 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
     {
         if (mainargs != NULL)
         {
-            printf("%s\n", mainargs[0]);
             sh_printf("%s\n", mainargs[0]);
         }
     }
@@ -74,8 +72,14 @@ static void sh_handle_cmd(const char *cmd)
 {
     if (cmd == nullptr)
         return;
+
     char command[20];
     char *mainargs[20];
+    for (int i = 0; i < 20; i++)
+    {
+        mainargs[i] = (char *)malloc(sizeof(char) * 20);
+    }
+
     int pos = 0;
     int current_pos = 0;
     int arg_pos = -1;
@@ -111,6 +115,11 @@ static void sh_handle_cmd(const char *cmd)
         sh_execute(command, NULL, NULL);
     else
         sh_execute(command, mainargs, arg_pos);
+
+    for (int i =0 ; i < 20; i++)
+    {
+        free(mainargs[i]);
+    }
 }
 
 void builtin_sh_run()
