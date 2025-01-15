@@ -32,24 +32,10 @@ NJU-PA-2024
 └── README.md
 ```
 
-## PA0 开发环境配置
-
-target：基础环境配置, 包括系统安装+换源+基础工具安装与学习......
-
-本人的基础环境：
+My environment：
 
 OS：ubuntu 22.04
 
 调试工具：GDB
 
 编辑器：neovim
-
-ps：生成LSP的compile_commands时发现 bear 生成为空，转而使用compiledb却可以成功，目前不清楚原因
-
-## PA1 最简单的计算机
-
-- > 退出时会报错，原因是没有将`nemu_state`设为`NEMU_QUIT`
-
-- 
-
-# POSIX
