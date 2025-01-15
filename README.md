@@ -1,7 +1,5 @@
 # NJU-PA-2024
 
-As an off-campus member, my own realization of NJU-ICS-PA 2024.
-
 课程名称：南京大学 计算机系统基础 课程实验
 
 课程主页：https://nju-projectn.github.io/ics-pa-gitbook/ics2024/index.html
@@ -32,7 +30,7 @@ NJU-PA-2024
 └── README.md
 ```
 
-My environment：
+Environment：
 
 OS：ubuntu 22.04
 
