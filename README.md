@@ -37,3 +37,5 @@ OS：ubuntu 22.04
 调试工具：GDB
 
 编辑器：neovim
+
+I haven't finished the pa4 and my code have bugs.
