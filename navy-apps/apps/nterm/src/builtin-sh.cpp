@@ -30,7 +30,7 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
 {
     if (strcmp(command, "execve") == 0)
     {
-        // printf("%s\n", mainargs[0]);
+        printf("%s\n", mainargs[0]);
         char *argv[5];
         for (int i = 0; i < 5; i++)
             argv[i] = (char *)malloc(sizeof(char) * 10);
