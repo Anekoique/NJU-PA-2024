@@ -39,7 +39,10 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
         argv[arg_num-1] = NULL;
 
         if (arg_num == 1)
+        {
             execve(mainargs[0], NULL, NULL);
+            printf("arg_num = 1\n");
+        }
         if (arg_num == 2)
             execve(mainargs[0], argv, NULL);
         if (arg_num == 3)
