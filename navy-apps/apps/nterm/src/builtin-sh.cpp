@@ -134,6 +134,7 @@ static void sh_handle_cmd(const char *cmd)
         }
     }
     mainargs[arg_pos] = NULL;
+    printf("arg_pos : %d\n", arg_pos);
     if (arg_pos == 0)
         sh_execute(command, NULL, NULL);
     else
