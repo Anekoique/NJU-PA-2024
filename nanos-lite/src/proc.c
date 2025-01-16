@@ -75,9 +75,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     if (argv != NULL)
     {
-        int *c_ptr = (int *)(addr - sizeof(argv[0]) - sizeof(envp[0]) - sizeof(int) - offset);
+        c_ptr = (int *)(addr - sizeof(argv[0]) - sizeof(envp[0]) - sizeof(int) - offset);
         *c_ptr = argc;
-        char **v_ptr = (char **)((intptr_t)c_ptr + sizeof(int));
+        v_ptr = (char **)((intptr_t)c_ptr + sizeof(int));
         for (int i = 0; argv[i] != NULL; i++)
         {
             memcpy(addr, argv[i], strlen(argv[i]) + 1);
