@@ -125,7 +125,10 @@ static void sh_handle_cmd(const char *cmd)
             while (cmd[pos] == ' ')
                 pos++;
             while (cmd[pos] != ' ' && cmd[pos] != '\n')
+            {
                 mainargs[arg_pos][current_pos++] = cmd[pos++];
+                printf("%c\n", cmd[pos]);
+            }
             if (current_pos == 0)
                 break;
             mainargs[arg_pos][current_pos] = '\0';
