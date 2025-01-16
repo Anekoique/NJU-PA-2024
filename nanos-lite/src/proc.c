@@ -56,6 +56,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
+    printf("gethere\n");
     //implement : placed mm maloc
     int argc = 0;
     size_t string_tab = 0;
@@ -86,7 +87,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     *v_ptr = NULL;
     pcb->cp->GPRx = (uintptr_t)c_ptr;
-    printf("gethere\n");
 
 
     // implement : placed heap.end
