@@ -31,12 +31,14 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
     if (strcmp(command, "execve") == 0)
     {
         printf("%s\n", mainargs[0]);
+        printf("%d\n", arg_num);
         char *argv[5];
         for (int i = 0; i < 5; i++)
             argv[i] = (char *)malloc(sizeof(char) * 10);
         for (int i = 0; i < arg_num - 1; i++)
             strcpy(argv[i], mainargs[i + 1]);
         argv[arg_num-1] = NULL;
+        printf("here\n");
 
         if (arg_num == 1)
         {
