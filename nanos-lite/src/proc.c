@@ -61,6 +61,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     size_t string_tab = 0;
     int offset = 0x20;
 
+    void *addr = (void *)(ROUNDUP((uintptr_t)new_page(4) + 4 * PGSIZE, PGSIZE) - string_tab);
     int *c_ptr = NULL;
     char **v_ptr = NULL;
     if (argv != NULL)
@@ -74,7 +75,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
     if (argv != NULL)
     {
-        void *addr = (void *)(ROUNDUP((uintptr_t)new_page(4) + 4 * PGSIZE, PGSIZE) - string_tab);
         int *c_ptr = (int *)(addr - sizeof(argv[0]) - sizeof(envp[0]) - sizeof(int) - offset);
         *c_ptr = argc;
         char **v_ptr = (char **)((intptr_t)c_ptr + sizeof(int));
