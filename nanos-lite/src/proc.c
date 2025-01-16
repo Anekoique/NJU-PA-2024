@@ -73,15 +73,14 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int *c_ptr = (int *)(addr - string_tab - sizeof(int) - offset);
     *c_ptr = argc;
     char **v_ptr = (char **)((intptr_t)c_ptr + sizeof(int));
-    printf("here\n");
-    for (int i = 0; argv[i] != NULL; i++)
-    {
-        memcpy(addr, argv[i], strlen(argv[i]) + 1);
-        *v_ptr = addr;
-        addr += strlen(argv[i]) + 1;
-        v_ptr += 1;
-    }
-    printf("here\n");
+    if (argv != NULL)
+        for (int i = 0; argv[i] != NULL; i++)
+        {
+            memcpy(addr, argv[i], strlen(argv[i]) + 1);
+            *v_ptr = addr;
+            addr += strlen(argv[i]) + 1;
+            v_ptr += 1;
+        }
 
     uintptr_t entry = naive_uload(pcb, filename, NULL);
     pcb->cp = ucontext(NULL, (Area){pcb->stack, &(pcb->stack[STACK_SIZE])}, (void *)entry);
