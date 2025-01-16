@@ -60,10 +60,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     int argc = 0;
     size_t string_tab = 0;
     int offset = 0x20;
-
-    void *addr = (void *)(ROUNDUP((uintptr_t)new_page(4) + 4 * PGSIZE, PGSIZE) - string_tab);
-    int *c_ptr = NULL;
-    char **v_ptr = NULL;
     if (argv != NULL)
         while (argv[argc] != NULL) {
             string_tab += strlen(argv[argc]);
@@ -73,18 +69,16 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
         for (int i = 0; envp[i] != NULL; i++)
             string_tab += strlen(envp[i]);
 
-    if (argv != NULL)
+    void *addr = (void *)(ROUNDUP((uintptr_t)new_page(4) + 4 * PGSIZE, PGSIZE) - string_tab);
+    int *c_ptr = (int *)(addr - string_tab - sizeof(int) - offset);
+    *c_ptr = argc;
+    char **v_ptr = (char **)((intptr_t)c_ptr + sizeof(int));
+    for (int i = 0; argv[i] != NULL; i++)
     {
-        c_ptr = (int *)(addr - sizeof(argv[0]) - sizeof(envp[0]) - sizeof(int) - offset);
-        *c_ptr = argc;
-        v_ptr = (char **)((intptr_t)c_ptr + sizeof(int));
-        for (int i = 0; argv[i] != NULL; i++)
-        {
-            memcpy(addr, argv[i], strlen(argv[i]) + 1);
-            *v_ptr = addr;
-            addr += strlen(argv[i]) + 1;
-            v_ptr += 1;
-        }
+        memcpy(addr, argv[i], strlen(argv[i]) + 1);
+        *v_ptr = addr;
+        addr += strlen(argv[i]) + 1;
+        v_ptr += 1;
     }
 
     uintptr_t entry = naive_uload(pcb, filename, NULL);
