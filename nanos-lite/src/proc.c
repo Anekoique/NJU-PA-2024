@@ -87,6 +87,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     *v_ptr = NULL;
     pcb->cp->GPRx = (uintptr_t)c_ptr;
 
+    printf("here\n");
 
     // implement : placed heap.end
     //int argc = 0;
