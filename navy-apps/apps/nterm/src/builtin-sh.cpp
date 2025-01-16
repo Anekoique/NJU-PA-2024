@@ -30,20 +30,16 @@ static void sh_execute(char *command, char **mainargs, int arg_num)
 {
     if (strcmp(command, "execve") == 0)
     {
-        printf("%s\n", mainargs[0]);
-        printf("%d\n", arg_num);
         char *argv[5];
         for (int i = 0; i < 5; i++)
             argv[i] = (char *)malloc(sizeof(char) * 10);
         for (int i = 0; i < arg_num - 1; i++)
             strcpy(argv[i], mainargs[i + 1]);
         argv[arg_num-1] = NULL;
-        printf("here\n");
 
         if (arg_num == 1)
         {
             execve(mainargs[0], NULL, NULL);
-            printf("arg_num = 1\n");
         }
         if (arg_num == 2)
             execve(mainargs[0], argv, NULL);
@@ -127,10 +123,7 @@ static void sh_handle_cmd(const char *cmd)
             while (cmd[pos] == ' ')
                 pos++;
             while (cmd[pos] != ' ' && cmd[pos] != '\n')
-            {
                 mainargs[arg_pos][current_pos++] = cmd[pos++];
-                printf("%c\n", cmd[pos]);
-            }
             if (current_pos == 0)
                 break;
             mainargs[arg_pos][current_pos] = '\0';
@@ -139,7 +132,6 @@ static void sh_handle_cmd(const char *cmd)
         }
     }
     mainargs[arg_pos] = NULL;
-    printf("arg_pos : %d\n", arg_pos);
     if (arg_pos == 0)
         sh_execute(command, NULL, NULL);
     else
