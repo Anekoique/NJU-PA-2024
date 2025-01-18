@@ -8,10 +8,6 @@ PCB *current = NULL;
 PCB *pre = NULL;
 static int pcb_num = 0;
 
-static char *const argv[] = {
-    NULL     
-};
-
 uintptr_t naive_uload(PCB *, const char *, char **);
 
 void switch_boot_pcb()
@@ -134,14 +130,17 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
 void init_proc()
 {
+#ifdef USER_ON
     context_kload(new_pcb(), hello_fun, (void *)('a'));
     context_uload(new_pcb(), "/bin/nterm", argv, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
+#else 
 
     // load program here
-    //naive_uload(NULL, "/bin/nterm", argv);
+    naive_uload(NULL, "/bin/nterm", NULL);
+#endif
 }
 
 Context *schedule(Context *prev)
