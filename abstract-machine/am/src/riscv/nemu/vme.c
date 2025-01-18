@@ -77,6 +77,12 @@ void __am_switch(Context *c)
 
 void map(AddrSpace *as, void *va, void *pa, int prot)
 {
+    //uintptr_t offset = (uintptr_t)va & 0xfff;
+    //uintptr_t vpn[2];
+    //vpn[0] = ((uintptr_t)va >> 12) & 0x3ff;
+    //vpn[1] = ((uintptr_t)va >> 22) & 0x3ff;
+
+    //uintptr_t PT_ptr = (uintptr_t)pgalloc_usr(PGSIZE);
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry)

@@ -81,9 +81,12 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
 uintptr_t naive_uload(PCB *pcb, const char *filename, char *argv[])
 {
-    return loader(pcb, filename);
-
-    
-    //Log("Jump to entry = %p", entry);
-    //((void (*)())entry)();
+    uintptr_t entry = loader(pcb, filename);
+#ifdef USER_ON
+    return entry;
+#else
+    Log("Jump to entry = %p", entry);
+    ((void (*)())entry)();
+#endif
+    panic("can not get here");
 }
