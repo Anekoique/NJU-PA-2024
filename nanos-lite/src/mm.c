@@ -40,5 +40,6 @@ void init_mm()
 
 #ifdef HAS_VME
     vme_init(pg_alloc, free_page);
+    printf("%x\n", *(int *)0x826be800);
 #endif
 }
