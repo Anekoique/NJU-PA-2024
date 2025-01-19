@@ -82,7 +82,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     vpn[0] = ((uintptr_t)va >> 12) & 0x3ff;
     vpn[1] = ((uintptr_t)va >> 22) & 0x3ff;
 
-    PTE *pte = (PTE *)(((uintptr_t)as->ptr << 12) + vpn[1] * 4);
+    PTE *pte = (PTE *)(((uintptr_t)as->ptr) + vpn[1] * 4);
     printf("here\n");
     printf("%p %p %p", va, as->ptr, pte);
     uintptr_t pt;
