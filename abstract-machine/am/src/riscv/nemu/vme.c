@@ -84,7 +84,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
 
     PTE *pte = (PTE *)(((uintptr_t)as->ptr) + vpn[1] * 4);
     printf("here\n");
-    printf("%p %p %p", va, as->ptr, pte);
+    printf("%p %p %p\n", va, as->ptr, pte);
     uintptr_t pt;
     if ((*pte & 0x1) == 0)
     {
@@ -98,6 +98,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     printf("here\n");
     PTE *leaf_pte = (PTE *)(pt + vpn[0] * 4);
     *leaf_pte = (((uintptr_t)pa >> 12) << 10) | 0x3ff;
+    printf("here\n");
     assert((uintptr_t)va == (((*leaf_pte & 0xfffffc00) << 2) + offset));
 }
 
