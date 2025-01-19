@@ -90,6 +90,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     {
         pt = (uintptr_t)pgalloc_usr(PGSIZE);
         *pte = (((uintptr_t)pt >> 12) << 10) | 0x3ff;
+        printf("%p", *pte);
     }
     else 
     {
