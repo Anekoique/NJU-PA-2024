@@ -94,7 +94,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     }
     else 
     {
-        pt = *pte & 0xfffffc00;
+        pt = (*pte & 0xfffffc00) << 2;
     }
     printf("here\n");
     printf("%p\n", pt);
