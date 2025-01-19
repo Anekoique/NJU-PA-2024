@@ -77,6 +77,7 @@ void __am_switch(Context *c)
 
 void map(AddrSpace *as, void *va, void *pa, int prot)
 {
+    printf("here\n");
     uintptr_t offset = (uintptr_t)va & 0xfff;
     uintptr_t vpn[2];
     vpn[0] = ((uintptr_t)va >> 12) & 0x3ff;
