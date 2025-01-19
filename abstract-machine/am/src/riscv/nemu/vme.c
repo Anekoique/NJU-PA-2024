@@ -83,24 +83,18 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     vpn[1] = ((uintptr_t)va >> 22) & 0x3ff;
 
     PTE *pte = (PTE *)(((uintptr_t)as->ptr) + vpn[1] * 4);
-    printf("here\n");
-    printf("%p %p %p\n", va, as->ptr, pte);
     uintptr_t pt;
     if ((*pte & 0x1) == 0)
     {
         pt = (uintptr_t)pgalloc_usr(PGSIZE);
         *pte = (((uintptr_t)pt >> 12) << 10) | 0x3ff;
-        printf("%p", *pte);
     }
     else 
     {
         pt = (*pte & 0xfffffc00) << 2;
     }
-    printf("here\n");
-    printf("%p\n", pt);
     PTE *leaf_pte = (PTE *)(pt + vpn[0] * 4);
     *leaf_pte = (((uintptr_t)pa >> 12) << 10) | 0x3ff;
-    printf("here\n");
     assert((uintptr_t)va == (((*leaf_pte & 0xfffffc00) << 2) + offset));
 }
 
