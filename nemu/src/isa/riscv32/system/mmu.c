@@ -26,6 +26,7 @@ int isa_mmu_check(vaddr_t vaddr, int len, int type)
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
 {
+    printf("%x\n", *(int *)0x826be800);
     //printf("vaddr : %x\n", vaddr);
     //uintptr_t offset = (uintptr_t)vaddr & 0xfff;
     //uintptr_t vpn[2];
