@@ -32,7 +32,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
     vpn[0] = ((uintptr_t)vaddr >> 12) & 0x3ff;
     vpn[1] = ((uintptr_t)vaddr >> 22) & 0x3ff;
 
-    uintptr_t *pte = (uintptr_t *)(((uintptr_t)cpu.csr[4] << 12) + vpn[1] * 4);
+    uintptr_t *pte = (uintptr_t *)((uintptr_t)cpu.csr[4] + vpn[1] * 4);
     printf("%x\n", cpu.csr[4]);
     uintptr_t pt = (*pte & 0xfffffc00) << 2;
     printf("here\n");
