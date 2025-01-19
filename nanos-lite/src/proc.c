@@ -145,6 +145,7 @@ void init_proc()
 
 Context *schedule(Context *prev)
 {
+    printf("here\n");
     if (pcb_num == 0 || pcb_num == 1) return prev;
     if (current == &pcb_boot)
     {
