@@ -53,6 +53,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
     // return elf_header.e_entry;
     
+    printf("here\n");
     int fd = fs_open(filename, 0, 0);
     Elf_Ehdr elf_header;
     fs_lseek(fd, 0, SEEK_SET);
