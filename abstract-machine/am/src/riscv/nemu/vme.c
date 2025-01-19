@@ -77,13 +77,13 @@ void __am_switch(Context *c)
 
 void map(AddrSpace *as, void *va, void *pa, int prot)
 {
-    printf("here\n");
     uintptr_t offset = (uintptr_t)va & 0xfff;
     uintptr_t vpn[2];
     vpn[0] = ((uintptr_t)va >> 12) & 0x3ff;
     vpn[1] = ((uintptr_t)va >> 22) & 0x3ff;
 
     PTE *pte = (PTE *)(((uintptr_t)as->ptr << 12) + vpn[1] * 4);
+    printf("here\n");
     uintptr_t pt;
     if ((*pte & 0x1) == 0)
     {
@@ -94,6 +94,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     {
         pt = *pte & 0xfffffc00;
     }
+    printf("here\n");
     PTE *leaf_pte = (PTE *)(pt + vpn[0] * 4);
     *leaf_pte = (((uintptr_t)pa >> 12) << 10) | 0x3ff;
     assert((uintptr_t)va == (((*leaf_pte & 0xfffffc00) << 2) + offset));
