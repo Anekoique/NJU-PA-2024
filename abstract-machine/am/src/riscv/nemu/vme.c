@@ -96,6 +96,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
         pt = *pte & 0xfffffc00;
     }
     printf("here\n");
+    printf("%p\n", pt);
     PTE *leaf_pte = (PTE *)(pt + vpn[0] * 4);
     *leaf_pte = (((uintptr_t)pa >> 12) << 10) | 0x3ff;
     printf("here\n");
