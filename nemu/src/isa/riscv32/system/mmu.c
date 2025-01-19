@@ -26,7 +26,6 @@ int isa_mmu_check(vaddr_t vaddr, int len, int type)
 
 paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
 {
-    printf("vaddr : %x\n", vaddr);
     uintptr_t offset = (uintptr_t)vaddr & 0xfff;
     uintptr_t vpn[2];
     vpn[0] = ((uintptr_t)vaddr >> 12) & 0x3ff;
@@ -34,11 +33,9 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
 
     uintptr_t pte = (uintptr_t)(((uintptr_t)(cpu.csr[4] << 12)) + vpn[1] * 4);
     uintptr_t pt = (paddr_read(pte, 4, 0) & 0xfffffc00) << 2;
-    printf("here\n");
     uintptr_t leaf_pte = (uintptr_t )(pt + vpn[0] * 4);
     uintptr_t pa = ((paddr_read(leaf_pte, 4, 0) & 0xfffffc00) << 2) + offset;
     assert(vaddr == pa);
-    printf("here\n");
     return pa;
 }
 
