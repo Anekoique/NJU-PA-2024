@@ -63,6 +63,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
     size_t phdr_offset = elf_header.e_phoff;
     Elf_Phdr phdr;
+    printf("here\n");
     for (int i = 0; i < elf_header.e_phnum; i++)
     {
         assert(fs_lseek(fd, phdr_offset + i * elf_header.e_phentsize, SEEK_SET) != -1);
@@ -76,7 +77,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         memcpy((uint32_t *)(phdr.p_vaddr), segment, phdr.p_filesz);
         memset((uint32_t *)(phdr.p_vaddr + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
-    printf("here\n");
     return elf_header.e_entry;
 }
 
