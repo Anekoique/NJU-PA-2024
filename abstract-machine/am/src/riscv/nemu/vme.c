@@ -42,7 +42,7 @@ bool vme_init(void *(*pgalloc_f)(int), void (*pgfree_f)(void *))
         }
     }
 
-    printf("%x\n", (void *)0x826be800);
+    printf("%x\n", *(int *)0x826be800);
     set_satp(kas.ptr);
     vme_enable = 1;
 
