@@ -18,15 +18,24 @@
 
 word_t vaddr_ifetch(vaddr_t addr, int len)
 {
-    return paddr_read(addr, len, 1);
+    if (!isa_mmu_check(addr, len, 0))
+        return paddr_read(addr, len, 1);
+    else 
+        return paddr_read(isa_mmu_translate(addr, len, 0), len, 1);
 }
 
 word_t vaddr_read(vaddr_t addr, int len)
 {
-    return paddr_read(addr, len, 0);
+    if (!isa_mmu_check(addr, len, 1))
+        return paddr_read(addr, len, 1);
+    else 
+        return paddr_read(isa_mmu_translate(addr, len, 0), len, 0);
 }
 
 void vaddr_write(vaddr_t addr, int len, word_t data)
 {
-    paddr_write(addr, len, data);
+    if (!isa_mmu_check(addr, len, 2))
+        paddr_write(addr, len, data);
+    else 
+        paddr_write(isa_mmu_translate(addr, len, 0), len, data);
 }

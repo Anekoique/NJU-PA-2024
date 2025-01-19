@@ -16,9 +16,9 @@ deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/ri
   /home/stoair/NJU-PA-2024/nemu/include/debug.h \
   /home/stoair/NJU-PA-2024/nemu/include/utils.h \
     $(wildcard include/config/target/native/elf.h) \
-  /home/stoair/NJU-PA-2024/nemu/include/memory/vaddr.h \
   /home/stoair/NJU-PA-2024/nemu/include/memory/paddr.h \
     $(wildcard include/config/pc/reset/offset.h) \
+  /home/stoair/NJU-PA-2024/nemu/include/memory/vaddr.h \
 
 /home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/mmu.o: $(deps_/home/stoair/NJU-PA-2024/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/mmu.o)
 

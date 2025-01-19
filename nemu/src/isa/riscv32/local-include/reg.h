@@ -33,12 +33,13 @@ static inline const char *reg_name(int idx)
     return regs[check_reg_idx(idx)];
 }
 
-static inline const int  map_addr2idx(word_t addr)
+static inline const int map_addr2idx(word_t addr)
 {
     if (addr == 0x342) return 0;
     else if (addr == 0x300) return 1;
     else if (addr == 0x341) return 2;
     else if (addr == 0x305) return 3;
+    else if (addr == 0x180) return 4;
     else 
     {
         printf("0x%x\n", addr);
