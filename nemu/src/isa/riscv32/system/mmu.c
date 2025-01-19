@@ -33,9 +33,9 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
     vpn[1] = ((uintptr_t)vaddr >> 22) & 0x3ff;
 
     uintptr_t *pte = (uintptr_t *)(((uintptr_t)cpu.csr[4] << 12) + vpn[1] * 4);
-    printf("here\n");
     uintptr_t pt = (*pte & 0xfffffc00) << 2;
     uintptr_t *leaf_pte = (uintptr_t *)(pt + vpn[0] * 4);
+    printf("here\n");
     uintptr_t pa = ((*leaf_pte & 0xfffffc00) << 2) + offset;
     assert(vaddr == pa);
     printf("here\n");
