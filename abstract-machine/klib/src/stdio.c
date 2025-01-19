@@ -97,7 +97,6 @@ int printf(const char *fmt, ...)
                 }
                 break;
             case 'p':  // Handle pointer address
-                printf("hello\n");
                 arg3 = va_arg(v, void *);
                 uintptr_t ptr_val = (uintptr_t)arg3; // Cast pointer to unsigned int
                 if (ptr_val == 0)
