@@ -95,7 +95,7 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     }
     PTE *leaf_pte = (PTE *)(pt + vpn[0] * 4);
     *leaf_pte = (((uintptr_t)pa >> 12) << 10) | 0x3ff;
-    if ((uintptr_t)va == 0x800018f8) 
+    if ((uintptr_t)va == 0x80001000) 
     {
         printf("old : %p\n", pte);
     }
