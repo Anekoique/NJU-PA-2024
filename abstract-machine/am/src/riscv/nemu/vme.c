@@ -39,7 +39,6 @@ bool vme_init(void *(*pgalloc_f)(int), void (*pgfree_f)(void *))
         for (; va < segments[i].end; va += PGSIZE)
         {
             map(&kas, va, va, 0);
-            printf("%p\n", va);
         }
     }
 
@@ -78,12 +77,25 @@ void __am_switch(Context *c)
 
 void map(AddrSpace *as, void *va, void *pa, int prot)
 {
-    //uintptr_t offset = (uintptr_t)va & 0xfff;
-    //uintptr_t vpn[2];
-    //vpn[0] = ((uintptr_t)va >> 12) & 0x3ff;
-    //vpn[1] = ((uintptr_t)va >> 22) & 0x3ff;
+    uintptr_t offset = (uintptr_t)va & 0xfff;
+    uintptr_t vpn[2];
+    vpn[0] = ((uintptr_t)va >> 12) & 0x3ff;
+    vpn[1] = ((uintptr_t)va >> 22) & 0x3ff;
 
-    //uintptr_t PT_ptr = (uintptr_t)pgalloc_usr(PGSIZE);
+    PTE *pte = (PTE *)(((uintptr_t)as->ptr << 12) + vpn[1] * 4);
+    uintptr_t pt;
+    if ((*pte & 0x1) == 0)
+    {
+        pt = (uintptr_t)pgalloc_usr(PGSIZE);
+        *pte = (((uintptr_t)pt >> 12) << 10) | 0x3ff;
+    }
+    else 
+    {
+        pt = *pte & 0xfffffc00;
+    }
+    PTE *leaf_pte = (PTE *)(pt + vpn[0] * 4);
+    *leaf_pte = (((uintptr_t)pa >> 12) << 10) | 0x3ff;
+    assert((uintptr_t)va == (((*leaf_pte & 0xfffffc00) << 2) + offset));
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry)
