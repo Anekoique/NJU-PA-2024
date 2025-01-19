@@ -53,7 +53,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
     // return elf_header.e_entry;
     
-    printf("here\n");
     int fd = fs_open(filename, 0, 0);
     Elf_Ehdr elf_header;
     fs_lseek(fd, 0, SEEK_SET);
@@ -77,6 +76,7 @@ static uintptr_t loader(PCB *pcb, const char *filename)
         memcpy((uint32_t *)(phdr.p_vaddr), segment, phdr.p_filesz);
         memset((uint32_t *)(phdr.p_vaddr + phdr.p_filesz), 0, phdr.p_memsz - phdr.p_filesz);
     }
+    printf("here\n");
     return elf_header.e_entry;
 }
 
