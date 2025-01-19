@@ -98,12 +98,11 @@ void map(AddrSpace *as, void *va, void *pa, int prot)
     *leaf_pte = (((uintptr_t)pa >> 12) << 10) | 0x3ff;
     if ((uintptr_t)va == 0x80001000) 
     {
-        printf("old : %p\n", *pte);
+        printf("old : %p\n", pte);
         printf("old : %p\n", vpn[0]);
         printf("old : %p\n", vpn[1]);
         printf("old : %p\n", (uintptr_t)as->ptr);
     }
-    printf("%x\n", (void *)0x80001978);
     assert((uintptr_t)va == (((*leaf_pte & 0xfffffc00) << 2) + offset));
 }
 
