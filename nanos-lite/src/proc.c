@@ -53,6 +53,7 @@ void context_kload(PCB *pcb, void (*entry)(void *), void *arg)
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[])
 {
     //implement : placed mm maloc
+    protect(&pcb->as);
     int argc = 0;
     size_t string_tab = 0;
     int offset = 0x20;
@@ -132,7 +133,7 @@ void init_proc()
 {
 #ifdef USER_ON
     context_kload(new_pcb(), hello_fun, (void *)('a'));
-    context_uload(new_pcb(), "/bin/nterm", argv, NULL);
+    context_uload(new_pcb(), "/bin/dummy", NULL, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");

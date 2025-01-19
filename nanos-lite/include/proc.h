@@ -19,6 +19,6 @@ typedef union {
 extern PCB *current;
 extern PCB *pre;
 
-//#define USER_ON
+#define USER_ON
 
 #endif
