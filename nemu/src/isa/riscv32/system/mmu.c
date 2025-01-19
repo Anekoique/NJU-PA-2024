@@ -32,8 +32,8 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
     vpn[0] = ((uintptr_t)vaddr >> 12) & 0x3ff;
     vpn[1] = ((uintptr_t)vaddr >> 22) & 0x3ff;
 
-    uintptr_t *pte = (uintptr_t *)(((uintptr_t)(cpu.csr[4] << 12)) + vpn[1] * 4);
-    uintptr_t pt = (paddr_read(*pte, 4, 0) & 0xfffffc00) << 2;
+    uintptr_t pte = (uintptr_t)(((uintptr_t)(cpu.csr[4] << 12)) + vpn[1] * 4);
+    uintptr_t pt = (paddr_read((uint32_t)pte, 4, 0) & 0xfffffc00) << 2;
     printf("here\n");
     uintptr_t *leaf_pte = (uintptr_t *)(pt + vpn[0] * 4);
     uintptr_t pa = ((paddr_read(*leaf_pte, 4, 0) & 0xfffffc00) << 2) + offset;

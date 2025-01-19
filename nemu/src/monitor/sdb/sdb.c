@@ -76,7 +76,6 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *arges)
 {
-    printf("%x\n", *(int *)0x80000000);
     uint64_t n = 0;
     if (arges == NULL)
     {
