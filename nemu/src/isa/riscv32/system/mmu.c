@@ -34,7 +34,7 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type)
 
     uintptr_t *pte = (uintptr_t *)((uintptr_t)cpu.csr[4] + vpn[1] * 4);
     printf("%x\n", cpu.csr[4]);
-    printf("%p\n", pte);
+    printf("%p\n", (void *)*pte);
     uintptr_t pt = (*pte & 0xfffffc00) << 2;
     printf("here\n");
     uintptr_t *leaf_pte = (uintptr_t *)(pt + vpn[0] * 4);
