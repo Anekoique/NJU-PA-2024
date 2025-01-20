@@ -133,7 +133,7 @@ void init_proc()
 {
 #ifdef USER_ON
     context_kload(new_pcb(), hello_fun, (void *)('a'));
-    context_uload(new_pcb(), "/bin/dummy", NULL, NULL);
+    context_uload(new_pcb(), "/bin/pal", NULL, NULL);
     switch_boot_pcb();
 
     Log("Initializing processes...");
