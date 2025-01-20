@@ -38,4 +38,7 @@ OS：ubuntu 22.04
 
 编辑器：neovim
 
-I haven't finished the pa4 and my code have bugs.
+从十月底开始到期末周断断续续两个月时间，pa4剩下个尾巴
+pa不仅带来了系统的宏观视角，也在指导我们解决问题的方法论
+做的有点赶，缺少了解决bug和思考问题的notes，工具的利用和code的实现都还有问题
+这是一个值得二周目的lab 希望学完os后带着新的视角来重新体验pa 
