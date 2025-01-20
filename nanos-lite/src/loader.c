@@ -63,7 +63,6 @@ static uintptr_t loader(PCB *pcb, const char *filename)
 
     size_t phdr_offset = elf_header.e_phoff;
     Elf_Phdr phdr;
-    printf("here\n");
     for (int i = 0; i < elf_header.e_phnum; i++)
     {
         assert(fs_lseek(fd, phdr_offset + i * elf_header.e_phentsize, SEEK_SET) != -1);
