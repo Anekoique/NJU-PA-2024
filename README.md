@@ -16,6 +16,8 @@ PA包括一个准备实验(配置实验环境)以及5部分连贯的实验内容
 - 分时多任务
 - 程序性能优化
 
+[二周目 ysyx(To be update)](https://github.com/Anekoique/ysyx)
+
 ## 整体框架
 
 ```
